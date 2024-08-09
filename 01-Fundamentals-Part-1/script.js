@@ -55,7 +55,6 @@ console.log(typeof year); //è number
 
 console.log(typeof null); //stamperà bject, ma è un bug di javascript, dovrebbe stampare null, il suo tipo è null;
 
-*/
 
 //è consigliabile dichiaarare il maggior numero di variabili possibili come const
 // a meno di non essere certi che varieranno nel corso del programma
@@ -81,5 +80,35 @@ job = "developer";
 //DA NON FARE
 lastName = "Magnano";
 console.log(lastName);
+*/
 
+//Operatori matematici
+const now = 2037; //Il valore viene usato più volte nel codice
+const ageMarco = now - 1998;
+const ageSarah = now - 2002;
+console.log(ageMarco, ageSarah);
+
+console.log(ageMarco * 2, ageMarco /10, 2 ** 3);
+//2 ** 3 significa 2 elevato alla poteenza di 3
+
+//Concatenazione di stringhe
+const nome = "Marco";
+const cognome = "Magnano";
+console.log(nome + " " + cognome);
+
+//Operatori di assegnazione
+let x = 10 + 5; //Assegna la somma di 10 + 5 alla variabile x
+x += 10; //Assegna la somma di x + 10 a x; x = x + 10;
+x *= 2; //Prodotto
+x++; //x+1
+x--; //x-1
+
+//Operatori di comparazione
+console.log(ageMarco > ageSarah); // >, <, >=, <=
+console.log(ageSarah >= 18);
+
+const isFullAge = ageSarah >= 18;
+
+console.log(now - 1998 > now - 2002);
+//Gli operatori hanno una priorità
 
