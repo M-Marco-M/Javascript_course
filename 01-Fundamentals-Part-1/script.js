@@ -27,7 +27,6 @@ let job1 = "Waiter";
 let job2 = "Programmer"
 
 console.log(myCurrentJob);
-*/
 
 //Javascript types
 console.log(true);
@@ -55,4 +54,32 @@ year = 1991;
 console.log(typeof year); //è number
 
 console.log(typeof null); //stamperà bject, ma è un bug di javascript, dovrebbe stampare null, il suo tipo è null;
+
+*/
+
+//è consigliabile dichiaarare il maggior numero di variabili possibili come const
+// a meno di non essere certi che varieranno nel corso del programma
+//La riassegnazione delle variabile può essere causa di bug
+
+//riassegnazione variabile
+let age = 30;
+age = 31;
+
+//La riassegnazione di una variabile non è possibile
+//per questo motivo non si può dichiarare una varibile senza valore,
+//sarebbe insensato
+const birthYear = 1991;
+//birthYear = 1990; 
+//const job;
+
+//var è il vecchio modo di dichiarare le variabili in js
+//risale a prima di js6, ormai è desueto
+var job = "progrmmer";
+job = "developer";
+
+//In questo modo si crea una variabile nel "global object"
+//DA NON FARE
+lastName = "Magnano";
+console.log(lastName);
+
 
