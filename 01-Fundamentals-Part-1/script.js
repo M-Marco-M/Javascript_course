@@ -81,13 +81,13 @@ job = "developer";
 lastName = "Magnano";
 console.log(lastName);
 */
-
 //Operatori matematici
 const now = 2037; //Il valore viene usato più volte nel codice
 const ageMarco = now - 1998;
 const ageSarah = now - 2002;
 console.log(ageMarco, ageSarah);
 
+/*
 console.log(ageMarco * 2, ageMarco /10, 2 ** 3);
 //2 ** 3 significa 2 elevato alla poteenza di 3
 
@@ -102,6 +102,7 @@ x += 10; //Assegna la somma di x + 10 a x; x = x + 10;
 x *= 2; //Prodotto
 x++; //x+1
 x--; //x-1
+*/
 
 //Operatori di comparazione
 console.log(ageMarco > ageSarah); // >, <, >=, <=
@@ -112,3 +113,11 @@ const isFullAge = ageSarah >= 18;
 console.log(now - 1998 > now - 2002);
 //Gli operatori hanno una priorità
 
+//Lezione 14: Precedenza operatori
+let x, y;
+x = y = 25 - 10 -5;
+console.log(x,y); //L'assegnazione avviene da destra verso sinistra -> è molto importante poichè se venisse da sinistra verso destra il valore di X, che è undefined, verrebbe assegnato a Y e X rimarrebbe undefined.
+
+//const averageAge = ageJonas + ageSarah / 2;
+const averageAge = (ageJonas + ageSarah) / 2; //Le parentesi hanno la maggiore priorità
+console.log(ageJonas, ageSarah, averageAge);
