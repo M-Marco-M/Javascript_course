@@ -126,6 +126,7 @@ const averageAge = (ageMarco + ageSarah) / 2; //Le parentesi hanno la maggiore p
 console.log(ageMarco, ageSarah, averageAge);
 */
 
+/*
 //Lezione 17: Stringhe
 
 const nome = "Marco";
@@ -150,3 +151,25 @@ console.log(stringaACapo);
 const stringaTemplateACapo = `Anche questa stringa
 va a capo`
 console.log(stringaTemplateACapo);
+*/
+
+//Lezione 18 -> Costrutto if - else
+
+//Marco può prendere la patente?
+const eta = 15;
+
+if (eta >= 18) {
+    console.log("Hai più di 18 anni, puoi prendere la patente");
+} else {
+    console.log(`Mi dispiace, devi aspettare altri ${18 - eta} anni prima di pter prendere la patente`);
+}
+
+const annoNascita = 2002;
+let secolo; 
+//Variabile glogabile. Se venisse dichiarata all'interno di uno dei due blocchi di codice non sarebbe leggibile dall'esterno del blocco
+if (annoNascita <= 2000) {
+    secolo = 20;
+} else {
+    secolo = 21;
+}
+console.log(`Sei nato nel ${secolo}° secolo`);
