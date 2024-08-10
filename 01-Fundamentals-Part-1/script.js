@@ -81,11 +81,14 @@ job = "developer";
 lastName = "Magnano";
 console.log(lastName);
 */
+
+/*
 //Operatori matematici
 const now = 2037; //Il valore viene usato più volte nel codice
 const ageMarco = now - 1998;
 const ageSarah = now - 2002;
 console.log(ageMarco, ageSarah);
+*/
 
 /*
 console.log(ageMarco * 2, ageMarco /10, 2 ** 3);
@@ -103,7 +106,7 @@ x *= 2; //Prodotto
 x++; //x+1
 x--; //x-1
 */
-
+/*
 //Operatori di comparazione
 console.log(ageMarco > ageSarah); // >, <, >=, <=
 console.log(ageSarah >= 18);
@@ -121,3 +124,29 @@ console.log(x,y); //L'assegnazione avviene da destra verso sinistra -> è molto 
 //const averageAge = ageJonas + ageSarah / 2;
 const averageAge = (ageMarco + ageSarah) / 2; //Le parentesi hanno la maggiore priorità
 console.log(ageMarco, ageSarah, averageAge);
+*/
+
+//Lezione 17: Stringhe
+
+const nome = "Marco";
+const anno = 2024;
+const annoNascita = 1998;
+const lavoro = "sviluppatore software";
+
+const marco = "Ciao, sono " + nome + ", ho " + (anno - annoNascita) + " e sono un apprendista " + lavoro + "!";
+console.log(marco);
+
+//Template string -> Si creano utilizzando i backthick: (`stringa`);
+
+const newMarco = `Ciao, sono ${nome}, ho ${anno - annoNascita} e sono un apprendista ${lavoro}!`;
+console.log(newMarco);
+
+//Le template string sono molto comode per inserire testo per la pagina HTML,
+// ad esempio permettono di andare agevolmente a capo 
+
+const stringaACapo = "Questa stringa \nva a capo."
+console.log(stringaACapo);
+
+const stringaTemplateACapo = `Anche questa stringa
+va a capo`
+console.log(stringaTemplateACapo);
