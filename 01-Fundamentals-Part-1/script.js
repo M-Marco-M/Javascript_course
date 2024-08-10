@@ -119,5 +119,5 @@ x = y = 25 - 10 -5;
 console.log(x,y); //L'assegnazione avviene da destra verso sinistra -> è molto importante poichè se venisse da sinistra verso destra il valore di X, che è undefined, verrebbe assegnato a Y e X rimarrebbe undefined.
 
 //const averageAge = ageJonas + ageSarah / 2;
-const averageAge = (ageJonas + ageSarah) / 2; //Le parentesi hanno la maggiore priorità
-console.log(ageJonas, ageSarah, averageAge);
+const averageAge = (ageMarco + ageSarah) / 2; //Le parentesi hanno la maggiore priorità
+console.log(ageMarco, ageSarah, averageAge);
