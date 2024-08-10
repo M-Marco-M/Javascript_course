@@ -82,12 +82,15 @@ lastName = "Magnano";
 console.log(lastName);
 */
 
+/*
 //Operatori matematici
 const now = 2037; //Il valore viene usato più volte nel codice
 const ageMarco = now - 1998;
 const ageSarah = now - 2002;
 console.log(ageMarco, ageSarah);
+*/
 
+/*
 console.log(ageMarco * 2, ageMarco /10, 2 ** 3);
 //2 ** 3 significa 2 elevato alla poteenza di 3
 
@@ -102,7 +105,8 @@ x += 10; //Assegna la somma di x + 10 a x; x = x + 10;
 x *= 2; //Prodotto
 x++; //x+1
 x--; //x-1
-
+*/
+/*
 //Operatori di comparazione
 console.log(ageMarco > ageSarah); // >, <, >=, <=
 console.log(ageSarah >= 18);
@@ -112,3 +116,60 @@ const isFullAge = ageSarah >= 18;
 console.log(now - 1998 > now - 2002);
 //Gli operatori hanno una priorità
 
+//Lezione 14: Precedenza operatori
+let x, y;
+x = y = 25 - 10 -5;
+console.log(x,y); //L'assegnazione avviene da destra verso sinistra -> è molto importante poichè se venisse da sinistra verso destra il valore di X, che è undefined, verrebbe assegnato a Y e X rimarrebbe undefined.
+
+//const averageAge = ageJonas + ageSarah / 2;
+const averageAge = (ageMarco + ageSarah) / 2; //Le parentesi hanno la maggiore priorità
+console.log(ageMarco, ageSarah, averageAge);
+*/
+
+/*
+//Lezione 17: Stringhe
+
+const nome = "Marco";
+const anno = 2024;
+const annoNascita = 1998;
+const lavoro = "sviluppatore software";
+
+const marco = "Ciao, sono " + nome + ", ho " + (anno - annoNascita) + " e sono un apprendista " + lavoro + "!";
+console.log(marco);
+
+//Template string -> Si creano utilizzando i backthick: (`stringa`);
+
+const newMarco = `Ciao, sono ${nome}, ho ${anno - annoNascita} e sono un apprendista ${lavoro}!`;
+console.log(newMarco);
+
+//Le template string sono molto comode per inserire testo per la pagina HTML,
+// ad esempio permettono di andare agevolmente a capo 
+
+const stringaACapo = "Questa stringa \nva a capo."
+console.log(stringaACapo);
+
+const stringaTemplateACapo = `Anche questa stringa
+va a capo`
+console.log(stringaTemplateACapo);
+*/
+
+//Lezione 18 -> Costrutto if - else
+
+//Marco può prendere la patente?
+const eta = 15;
+
+if (eta >= 18) {
+    console.log("Hai più di 18 anni, puoi prendere la patente");
+} else {
+    console.log(`Mi dispiace, devi aspettare altri ${18 - eta} anni prima di pter prendere la patente`);
+}
+
+const annoNascita = 2002;
+let secolo; 
+//Variabile glogabile. Se venisse dichiarata all'interno di uno dei due blocchi di codice non sarebbe leggibile dall'esterno del blocco
+if (annoNascita <= 2000) {
+    secolo = 20;
+} else {
+    secolo = 21;
+}
+console.log(`Sei nato nel ${secolo}° secolo`);
