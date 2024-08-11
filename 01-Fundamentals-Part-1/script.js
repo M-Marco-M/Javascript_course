@@ -153,6 +153,7 @@ va a capo`
 console.log(stringaTemplateACapo);
 */
 
+/*
 //Lezione 18 -> Costrutto if - else
 
 //Marco può prendere la patente?
@@ -173,3 +174,23 @@ if (annoNascita <= 2000) {
     secolo = 21;
 }
 console.log(`Sei nato nel ${secolo}° secolo`);
+*/
+
+//Lezione 20: Type conersion and type coercion
+
+//Type conversion: La conversione manuale richiesta dall'utente
+const inputYear = '1991';
+//console.log(inputYear + 9); //Stamperà 19919, perchè converte il 9 in stringa. Il + è considerato un concat
+console.log(Number(inputYear) + 9) //Number converte la stringa in numero (se possibile) ed esegue la somma
+console.log(Number("prova") + 9) //Number non può operare la conversione: verrà restituito il valore NaN (Not a Number) che però è di tipo Number
+console.log(typeof NaN);
+
+console.log(String(23) + 7)//Il risultato sarà 237, perchè essendo 23 una stringa (dopo la conversione), il + viene interpretato come un concat
+
+//Type coercion: La conversione operata automaticamente da Javascript
+console.log("I'm " + 23 + " years old"); //Il 23 viene convertito n stringa
+console.log('23' - '10' - 3); //L'operatore - forza la conversione al tipo number, poichè non ha utilizzi diversi dalla sottrazione, che richiede numeri
+//Lo stesso vale per altri operatori matematici
+
+let n = '1' + 1 //Conterrà 11
+n = n - 1; //Conterrà 10
