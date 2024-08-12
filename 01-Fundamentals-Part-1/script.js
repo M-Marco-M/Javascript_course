@@ -153,6 +153,7 @@ va a capo`
 console.log(stringaTemplateACapo);
 */
 
+/*
 //Lezione 18 -> Costrutto if - else
 
 //Marco può prendere la patente?
@@ -173,3 +174,158 @@ if (annoNascita <= 2000) {
     secolo = 21;
 }
 console.log(`Sei nato nel ${secolo}° secolo`);
+*/
+
+//Lezione 20: Type conversion and type coercion
+
+/*
+//Type conversion: La conversione manuale richiesta dall'utente
+const inputYear = '1991';
+//console.log(inputYear + 9); //Stamperà 19919, perchè converte il 9 in stringa. Il + è considerato un concat
+console.log(Number(inputYear) + 9) //Number converte la stringa in numero (se possibile) ed esegue la somma
+console.log(Number("prova") + 9) //Number non può operare la conversione: verrà restituito il valore NaN (Not a Number) che però è di tipo Number
+console.log(typeof NaN);
+
+console.log(String(23) + 7)//Il risultato sarà 237, perchè essendo 23 una stringa (dopo la conversione), il + viene interpretato come un concat
+
+//Type coercion: La conversione operata automaticamente da Javascript
+console.log("I'm " + 23 + " years old"); //Il 23 viene convertito n stringa
+console.log('23' - '10' - 3); //L'operatore - forza la conversione al tipo number, poichè non ha utilizzi diversi dalla sottrazione, che richiede numeri
+//Lo stesso vale per altri operatori matematici
+
+let n = '1' + 1 //Conterrà 11
+n = n - 1; //Conterrà 10
+
+//Lezione 21: Truthy and falsy value
+
+//5 Falsy value: 0, "", null, undefined, NaN;
+//Thruthy  value sono tutti i numeri diversi da zero e tutte le stringhe non vuote. Anche gli oggetti, anche se vuoti, sono thruthy
+console.log(Boolean(0));
+console.log(Boolean(""));
+console.log(Boolean(null));
+console.log(Boolean(NaN));
+console.log(Boolean(undefined));
+
+const money = 0;
+
+//Non si usa mai la conversione, ma esistono degi scenari in cui è comodo lasciare a JS
+//la "coercizione" del tipo. Ad esempio, se money è uguale a 0 o null o NaN, verrà eseguito il ramo 
+//else, invece se è un numero diverso da 0 viene eseguito l'if.
+//In breve: se money è un numero valido e diverso da 0, allora esiste, perciò è vero, altrimenti è falso
+if (money) {
+    console.log("Congratulazioni, il tuo portafoglio sta scoppiando!");
+} else {
+    console.log("You have no money, get a job: is for your best, thrust me!");
+
+}
+
+let height;
+//height = 0;
+
+//Questo blocco di codice riporterebbe un bug, perchè se l'altezza assumesse come valore un numero sarebbe definita, questo è corretto
+//ma lo sarebbe anche se assumesse come valore 0, che però è un falsy value, perciò sarebbe eseguito il ramo else
+if (height) {
+    console.log("La tua altezza è definita")
+} else {
+    console.log("La tua altezza è indefinita(undefined)");
+    
+}
+
+*/
+
+/*
+//Lezione 22:: equality operator (operatori di uguaglianza) e costrutto if - else if
+
+//usare sempre, di default, a meno di specifiche esigenze l'operatore di uguaglianza stretta (===) e non uguaglianza lasca (==)
+const eta = '18';
+
+//Se non è necessario un else si possono ometere le graffe
+if (eta === 18) console.log("Sei un adulto! Stretto");
+
+if (eta == 18) console.log("Sei un adulto! Lasco");
+
+//const preferito = prompt("Qual è il tuo numero preferito?");
+const preferito = Number(prompt("Qual è il tuo numero preferito?")); //Per far si che funzioni con l'uguaglianza stretta bsogna operare una conversione dell'input
+console.log(preferito);
+console.log(typeof preferito); //Il tipo è di default stringa
+
+if (preferito == 23) {
+    console.log(preferito + " è veramente un bel numero! Lasco");
+}
+
+if (preferito === 23) {
+    console.log(preferito + " è veramente un bel numero!");
+} else if (preferito === 7) {
+    console.log(preferito + " è comunque un bel numero!");
+} else if (preferito === 9) {
+    console.log(preferito + " è un altro bel numero!");
+} else {
+    console.log("Che brutto numero!");
+}
+
+//Anche diverso può essere stretto o lasco
+if (preferito !== 23) console.log("Ma perchè non 23?");
+*/
+
+//Lezione 23: Logica booleana
+
+//L'operatore NOT ha precedenza sugli altri operatori!
+
+/*
+//Lezione 24: Operatori booleani in JavaScript
+const hasDriverLicense = true;
+const hasGoodVision = true;
+
+console.log(hasDriverLicense && hasGoodVision);
+console.log(hasDriverLicense || hasGoodVision);
+console.log(!hasDriverLicense);
+
+const isTired = false;
+if (hasDriverLicense && hasGoodVision && !isTired) {
+    console.log('Sarah is able to drive');
+} else {
+    console.log("Someone else should drive...");
+}
+*/
+//Lezione 25: csotrutto switch
+const giorno = "lunedì";
+
+switch (giorno) {
+    case "lunedì": //giorno === "lunedì" è un'uguaglianza stretta
+        console.log("Pianificazione corso");
+        console.log("Andare a raduni di sviluppatori");
+        break //!!! Senza brek il programma continua a eseguire il codice seguente, senza fermarsi !!!
+    case "martedì":
+        console.log("Preparazione video di teoria");
+        break
+    case "mercoledì":
+    case "giovedì":
+        console.log("Stesura esempi di codice");
+        break
+    case "venerdì":
+        console.log("Registrazione video");
+        break
+    case "sabato":
+    case "domenica":
+        console.log("Riposo");
+        break
+    default:
+        console.log("Giorno non valido");
+}
+
+
+//Riproduzione dello switch di cui sopra con il costrutto if - else if
+if (giorno === "lunedì") {
+    console.log("Pianificazione corso");
+    console.log("Andare a raduni di sviluppatori");
+} else if (giorno === "martedì") {
+    console.log("");
+} else if (giorno === "mercoledì" || giorno === "giovedì") {
+    console.log("Stesura esempi di codice");
+} else if (giorno === "venerdì") {
+    console.log("Registrazione video");
+} else if (giorno === "sabato" || giorno === "domenica") {
+    console.log("Riposo");
+} else {
+    console.log("Giorno non valido");
+}

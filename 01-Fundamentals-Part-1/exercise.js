@@ -26,3 +26,28 @@ BMIJohn = massJohn / (heightJohn * heightJohn);
 markHigherBMI = BMIMark > BMIJohn;
 
 console.log("BMI Mark:" + BMIMark,"BMI John:" + BMIJohn, "Mark BMIIsHigher: " + markHigherBMI);
+
+//Esercizio 2
+if (markHigherBMI) {
+    console.log(`Il BMI di Mark (${BMIMark}) è maggiore di quello di John (${BMIJohn})`);
+} else {
+    console.log(`Il BMI di John (${BMIJohn}) è maggiore di quello di Mark (${BMIMark})`);
+}
+
+//Esercizio 3
+
+const scoreDolphins = (96 + 108 + 89)/3;
+const scoreKoalas = (88 + 91 + 110)/3;
+
+const IsDolphinsMin = scoreDolphins > 100;
+const IsKoalasMin = scoreKoalas > 100;
+
+if (IsDolphinsMin && scoreDolphins > scoreKoalas) {
+    console.log("Dolphins win the trophy");
+} else if (IsKoalasMin && scoreDolphins < scoreKoalas) {
+    console.log("Koalas win the trophy");
+} else if (IsDolphinsMin && scoreDolphins === scoreKoalas){
+    console.log("Both win the trophy");
+} else {
+    console.log("None wins the trophy. PERDENTI!")
+}
