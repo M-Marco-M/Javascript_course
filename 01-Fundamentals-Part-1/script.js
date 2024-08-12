@@ -287,6 +287,7 @@ if (hasDriverLicense && hasGoodVision && !isTired) {
     console.log("Someone else should drive...");
 }
 */
+/*
 //Lezione 25: csotrutto switch
 const giorno = "lunedì";
 
@@ -313,7 +314,6 @@ switch (giorno) {
         console.log("Giorno non valido");
 }
 
-
 //Riproduzione dello switch di cui sopra con il costrutto if - else if
 if (giorno === "lunedì") {
     console.log("Pianificazione corso");
@@ -329,3 +329,38 @@ if (giorno === "lunedì") {
 } else {
     console.log("Giorno non valido");
 }
+*/
+/*
+//Lezione 27: Costrutti ed espressioni
+//Le espressioni sono pezzi di codice che producono un valore (anche l'assegnazione semplice è un'espressione)
+//I costrutti non producono un valore, piuttosto instradano il codice in una determinata direzione,
+// quindi selezionano l'operazione da eseguire (che siano cicli o if - else)
+
+//Lezione 28: Operatore ternario
+//L'operatore ternario è estremamente utile poichè costituisce un'espressione 
+//in grado di produrre un valore, che può quindi essere assegnato.
+//Se si vuole assegnare un valore a una variabile tramite un costrutto if - else 
+//bisogna dichiarare la variabile fuori dal costrutto
+//e poi aassegnare il valore in ciascun ramo. L'operatore ternario 
+//permette di fare l'assegnazione di uno o l'altro contestualmente alla dichiarazione
+
+const eta = 15;
+eta >= 18 ? console.log("Mi piace bere birra!") : console.log("Mi piace bere pepsi!");
+
+//Con operatore ternario 
+//N.B = L'operatore booleano consente di dichiarare una costante l'if - else NO!
+const bibita = eta >= 18 ? "birra🍺" : "pepsi🥤";
+console.log(`Mi piace bere ${bibita}`);
+
+//Con if - else
+let bibita2;
+if(eta >= 18) {
+    bibita2 = "birra";
+} else {
+    bibita2 = "pepsi";
+}
+console.log(`Mi piace bere ${bibita}`);
+
+console.log(`Mi piace bere ${eta >= 18 ? "vino🍷" : "succo di frutta🧃"}!`);
+*/
+
