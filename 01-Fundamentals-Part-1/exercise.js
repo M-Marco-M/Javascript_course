@@ -46,7 +46,7 @@ if (IsDolphinsMin && scoreDolphins > scoreKoalas) {
     console.log("Dolphins win the trophy");
 } else if (IsKoalasMin && scoreDolphins < scoreKoalas) {
     console.log("Koalas win the trophy");
-} else if (IsDolphinsMin && IsKoalasMin && scoreDolphins === scoreKoalas){
+} else if (IsDolphinsMin && scoreDolphins === scoreKoalas){
     console.log("Both win the trophy");
 } else {
     console.log("None wins the trophy. PERDENTI!")
