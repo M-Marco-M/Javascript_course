@@ -39,10 +39,15 @@ if (markHigherBMI) {
 const scoreDolphins = (96 + 108 + 89)/3;
 const scoreKoalas = (88 + 91 + 110)/3;
 
-if (scoreDolphins > scoreKoalas) {
+const IsDolphinsMin = scoreDolphins > 100;
+const IsKoalasMin = scoreKoalas > 100;
+
+if (IsDolphinsMin && scoreDolphins > scoreKoalas) {
     console.log("Dolphins win the trophy");
-} else if (scoreDolphins < scoreKoalas) {
+} else if (IsKoalasMin && scoreDolphins < scoreKoalas) {
     console.log("Koalas win the trophy");
-} else {
+} else if (IsDolphinsMin && IsKoalasMin && scoreDolphins === scoreKoalas){
     console.log("Both win the trophy");
+} else {
+    console.log("None wins the trophy. PERDENTI!")
 }
