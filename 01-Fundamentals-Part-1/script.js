@@ -176,7 +176,7 @@ if (annoNascita <= 2000) {
 console.log(`Sei nato nel ${secolo}° secolo`);
 */
 
-//Lezione 20: Type conersion and type coercion
+//Lezione 20: Type conversion and type coercion
 
 /*
 //Type conversion: La conversione manuale richiesta dall'utente
@@ -232,6 +232,8 @@ if (height) {
 }
 
 */
+
+/*
 //Lezione 22:: equality operator (operatori di uguaglianza) e costrutto if - else if
 
 //usare sempre, di default, a meno di specifiche esigenze l'operatore di uguaglianza stretta (===) e non uguaglianza lasca (==)
@@ -263,11 +265,13 @@ if (preferito === 23) {
 
 //Anche diverso può essere stretto o lasco
 if (preferito !== 23) console.log("Ma perchè non 23?");
+*/
 
 //Lezione 23: Logica booleana
 
 //L'operatore NOT ha precedenza sugli altri operatori!
 
+/*
 //Lezione 24: Operatori booleani in JavaScript
 const hasDriverLicense = true;
 const hasGoodVision = true;
@@ -282,3 +286,4 @@ if (hasDriverLicense && hasGoodVision && !isTired) {
 } else {
     console.log("Someone else should drive...");
 }
+*/
