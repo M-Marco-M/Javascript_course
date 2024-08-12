@@ -287,3 +287,45 @@ if (hasDriverLicense && hasGoodVision && !isTired) {
     console.log("Someone else should drive...");
 }
 */
+//Lezione 25: csotrutto switch
+const giorno = "lunedì";
+
+switch (giorno) {
+    case "lunedì": //giorno === "lunedì" è un'uguaglianza stretta
+        console.log("Pianificazione corso");
+        console.log("Andare a raduni di sviluppatori");
+        break //!!! Senza brek il programma continua a eseguire il codice seguente, senza fermarsi !!!
+    case "martedì":
+        console.log("Preparazione video di teoria");
+        break
+    case "mercoledì":
+    case "giovedì":
+        console.log("Stesura esempi di codice");
+        break
+    case "venerdì":
+        console.log("Registrazione video");
+        break
+    case "sabato":
+    case "domenica":
+        console.log("Riposo");
+        break
+    default:
+        console.log("Giorno non valido");
+}
+
+
+//Riproduzione dello switch di cui sopra con il costrutto if - else if
+if (giorno === "lunedì") {
+    console.log("Pianificazione corso");
+    console.log("Andare a raduni di sviluppatori");
+} else if (giorno === "martedì") {
+    console.log("");
+} else if (giorno === "mercoledì" || giorno === "giovedì") {
+    console.log("Stesura esempi di codice");
+} else if (giorno === "venerdì") {
+    console.log("Registrazione video");
+} else if (giorno === "sabato" || giorno === "domenica") {
+    console.log("Riposo");
+} else {
+    console.log("Giorno non valido");
+}
