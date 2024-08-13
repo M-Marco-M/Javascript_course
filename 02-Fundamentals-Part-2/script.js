@@ -1,5 +1,5 @@
 //Lezione 32
-'use strict';
+"use strict";
 
 //La strict mode è un costrutto ce influenza tutto il codice che la segue
 //Viene solitamente usata su specifici script, e fa si che Javascript segnali errori
@@ -10,7 +10,8 @@
 // const passTest = true;
 
 // if (passTest) hasDriversLicense = true; //Qui Javascript segnala in console che hasDriversLicense non è dichiarata(contiene una s rispetto ala variabile dichiarata). Senza la strict mode non lo farebbe
-// if (hasDriverLicense) console.log("I can drive at 90 mph in those country lanes! :D"); 
+// if (hasDriverLicense)
+//   console.log("I can drive at 90 mph in those country lanes! :D");
 
 //Lezione 32: le funzioni
 //Le funzioni sono pezzi di codice in grado di esguire operazioni complete.
@@ -39,7 +40,7 @@ console.log(appleJuice);
 const appleOrangeJuice = fruitProcessor(5, 3);
 console.log(appleOrangeJuice);
 
-console.log(fruitProcessor(3,1));
+console.log(fruitProcessor(3, 1));
 
 //Number è una funzione nativa di Javascript che viene richiamata. Ha un parametro in ingresso e produce un valore in uscita
 const num = Number("23");
@@ -61,9 +62,27 @@ const age1 = calcAge1(1998);
 //Function expression
 const calcAge2 = function (birthYear) {
     return 2037 - birthYear;
-}
+};
 const age2 = calcAge2(1998);
 
 console.log(age1, age2);
 
 //Le espressioni funzionali non possono essere richiamate prima di essere dichiarate, le funzioni possono essere richiamate anche se vengono dichiarate solo successivamente all'interno del codice
+
+//Lezione 35: arrow function
+//Le arrow function sono delle espressioni funzionali con un sintassi semplificata
+//Nel caso in cui non siano dichiarate variabili al uso interno  si può omettere il return
+
+const calcAge3 = (birthYear) => 2037 - birthYear;
+const age3 = calcAge3(1998);
+console.log(age3);
+
+const yearsUntilRetirment = (birthYear, firstName) => {
+    const age = 2037 - birthYear;
+    const retirement = 65 - age;
+    //return retirement;
+    return `${firstName} retires in ${retirement} years`;
+};
+
+console.log(yearsUntilRetirment(1998, "Marco"));
+console.log(yearsUntilRetirment(1991, prompt("Il tuo nome")));

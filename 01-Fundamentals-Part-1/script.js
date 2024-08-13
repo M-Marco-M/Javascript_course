@@ -363,4 +363,3 @@ console.log(`Mi piace bere ${bibita}`);
 
 console.log(`Mi piace bere ${eta >= 18 ? "vino🍷" : "succo di frutta🧃"}!`);
 */
-
