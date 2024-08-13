@@ -56,3 +56,8 @@ if (IsDolphinsMin && scoreDolphins > scoreKoalas) {
 const bill = 301;
 const tip = bill < 50 || bill > 300 ? bill * (20 / 100) : bill * (15 / 100);
 console.log(`The bill is ${bill}, the tip is ${tip} and the total is ${bill + tip}`);
+
+//Lezione 30: Le verioni di Javascript
+//Javascript ha ricevuto un grosso update nel 2015 chiamato ES2015 o ES6
+//Le nuove release di javascript non cancellano mai vecchie funzioni, per eitare che e vecchie 
+//pagine web smettano di funzionare
