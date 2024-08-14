@@ -129,3 +129,55 @@ const yearsUntilRetirment = function (birthYear, firstName) {
 };
 
 console.log(yearsUntilRetirment(1960));
+
+//Lezione 39: gli array
+//Gli array sono strutture di dati in grado di ospitare dati in maniera ordinata.
+//Ogni elemento di un array è individuato dalla sua posizione
+
+const friend1 = "Marco";
+const friend2 = "Francesco";
+const friend3 = "Alessio";
+
+//Notazione con parentesi
+const friends = ["Marco", "Francesco", "Alessio"];
+console.log(friends);
+
+//Notazione letterale
+const y = new Array(1998, 1998, 2000);
+
+//Gli array sono elementi zero-based: il primo elemento si trova in posizione 0
+console.log(friends[0]);
+console.log(friends[2]);
+
+//La lunghezza indica il numero di elementi nell'array contando da 1
+console.log(friends.lenght);
+console.log(friends[friends.length - 1]);
+
+//Abbiamo dichiarato l'array come const, ma possiamo modificarne comunqu il contenuto
+//Solo i tipi primitivi, se dichiarati const, sono immutabili. 
+//Nel caso dell'array const non possiamo sostituire l'intero array in blocco (IN PRATICA RIASSEGNARLO), ma possiamo modificarlo
+friends[2] = "Simone";
+console.log(friends);
+//friends = ["Bob", "Alice"]; N.B = Infatti con la notazione letterale indichiamo proprio
+//la costruzione di un "new Array", ciò non è possibile per una costante
+
+const nome = "Marco";
+//Gli array posso contenere dati di tipo diverso, e ogni elemento può essere costituito da un'espressione, quindi può anche richiamare una funzione
+const marco = [nome, "Magnano", 2037 - 1998, "sviluppatore", friends];
+console.log(marco);
+console.log(marco.length);
+
+//Exercise
+
+const years = [1990, 1967, 2002, 2018];
+
+const age1 = calcAge(years[0]);
+const age2 = calcAge(years[1]);
+const age3 = calcAge(years[years.length - 1]); //L'argomento di una funzione può essere qualsiasi espressione, poichè un'espressione restituisce sempre un solo valore;
+console.log(age1, age2, age3);
+
+//Qui abbiamo inserito un array che contiene delle espressioni costituite dal richiamo di ua funzione e anche altre operazioni
+const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length - 1])];
+//è buona prassi (nonchè comodo e spesso findamentale) conservare i risultati dell'elaborazione di un array
+//in un altro array
+console.log(ages);
