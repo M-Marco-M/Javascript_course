@@ -209,3 +209,24 @@ console.log(friends.includes("Bob")); //False
 
 friends.push("23");
 friends.includes(23); //false: includes usa l'uguaglianza stretta
+
+//Lezione 42: Introduzione agli oggetti
+
+//Qui sott un array scritto in maniera più leggibile
+const marcoArray = [
+    "Marco",
+    "Magnano",
+    2037 - 1998,
+    "programmatore",
+    ["Michael", "Andrea", "Alessio"]
+];
+
+//Qui sotto un oggetto
+const marco = {
+    nome: "Marco",
+    cognome: "Magnano",
+    eta: 2037 - 1998,
+    lavoro: "programmatore",
+    friends: ["Michael", "Andrea", "Alessio"]
+};
+//La principale differenza tra gli array e gli oggetti è che i valori negli array sono identificati tramite la loro posizione, negli oggetti sono assegnati a una chiave(proprietà)
