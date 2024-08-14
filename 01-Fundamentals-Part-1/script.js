@@ -363,3 +363,9 @@ console.log(`Mi piace bere ${bibita}`);
 
 console.log(`Mi piace bere ${eta >= 18 ? "vino🍷" : "succo di frutta🧃"}!`);
 */
+
+//Lezione 30: Le verioni di Javascript
+//Javascript ha ricevuto un grosso update nel 2015 chiamato ES2015 o ES6
+//Le nuove release di javascript non cancellano mai vecchie funzioni, per eitare che e vecchie
+//pagine web smettano di funzionare
+
