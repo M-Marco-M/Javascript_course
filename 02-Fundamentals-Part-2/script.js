@@ -13,6 +13,7 @@
 // if (hasDriverLicense)
 //   console.log("I can drive at 90 mph in those country lanes! :D");
 
+/*
 //Lezione 32: le funzioni
 //Le funzioni sono pezzi di codice in grado di esguire operazioni complete.
 //Possono avere (o non avere) valori in ingresso (variabili che la funzione utilizza)
@@ -45,7 +46,9 @@ console.log(fruitProcessor(3, 1));
 //Number è una funzione nativa di Javascript che viene richiamata. Ha un parametro in ingresso e produce un valore in uscita
 const num = Number("23");
 console.log(num);
+*/
 
+/*
 //Lezione 34: funzioni anonime ed espressioni funzionali
 
 //Si possono scrivere delle funzioni senza nome il cui valore restituite può essere direttamente assegnato a una variabile
@@ -68,11 +71,13 @@ const age2 = calcAge2(1998);
 console.log(age1, age2);
 
 //Le espressioni funzionali non possono essere richiamate prima di essere dichiarate, le funzioni possono essere richiamate anche se vengono dichiarate solo successivamente all'interno del codice
+*/
 
 //Lezione 35: arrow function
 //Le arrow function sono delle espressioni funzionali con un sintassi semplificata
 //Nel caso in cui non siano dichiarate variabili al uso interno  si può omettere il return
 
+/*
 const calcAge3 = (birthYear) => 2037 - birthYear;
 const age3 = calcAge3(1998);
 console.log(age3);
@@ -86,3 +91,41 @@ const yearsUntilRetirment = (birthYear, firstName) => {
 
 console.log(yearsUntilRetirment(1998, "Marco"));
 console.log(yearsUntilRetirment(1991, prompt("Il tuo nome")));
+*/
+
+//Lezione 38: funzioni che richiamano funzioni
+
+//è comune che delle funzioni vengano richiamate all'interno di altre funzioni, ciò
+//permette di perseguire i principi DRY (don't repeat yourself).
+//Usare una funzione permette di fare le modifiche solo a essa e far si che si presentino ovunque sia richiamata
+
+function fruitCutter(fruit) {
+    return fruit * 4;
+}
+
+function fruitProcessor2(apples, oranges) {
+    const applePieces = fruitCutter(apples);
+    const orangePieces = fruitCutter(oranges);
+    const juice = `Juice with ${applePieces} apple pieces and ${orangePieces} orange pieces`;
+    return juice;
+}
+console.log(fruitProcessor2(3, 2))
+
+//Lezione 37: ripasso delle funzioni
+
+const calcAge = function (birthYear) {
+    return 2037 - birthYear;
+}
+
+const yearsUntilRetirment = function (birthYear, firstName) {
+    const age = 2037 - birthYear;
+    const retirement = 65 - age;
+    if (retirement > 0) {
+        return retirement;
+    } else {
+        return -1; //return esce immediatamente dalla funzione. Ciò che sta dopo il return non viene eseguito
+    }
+    // return `${firstName} retires in ${retirement} years`;
+};
+
+console.log(yearsUntilRetirment(1960));
