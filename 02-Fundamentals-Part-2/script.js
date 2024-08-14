@@ -93,6 +93,7 @@ console.log(yearsUntilRetirment(1998, "Marco"));
 console.log(yearsUntilRetirment(1991, prompt("Il tuo nome")));
 */
 
+/*
 //Lezione 36: funzioni che richiamano funzioni
 
 //è comune che delle funzioni vengano richiamate all'interno di altre funzioni, ciò
@@ -110,7 +111,8 @@ function fruitProcessor2(apples, oranges) {
     return juice;
 }
 console.log(fruitProcessor2(3, 2))
-
+*/
+/*
 //Lezione 37: ripasso delle funzioni
 
 const calcAge = function (birthYear) {
@@ -129,7 +131,8 @@ const yearsUntilRetirment = function (birthYear, firstName) {
 };
 
 console.log(yearsUntilRetirment(1960));
-
+*/
+/*
 //Lezione 39: gli array
 //Gli array sono strutture di dati in grado di ospitare dati in maniera ordinata.
 //Ogni elemento di un array è individuato dalla sua posizione
@@ -163,7 +166,7 @@ console.log(friends);
 
 const nome = "Marco";
 //Gli array posso contenere dati di tipo diverso, e ogni elemento può essere costituito da un'espressione, quindi può anche richiamare una funzione
-const marco = [nome, "Magnano", 2037 - 1998, "sviluppatore", friends];
+const marco = [nome, "Magnano", 2037 - 1998, "sviluppatore", friends]; //Gli array possono contenere altri array
 console.log(marco);
 console.log(marco.length);
 
@@ -181,3 +184,28 @@ const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length -
 //è buona prassi (nonchè comodo e spesso findamentale) conservare i risultati dell'elaborazione di un array
 //in un altro array
 console.log(ages);
+*/
+//Lezione 40: Operazioni con gli array
+
+//Aggiunta elementi
+const friends = ["Michael", "Steven", "Peter"];
+const newLength = friends.push("Jay"); //push aggiunge un elemento in fondo all'array e restituisce la nuova lunghezza
+console.log(friends, newLength);
+
+friends.unshift("John") //unshift aggiunge un elemento all'inizio dell'array e restituisce la nuova lunghezza
+
+//Rimozione elementi
+const popped = friends.pop(); //pop rimuove l'ultimo elmento e lo restituisce
+console.log(friends);
+
+friends.shift(); //rimuove il primo elemento e lo restituisce
+
+//Ricerca elementi
+console.log(friends.indexOf("Steven")); //indexOf restituisce la posizione dell'elemento indicato a parametro
+console.log(friends.indexOf("Bob")); //se l'elemento non è presento restituisce -1
+
+console.log(friends.includes("Steven")); //True
+console.log(friends.includes("Bob")); //False
+
+friends.push("23");
+friends.includes(23); //false: includes usa l'uguaglianza stretta
