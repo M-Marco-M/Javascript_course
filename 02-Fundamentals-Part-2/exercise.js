@@ -1,11 +1,12 @@
 const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) / 3;
 
 const checkWinner = function (avgDoplhins, avgKoalas) {
-    if (avgDoplhins === avgKoalas) {
-        console.log("There's no winner for this time...");
+    if (avgDoplhins >= 2 * avgKoalas) {
+        console.log(`Doplhins win(${avgDoplhins} vs. ${avgKoalas})`);
+    } else if (avgKoalas >= 2 * avgDoplhins) {
+        console.log(`Koalas win(${avgKoalas} vs. ${avgDoplhins})`);
     } else {
-        const winner = avgDoplhins > avgKoalas ? "Doplhins" : "Koalas";
-        console.log(`${winner} win(${avgDoplhins} vs. ${avgKoalas})`);
+        console.log("There's no winner for this time...");
     }
 }
 

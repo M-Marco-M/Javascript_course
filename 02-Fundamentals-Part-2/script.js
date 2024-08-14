@@ -93,7 +93,7 @@ console.log(yearsUntilRetirment(1998, "Marco"));
 console.log(yearsUntilRetirment(1991, prompt("Il tuo nome")));
 */
 
-//Lezione 38: funzioni che richiamano funzioni
+//Lezione 36: funzioni che richiamano funzioni
 
 //è comune che delle funzioni vengano richiamate all'interno di altre funzioni, ciò
 //permette di perseguire i principi DRY (don't repeat yourself).
