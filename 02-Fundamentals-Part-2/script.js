@@ -93,6 +93,7 @@ console.log(yearsUntilRetirment(1998, "Marco"));
 console.log(yearsUntilRetirment(1991, prompt("Il tuo nome")));
 */
 
+/*
 //Lezione 36: funzioni che richiamano funzioni
 
 //è comune che delle funzioni vengano richiamate all'interno di altre funzioni, ciò
@@ -110,7 +111,8 @@ function fruitProcessor2(apples, oranges) {
     return juice;
 }
 console.log(fruitProcessor2(3, 2))
-
+*/
+/*
 //Lezione 37: ripasso delle funzioni
 
 const calcAge = function (birthYear) {
@@ -129,7 +131,8 @@ const yearsUntilRetirment = function (birthYear, firstName) {
 };
 
 console.log(yearsUntilRetirment(1960));
-
+*/
+/*
 //Lezione 39: gli array
 //Gli array sono strutture di dati in grado di ospitare dati in maniera ordinata.
 //Ogni elemento di un array è individuato dalla sua posizione
@@ -154,7 +157,7 @@ console.log(friends.lenght);
 console.log(friends[friends.length - 1]);
 
 //Abbiamo dichiarato l'array come const, ma possiamo modificarne comunqu il contenuto
-//Solo i tipi primitivi, se dichiarati const, sono immutabili. 
+//Solo i tipi primitivi, se dichiarati const, sono immutabili.
 //Nel caso dell'array const non possiamo sostituire l'intero array in blocco (IN PRATICA RIASSEGNARLO), ma possiamo modificarlo
 friends[2] = "Simone";
 console.log(friends);
@@ -163,7 +166,7 @@ console.log(friends);
 
 const nome = "Marco";
 //Gli array posso contenere dati di tipo diverso, e ogni elemento può essere costituito da un'espressione, quindi può anche richiamare una funzione
-const marco = [nome, "Magnano", 2037 - 1998, "sviluppatore", friends];
+const marco = [nome, "Magnano", 2037 - 1998, "sviluppatore", friends]; //Gli array possono contenere altri array
 console.log(marco);
 console.log(marco.length);
 
@@ -181,3 +184,211 @@ const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length -
 //è buona prassi (nonchè comodo e spesso findamentale) conservare i risultati dell'elaborazione di un array
 //in un altro array
 console.log(ages);
+*/
+//Lezione 40: Operazioni con gli array
+
+/*
+//Aggiunta elementi
+const friends = ["Michael", "Steven", "Peter"];
+const newLength = friends.push("Jay"); //push aggiunge un elemento in fondo all'array e restituisce la nuova lunghezza
+console.log(friends, newLength);
+
+friends.unshift("John") //unshift aggiunge un elemento all'inizio dell'array e restituisce la nuova lunghezza
+
+//Rimozione elementi
+const popped = friends.pop(); //pop rimuove l'ultimo elmento e lo restituisce
+console.log(friends);
+
+friends.shift(); //rimuove il primo elemento e lo restituisce
+
+//Ricerca elementi
+console.log(friends.indexOf("Steven")); //indexOf restituisce la posizione dell'elemento indicato a parametro
+console.log(friends.indexOf("Bob")); //se l'elemento non è presento restituisce -1
+
+console.log(friends.includes("Steven")); //True
+console.log(friends.includes("Bob")); //False
+
+friends.push("23");
+friends.includes(23); //false: includes usa l'uguaglianza stretta
+*/
+//Lezione 42: Introduzione agli oggetti
+/*
+//Qui sott un array scritto in maniera più leggibile
+const marcoArray = [
+    "Marco",
+    "Magnano",
+    2037 - 1998,
+    "programmatore",
+    ["Michael", "Andrea", "Alessio"]
+];
+
+//Qui sotto un oggetto
+const marco = {
+    nome: "Marco",
+    cognome: "Magnano",
+    eta: 2037 - 1998,
+    lavoro: "programmatore",
+    friends: ["Michael", "Andrea", "Alessio"]
+};
+console.log(marco);
+//La principale differenza tra gli array e gli oggetti è che i valori negli array sono identificati tramite la loro posizione, negli oggetti sono assegnati a una chiave(proprietà)
+*/
+/*
+//Lezine 43: due notazioni per interagire con gli oggetti
+
+//dot notation
+console.log(marco.cognome);
+//bracket notation
+console.log(marco["cognome"]);
+//La dot nootation è più leggibile e pulita, ma ammette solo nomi delle proprietà
+//tra le parentesi quadre della bracket notation può essere inserito invece qualsiasi espressione
+//e ciò rappresenta un grande vantaggio in alcuni casi
+
+const nameKey = "nome";
+console.log(marco[nameKey]);
+console.log(marco["cog" + nameKey]);
+
+//console.log(marco."cog" + nameKey); non è ammessa
+
+const interestedIn = "";//prompt("What do you want to know about Marco? Choose between nome, cognome, eta, lavoro, amici");
+//console.log(marco[interestedIn]);
+
+//Chiedere una proprietà non definita nell'oggetto risulta in un valore "undefined"
+//console.log(marco[squadraPreferita]);
+
+//unedefined è un valore falsy, quindi si può costruire questo if - else
+if (marco[interestedIn]) {
+    console.log(marco[interestedIn]);
+} else {
+    console.log("Wrong request! Choose between nome, cognome, eta, lavoro, amici")
+}
+
+//Per aggiungere un campo all'oggetto possono essere usate entrambe le notazioni
+marco.residenza = "Italia";
+marco["email"] = "marco.magnano@posta.it";
+console.log(marco);
+
+//Challenge
+const aboutMarcoFriends = `${marco.nome} ha ${marco.friends.length} amici e il suo migliore amico si chiama ${marco.friends[0]}`;
+console.log(aboutMarcoFriends);
+*/
+
+/*
+//Lezione 44: metodi degli oggetti
+//I metodi sono delle proprietà dell'oggetto che contengo come valore una funzione. -> espressione funzionale
+const marco3 = {
+    nome: "Marco",
+    cognome: "Magnano",
+    birthYear: 1998,
+    lavoro: "programmatore",
+    friends: ["Michael", "Andrea", "Alessio"],
+    hasDriversLicense: true,
+
+    //Qui richiediammo un parametro in ingresso, ciò significa che deve essere inserito manualmente
+    //ma è un'informazione già contenuta dall'oggetto che contiene il metodo
+    // calcAge1: function (birthYear) {
+    //     return 2037 - birthYear;
+    // }
+
+    // calcAge: function () {
+    //     console.log(this); //this fa riferimento all'oggetto
+    //     return 2037 - this.birthYear; //this è l'intero oggetto, con il punto possiamo accedere a tutte le sue proprietà
+    // },
+
+    //Questa funzione però richiama specificamente marco2, e non this. Se cambiassimo il nome all'oggetto non lo troverebbe più
+    //inve con this risolviamo questo problema
+    // calcAge2: function () {
+    //     console.log(marco2); //this fa riferimento all'oggetto
+    //     return 2037 - marco2.birthYear; //this è l'intero oggetto, con il punto possiamo accedere a tutte le sue proprietà
+    // }
+
+    //Possiamo usare la funzione per settare una (nuova) proprietà dell'oggetto, in modo che la funzione venga eseguit una sola olta ma il valore sia sempre accessibile
+    calcAge: function () {
+        this.eta = 2037 - this.birthYear; //this è l'intero oggetto, con il punto possiamo accedere a tutte le sue proprietà
+        return this.eta;
+    },
+
+    describe: function () {
+        return `${this.nome} ${this.cognome} è un ${this.lavoro} di ${this.eta} e ${this.hasDriversLicense ? "" : "non "}possiede la patente. I suoi amici più stretti sono ${this.friends}`;
+    }
+};
+
+// console.log(marco2.calcAge1(1998));
+
+console.log(marco3.calcAge());
+//Funziona anche così
+console.log("-----------------")
+// console.log(marco3.calcAge2());
+
+console.log(marco3.eta);
+
+//Challenge: scrivi une metodo che faccia una breve descrizione della persona in oggetto
+console.log(marco3.describe());
+*/
+
+/*
+//Lezione 46: Introduzione ai cicli
+//Ciclo for
+
+//I cicli servono a ripetere un vlocco di codice fino a quando una condzione è soddisfatta
+// console.log("Ripetizione di panca piana 1");
+// console.log("Ripetizione di panca piana 2");
+// console.log("Ripetizione di panca piana 3");
+// console.log("Ripetizione di panca piana 4");
+
+for (let rep = 1; rep <= 10; rep++) {
+    console.log(`Ripetizione di panca piana ${rep}`);
+}
+*/
+
+//Lezione 47: cicli for per interagire con gli array
+
+//Gli array sono costituiti da una serie di elementi numerati e ordinati, quindi è possibili scorrerli con un ciclo for che punta a una nuova "cella" dell'array per ogni giro
+const marcoArray = [
+    "Marco",
+    "Magnano",
+    2037 - 1998,
+    "programmatore",
+    ["Michael", "Andrea", "Alessio"]
+];
+
+for (let i = 0; i < marcoArray.length; i++) {
+    console.log(marcoArray[i], typeof marcoArray[i]);
+}
+
+const typeArray = [];
+//Riempie l'array con i tipi di marcoArray, scorrendo e assegnando una posizione alla volta
+for (let i = 0; i < marcoArray.length; i++) {
+    //Assegnazione tramite indice
+    // typeArray[i] = typeof marcoArray[i];
+    //Assegnazione tramite metodo: più pulita
+    typeArray.push(typeof marcoArray[i]);
+}
+
+console.log(typeArray);
+
+const years = [1990, 1967, 2002, 2018];
+const ages = [];
+
+for (let i = 0; i < years.length; i++) {
+    ages.push(2037 - years[i]);
+}
+console.log(ages);
+
+//break and continue
+//Continue
+
+//Se il tipo di quell'elemento di marcoArray è diverso da "string" allora salta tutto il codice che segue "continue" e vai all'inizio del ciclo
+console.log("--- ONLY STRINGS ---");
+for (let i = 0; i < marcoArray.length; i++) {
+    if (typeof marcoArray[i] !== "string") continue;
+    console.log(marcoArray[i], typeof marcoArray[i]);
+}
+
+//Break
+//Se il tipo di quell'elemento di marcoArray è uguale a "number" allora interrompi totalmente il ciclo, non viene più eseguito nessun giro
+console.log("--- BREAK WITH NUMBER ---");
+for (let i = 0; i < marcoArray.length; i++) {
+    if (typeof marcoArray[i] === "number") break;
+    console.log(marcoArray[i], typeof marcoArray[i]);
+}
