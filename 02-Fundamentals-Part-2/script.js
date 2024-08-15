@@ -157,7 +157,7 @@ console.log(friends.lenght);
 console.log(friends[friends.length - 1]);
 
 //Abbiamo dichiarato l'array come const, ma possiamo modificarne comunqu il contenuto
-//Solo i tipi primitivi, se dichiarati const, sono immutabili. 
+//Solo i tipi primitivi, se dichiarati const, sono immutabili.
 //Nel caso dell'array const non possiamo sostituire l'intero array in blocco (IN PRATICA RIASSEGNARLO), ma possiamo modificarlo
 friends[2] = "Simone";
 console.log(friends);
@@ -272,6 +272,8 @@ console.log(marco);
 const aboutMarcoFriends = `${marco.nome} ha ${marco.friends.length} amici e il suo migliore amico si chiama ${marco.friends[0]}`;
 console.log(aboutMarcoFriends);
 */
+
+/*
 //Lezione 44: metodi degli oggetti
 //I metodi sono delle proprietà dell'oggetto che contengo come valore una funzione. -> espressione funzionale
 const marco3 = {
@@ -322,3 +324,71 @@ console.log(marco3.eta);
 
 //Challenge: scrivi une metodo che faccia una breve descrizione della persona in oggetto
 console.log(marco3.describe());
+*/
+
+/*
+//Lezione 46: Introduzione ai cicli
+//Ciclo for
+
+//I cicli servono a ripetere un vlocco di codice fino a quando una condzione è soddisfatta
+// console.log("Ripetizione di panca piana 1");
+// console.log("Ripetizione di panca piana 2");
+// console.log("Ripetizione di panca piana 3");
+// console.log("Ripetizione di panca piana 4");
+
+for (let rep = 1; rep <= 10; rep++) {
+    console.log(`Ripetizione di panca piana ${rep}`);
+}
+*/
+
+//Lezione 47: cicli for per interagire con gli array
+
+//Gli array sono costituiti da una serie di elementi numerati e ordinati, quindi è possibili scorrerli con un ciclo for che punta a una nuova "cella" dell'array per ogni giro
+const marcoArray = [
+    "Marco",
+    "Magnano",
+    2037 - 1998,
+    "programmatore",
+    ["Michael", "Andrea", "Alessio"]
+];
+
+for (let i = 0; i < marcoArray.length; i++) {
+    console.log(marcoArray[i], typeof marcoArray[i]);
+}
+
+const typeArray = [];
+//Riempie l'array con i tipi di marcoArray, scorrendo e assegnando una posizione alla volta
+for (let i = 0; i < marcoArray.length; i++) {
+    //Assegnazione tramite indice
+    // typeArray[i] = typeof marcoArray[i];
+    //Assegnazione tramite metodo: più pulita
+    typeArray.push(typeof marcoArray[i]);
+}
+
+console.log(typeArray);
+
+const years = [1990, 1967, 2002, 2018];
+const ages = [];
+
+for (let i = 0; i < years.length; i++) {
+    ages.push(2037 - years[i]);
+}
+console.log(ages);
+
+//break and continue
+//Continue
+
+//Se il tipo di quell'elemento di marcoArray è diverso da "string" allora salta tutto il codice che segue "continue" e vai all'inizio del ciclo
+console.log("--- ONLY STRINGS ---");
+for (let i = 0; i < marcoArray.length; i++) {
+    if (typeof marcoArray[i] !== "string") continue;
+    console.log(marcoArray[i], typeof marcoArray[i]);
+}
+
+//Break
+//Se il tipo di quell'elemento di marcoArray è uguale a "number" allora interrompi totalmente il ciclo, non viene più eseguito nessun giro
+console.log("--- BREAK WITH NUMBER ---");
+for (let i = 0; i < marcoArray.length; i++) {
+    if (typeof marcoArray[i] === "number") break;
+    console.log(marcoArray[i], typeof marcoArray[i]);
+}
