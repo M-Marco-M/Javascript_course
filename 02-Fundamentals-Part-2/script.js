@@ -187,6 +187,7 @@ console.log(ages);
 */
 //Lezione 40: Operazioni con gli array
 
+/*
 //Aggiunta elementi
 const friends = ["Michael", "Steven", "Peter"];
 const newLength = friends.push("Jay"); //push aggiunge un elemento in fondo all'array e restituisce la nuova lunghezza
@@ -209,7 +210,7 @@ console.log(friends.includes("Bob")); //False
 
 friends.push("23");
 friends.includes(23); //false: includes usa l'uguaglianza stretta
-
+*/
 //Lezione 42: Introduzione agli oggetti
 
 //Qui sott un array scritto in maniera più leggibile
@@ -229,4 +230,43 @@ const marco = {
     lavoro: "programmatore",
     friends: ["Michael", "Andrea", "Alessio"]
 };
+console.log(marco);
 //La principale differenza tra gli array e gli oggetti è che i valori negli array sono identificati tramite la loro posizione, negli oggetti sono assegnati a una chiave(proprietà)
+
+//Lezine 43: due notazioni per interagire con gli oggetti
+
+//dot notation
+console.log(marco.cognome);
+//bracket notation
+console.log(marco["cognome"]);
+//La dot nootation è più leggibile e pulita, ma ammette solo nomi delle proprietà
+//tra le parentesi quadre della bracket notation può essere inserito invece qualsiasi espressione
+//e ciò rappresenta un grande vantaggio in alcuni casi
+
+const nameKey = "nome";
+console.log(marco[nameKey]);
+console.log(marco["cog" + nameKey]);
+
+//console.log(marco."cog" + nameKey); non è ammessa
+
+const interestedIn = "";//prompt("What do you want to know about Marco? Choose between nome, cognome, eta, lavoro, amici");
+//console.log(marco[interestedIn]);
+
+//Chiedere una proprietà non definita nell'oggetto risulta in un valore "undefined"
+//console.log(marco[squadraPreferita]);
+
+//unedefined è un valore falsy, quindi si può costruire questo if - else
+if (marco[interestedIn]) {
+    console.log(marco[interestedIn]);
+} else {
+    console.log("Wrong request! Choose between nome, cognome, eta, lavoro, amici")
+}
+
+//Per aggiungere un campo all'oggetto possono essere usate entrambe le notazioni
+marco.residenza = "Italia";
+marco["email"] = "marco.magnano@posta.it";
+console.log(marco);
+
+//Challenge
+const aboutMarcoFriends = `${marco.nome} ha ${marco.friends.length} amici e il suo migliore amico si chiama ${marco.friends[0]}`;
+console.log(aboutMarcoFriends);
