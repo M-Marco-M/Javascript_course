@@ -212,7 +212,7 @@ friends.push("23");
 friends.includes(23); //false: includes usa l'uguaglianza stretta
 */
 //Lezione 42: Introduzione agli oggetti
-
+/*
 //Qui sott un array scritto in maniera più leggibile
 const marcoArray = [
     "Marco",
@@ -232,7 +232,8 @@ const marco = {
 };
 console.log(marco);
 //La principale differenza tra gli array e gli oggetti è che i valori negli array sono identificati tramite la loro posizione, negli oggetti sono assegnati a una chiave(proprietà)
-
+*/
+/*
 //Lezine 43: due notazioni per interagire con gli oggetti
 
 //dot notation
@@ -270,3 +271,54 @@ console.log(marco);
 //Challenge
 const aboutMarcoFriends = `${marco.nome} ha ${marco.friends.length} amici e il suo migliore amico si chiama ${marco.friends[0]}`;
 console.log(aboutMarcoFriends);
+*/
+//Lezione 44: metodi degli oggetti
+//I metodi sono delle proprietà dell'oggetto che contengo come valore una funzione. -> espressione funzionale
+const marco3 = {
+    nome: "Marco",
+    cognome: "Magnano",
+    birthYear: 1998,
+    lavoro: "programmatore",
+    friends: ["Michael", "Andrea", "Alessio"],
+    hasDriversLicense: true,
+
+    //Qui richiediammo un parametro in ingresso, ciò significa che deve essere inserito manualmente
+    //ma è un'informazione già contenuta dall'oggetto che contiene il metodo
+    // calcAge1: function (birthYear) {
+    //     return 2037 - birthYear;
+    // }
+
+    // calcAge: function () {
+    //     console.log(this); //this fa riferimento all'oggetto
+    //     return 2037 - this.birthYear; //this è l'intero oggetto, con il punto possiamo accedere a tutte le sue proprietà
+    // },
+
+    //Questa funzione però richiama specificamente marco2, e non this. Se cambiassimo il nome all'oggetto non lo troverebbe più
+    //inve con this risolviamo questo problema
+    // calcAge2: function () {
+    //     console.log(marco2); //this fa riferimento all'oggetto
+    //     return 2037 - marco2.birthYear; //this è l'intero oggetto, con il punto possiamo accedere a tutte le sue proprietà
+    // }
+
+    //Possiamo usare la funzione per settare una (nuova) proprietà dell'oggetto, in modo che la funzione venga eseguit una sola olta ma il valore sia sempre accessibile
+    calcAge: function () {
+        this.eta = 2037 - this.birthYear; //this è l'intero oggetto, con il punto possiamo accedere a tutte le sue proprietà
+        return this.eta;
+    },
+
+    describe: function () {
+        return `${this.nome} ${this.cognome} è un ${this.lavoro} di ${this.eta} e ${this.hasDriversLicense ? "" : "non "}possiede la patente. I suoi amici più stretti sono ${this.friends}`;
+    }
+};
+
+// console.log(marco2.calcAge1(1998));
+
+console.log(marco3.calcAge());
+//Funziona anche così
+console.log("-----------------")
+// console.log(marco3.calcAge2());
+
+console.log(marco3.eta);
+
+//Challenge: scrivi une metodo che faccia una breve descrizione della persona in oggetto
+console.log(marco3.describe());
