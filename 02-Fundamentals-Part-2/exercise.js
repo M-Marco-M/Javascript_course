@@ -39,3 +39,35 @@ console.log(tips);
 const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2], bills[3] + tips[3], bills[4] + tips[4], bills[5] + tips[5]];
 
 console.log(totals);
+
+//Esercizio 7
+
+const mark = {
+    fullname: "Mark Miller",
+    mass: 78,
+    height: 1.69,
+
+    calcBMI: function () {
+        this.bmi = this.mass / (this.height ** 2);
+        return this.bmi;
+    }
+}
+
+const john = {
+    fullname: "John Smith",
+    mass: 60,
+    height: 1.95,
+
+    calcBMI: function () {
+        this.bmi = this.mass / (this.height ** 2);
+        return this.bmi;
+    }
+}
+
+mark.calcBMI();
+john.calcBMI();
+
+console.log(mark);
+console.log(john);
+
+console.log(`${john.bmi > mark.bmi ? john.fullname : mark.fullname}'s BMI is higher than ${john.bmi < mark.bmi ? john.fullname : mark.fullname}'s BMI`);
