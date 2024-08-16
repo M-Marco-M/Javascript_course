@@ -44,7 +44,7 @@ console.log(describePopulation("Vietnam", 98));
 console.log(describePopulation("Canada", 39));
 console.log(describePopulation("Italia", 59));
 
-//Compito 5
+//Compito 5 (In realtà non chiedeva di usare il ciclo)
 const populations = [39, 48, 98, 67];
 
 console.log(populations.length === 4);
@@ -56,3 +56,22 @@ for (let i = 0; i < populations.length; i++) {
 console.log(percentages);
 
 //Compito 6
+//Country = svizzera
+const neighbours = ["Germania", "Austria", "Liechtenstein", "Italia", "Francia"];
+
+neighbours.push("Utopia");
+console.log(neighbours);
+
+neighbours.pop();
+console.log(neighbours);
+
+if (!neighbours.includes("Germania")) {
+    console.log("Probably not a central europe country... :D")
+} else {
+    console.log("Probably is a central europe country! :D")
+}
+
+neighbours[neighbours.indexOf("Francia")] = "Repubblica di Francia";
+console.log(neighbours);
+
+//Compito 7
