@@ -132,4 +132,18 @@ for (let i = 0; i < voters; i++) {
 //Compito 11
 //Già svolto al compito 5
 
-//Compito 12
+//Compito 12 (variazione)
+
+const arraysOfNations = [['Canada', 'Mexico'], ['Spain'], ['Norway', 'Sweden', 'Russia']];
+
+for (let i = 0; i < arraysOfNations.length; i++) {
+    console.log(arraysOfNations[i].length);
+    for (let j = 0; j < arraysOfNations[i].length; j++) {
+        const nazione = arraysOfNations[i][j];
+        const neighbours = [];
+        for (let l = 0; l < arraysOfNations[i].length; l++) {
+            if (l !== j) neighbours.push(arraysOfNations[i][l]);
+        }
+        console.log(`${nazione} ha per vicini ${neighbours}`);
+    }
+}
