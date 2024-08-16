@@ -10,3 +10,20 @@ const bulgaria = describeCountry("Bulgaria", 6, "Sofiya");
 console.log(`${italia}, ${belgio}, ${bulgaria}`);
 
 //Compito 2
+function percentageOfWorld1(population) {
+    return population / 7900 * 100;
+}
+
+const percentageOfWorld2 = function (population) {
+    return population / 7900 * 100;
+}
+
+const chinaPercentage = percentageOfWorld2(1412);
+const italiaPercentage = percentageOfWorld2(59);
+const usaPercentage = percentageOfWorld2(333);
+console.log(chinaPercentage, italiaPercentage, usaPercentage);
+
+const indiaPercentage = percentageOfWorld1(1417);
+const canadaPercentage = percentageOfWorld1(39);
+const spagnaPercentage = percentageOfWorld1(48);
+console.log(indiaPercentage, spagnaPercentage, canadaPercentage);
