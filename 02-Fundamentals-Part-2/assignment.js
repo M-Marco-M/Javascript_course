@@ -130,3 +130,6 @@ for (let i = 0; i < voters; i++) {
 }
 
 //Compito 11
+//Già svolto al compito 5
+
+//Compito 12
