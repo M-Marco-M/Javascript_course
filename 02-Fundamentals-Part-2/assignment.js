@@ -82,3 +82,14 @@ const myCountry = {
     population: 59,
     neighbours: ["Francia", "Svizzera", "Austria", "Slovenia"]
 }
+
+//Compito 8
+const describeCountry2 = myCountry => `${myCountry.country} ha una popolazione di ${myCountry.population} milioni di persone, che parlano principalmente ${myCountry.language}. Confina con ${myCountry.neighbours.length} Paesi e la sua capitale è ${myCountry.capital}`;
+console.log(describeCountry2(myCountry));
+
+myCountry.population += 2;
+console.log(describeCountry2(myCountry));
+
+myCountry["population"] -= 2;
+console.log(describeCountry2(myCountry));
+
