@@ -88,8 +88,7 @@ const calcAverage = function (arr) {
     for (let i = 0; i < arr.length; i++) {
         total += arr[i];
     }
-    const avg = total / arr.length;
-    return avg;
+    return total / arr.length;
 }
 
 for (let i = 0; i < bills.length; i++) {
