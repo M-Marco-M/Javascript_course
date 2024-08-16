@@ -121,3 +121,12 @@ const myCountry = {
 myCountry.checkIsland();
 console.log(myCountry.describeCountry2());
 console.log(myCountry);
+
+//Compito 10 (variazione)
+const voters = 50;
+for (let i = 0; i < voters; i++) {
+    const voto = Math.trunc(Math.random() * 2);
+    console.log(`La scheda ${i} esprime la preferenza per ${voto === 0 ? "Democratici" : "Repubblicani"}`);
+}
+
+//Compito 11
