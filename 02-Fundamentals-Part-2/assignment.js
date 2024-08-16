@@ -27,3 +27,10 @@ const indiaPercentage = percentageOfWorld1(1417);
 const canadaPercentage = percentageOfWorld1(39);
 const spagnaPercentage = percentageOfWorld1(48);
 console.log(indiaPercentage, spagnaPercentage, canadaPercentage);
+
+//Compito 3
+const percentageOfWorld3 = population => population / 7900 * 100;
+const vietnamPercentage = percentageOfWorld3(98);
+const messicoPercentage = percentageOfWorld3(128);
+const ukPercentage = percentageOfWorld3(67);
+console.log(vietnamPercentage, ukPercentage, messicoPercentage);
