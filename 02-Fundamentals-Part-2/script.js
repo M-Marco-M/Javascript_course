@@ -234,7 +234,7 @@ console.log(marco);
 //La principale differenza tra gli array e gli oggetti è che i valori negli array sono identificati tramite la loro posizione, negli oggetti sono assegnati a una chiave(proprietà)
 */
 /*
-//Lezine 43: due notazioni per interagire con gli oggetti
+//Lezione 43: due notazioni per interagire con gli oggetti
 
 //dot notation
 console.log(marco.cognome);
@@ -391,4 +391,20 @@ console.log("--- BREAK WITH NUMBER ---");
 for (let i = 0; i < marcoArray.length; i++) {
     if (typeof marcoArray[i] === "number") break;
     console.log(marcoArray[i], typeof marcoArray[i]);
+}
+
+//Lezione 48: Cicli inversi e cicli annidati
+
+//Cicli al contrario. Parte dall'ultima posizione di un array e si sposta verso la prima
+for (let i = marcoArray.length - 1; i >= 0; i--) {
+    console.log(i, marcoArray[i]);
+}
+
+//Cicli annidati: a ogni ciclo può essre eseguita qualsiasi tipo di operazione per cui anche un altro ciclo
+//Un esrecizio in palestra è costituito da più serie di ripetizioni
+for (let serie = 1; serie <= 4; serie++) {
+    console.log(`--- Serie numero ${serie} 💪 ---`)
+    for (let ripetizione = 1; ripetizione <= 6; ripetizione++) {
+        console.log(`Ripetizione numero ${ripetizione} 🏋️‍♂️`);
+    }
 }
