@@ -75,3 +75,10 @@ neighbours[neighbours.indexOf("Francia")] = "Repubblica di Francia";
 console.log(neighbours);
 
 //Compito 7
+const myCountry = {
+    country: "Italia",
+    capital: "Roma",
+    language: "Italiano",
+    population: 59,
+    neighbours: ["Francia", "Svizzera", "Austria", "Slovenia"]
+}
