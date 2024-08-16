@@ -34,3 +34,12 @@ const vietnamPercentage = percentageOfWorld3(98);
 const messicoPercentage = percentageOfWorld3(128);
 const ukPercentage = percentageOfWorld3(67);
 console.log(vietnamPercentage, ukPercentage, messicoPercentage);
+
+//Compito 4
+const describePopulation = function (country, population) {
+    return `${country} has ${population} million people, which is about ${percentageOfWorld1(population)}% of the world`;
+}
+
+console.log(describePopulation("Vietnam", 98));
+console.log(describePopulation("Canada", 39));
+console.log(describePopulation("Italia", 59));
