@@ -1,3 +1,4 @@
+"use strict";
 //Compito 1
 const describeCountry = function (country, population, capitalCity) {
     return `${country} has ${population} million people and his capital is ${capitalCity}`;
@@ -74,6 +75,7 @@ if (!neighbours.includes("Germania")) {
 neighbours[neighbours.indexOf("Francia")] = "Repubblica di Francia";
 console.log(neighbours);
 
+/*
 //Compito 7
 const myCountry = {
     country: "Italia",
@@ -92,4 +94,30 @@ console.log(describeCountry2(myCountry));
 
 myCountry["population"] -= 2;
 console.log(describeCountry2(myCountry));
+*/
 
+// `${country} ha una popolazione di ${this.population} milioni di persone, che parlano principalmente ${this.language}. Confina con ${this.neighbours} Paesi e la sua capitale è ${this.capital}`
+
+//Compito 9
+const myCountry = {
+    country: "Italia",
+    capital: "Roma",
+    language: "Italiano",
+    population: 59,
+    neighbours: ["Francia", "Svizzera", "Austria", "Slovenia"],
+
+    describeCountry2: function () {
+        return `${this.country} ha una popolazione di ${this.population} milioni di persone, che parlano principalmente ${this.language}. Confina con ${this.neighbours.length} Paesi e la sua capitale è ${this.capital}`
+    },
+
+    //Non è possibile usare le arrow function per metodi che usano this, poichè il this nelle arrow function si riferesce all'oggetto super
+    // describeCountry2: () => `${this.country} ha una popolazione di ${this.population} milioni di persone, che parlano principalmente ${this.language}. Confina con ${this.neighbours} Paesi e la sua capitale è ${this.capital}`,
+
+    checkIsland: function () {
+        this.isIsland = this.neighbours.length === 0;
+    }
+}
+
+myCountry.checkIsland();
+console.log(myCountry.describeCountry2());
+console.log(myCountry);
