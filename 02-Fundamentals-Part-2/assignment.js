@@ -147,3 +147,13 @@ for (let i = 0; i < arraysOfNations.length; i++) {
         console.log(`${nazione} ha per vicini ${neighbours}`);
     }
 }
+
+//Esercizio 13
+
+const percentages3 = [];
+let i = 0;
+while (i < populations.length) {
+    percentages.push(percentageOfWorld1(populations[i]));
+    i++;
+}
+console.log(percentages3);
