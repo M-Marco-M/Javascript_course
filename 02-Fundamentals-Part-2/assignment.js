@@ -43,3 +43,16 @@ const describePopulation = function (country, population) {
 console.log(describePopulation("Vietnam", 98));
 console.log(describePopulation("Canada", 39));
 console.log(describePopulation("Italia", 59));
+
+//Compito 5
+const populations = [39, 48, 98, 67];
+
+console.log(populations.length === 4);
+
+const percentages = [];
+for (let i = 0; i < populations.length; i++) {
+    percentages.push(percentageOfWorld1(populations[i]));
+}
+console.log(percentages);
+
+//Compito 6
