@@ -234,7 +234,7 @@ console.log(marco);
 //La principale differenza tra gli array e gli oggetti è che i valori negli array sono identificati tramite la loro posizione, negli oggetti sono assegnati a una chiave(proprietà)
 */
 /*
-//Lezine 43: due notazioni per interagire con gli oggetti
+//Lezione 43: due notazioni per interagire con gli oggetti
 
 //dot notation
 console.log(marco.cognome);
@@ -391,4 +391,40 @@ console.log("--- BREAK WITH NUMBER ---");
 for (let i = 0; i < marcoArray.length; i++) {
     if (typeof marcoArray[i] === "number") break;
     console.log(marcoArray[i], typeof marcoArray[i]);
+}
+
+//Lezione 48: Cicli inversi e cicli annidati
+
+//Cicli al contrario. Parte dall'ultima posizione di un array e si sposta verso la prima
+for (let i = marcoArray.length - 1; i >= 0; i--) {
+    console.log(i, marcoArray[i]);
+}
+
+//Cicli annidati: a ogni ciclo può essre eseguita qualsiasi tipo di operazione per cui anche un altro ciclo
+//Un esrecizio in palestra è costituito da più serie di ripetizioni
+for (let serie = 1; serie <= 4; serie++) {
+    console.log(`--- Serie numero ${serie} 💪 ---`)
+    for (let ripetizione = 1; ripetizione <= 6; ripetizione++) {
+        console.log(`Ripetizione numero ${ripetizione} 🏋️‍♂️`);
+    }
+}
+
+//Lezione 49: ciclo while
+//A differenza del for, il costrutto del while richiede solamente la condizione di uscita dal ciclo
+
+let ripetizone = 1; //Nel caso in cui si volesse utilizzare un contatore la variabile va inizializzata fuori
+while (ripetizone <= 6) {
+    console.log(`WHILE: Ripetizione numero ${ripetizone}`);
+    ripetizone++; //Alla fine del ciclo si fa l'incremento. In realtà il while lascia la libertà di decidere in che punto del codice deve avvenire l'incremento e ciò può avere alcune applicazioni
+}
+
+//Il while si usa principalmente quando la condizione di uscita dal ciclo non dipende dall'incremento di un contatore poichè non si sa quando si può presentare la stessa condizione. Ad esempio l'estrazione di un numero casuale
+//numero casuale
+const lanciaDado = () => Math.trunc(Math.random() * 6) + 1; //Math.random estrae un numero causuale tra 0 e 1, moltiplicando per 6 si ottiene un numero decimale casuale tra 0 e 6, aggiungendo 1 si ottengono numeri tra 1 e 7. Math.trunc (arrotonda sempre per difetto) restituisce solo la parte intera;
+
+let dado = lanciaDado();
+while (dado !== 6) {
+    console.log(`è uscito ${dado}`);
+    dado = lanciaDado(); //Se non avvenisse il landio del dado (questa espressione) dentro al ciclo, la condizione non potrebbe mai essere soddisfatta e il ciclo sarebbe infinito poichè il dado avrebbe sempre e solo il valore del primo lancio avvenuto fuori dal ciclo
+    if (dado === 6) console.log("Il ciclo sta per terminare");
 }
