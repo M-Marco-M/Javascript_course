@@ -116,3 +116,5 @@ const calcTempAmplitudeNew = function (t1, t2) {
 };
 
 console.log(calcTempAmplitudeNew(temperatures, temperatures2));
+
+//Lezione 60: i bug
