@@ -15,3 +15,7 @@ console.log('prova');
 console.log('Pazzesco');
 
 //Lezione 51: installazione di node (tramite nvm) e di live-server
+
+//Lezione 52: consigli su come studiare e come rimanere motivati
+
+
