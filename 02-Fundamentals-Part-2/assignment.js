@@ -126,6 +126,7 @@ console.log(myCountry);
 const voters = 50;
 for (let i = 0; i < voters; i++) {
     const voto = Math.trunc(Math.random() * 2);
+    console.log(voto);
     console.log(`La scheda ${i} esprime la preferenza per ${voto === 0 ? "Democratici" : "Repubblicani"}`);
 }
 
@@ -143,6 +144,7 @@ for (let i = 0; i < arraysOfNations.length; i++) {
         const neighbours = [];
         for (let l = 0; l < arraysOfNations[i].length; l++) {
             if (l !== j) neighbours.push(arraysOfNations[i][l]);
+            // if (l !== j) neighbours[l] = (arraysOfNations[i][l]);
         }
         console.log(`${nazione} ha per vicini ${neighbours}`);
     }

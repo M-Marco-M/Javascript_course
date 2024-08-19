@@ -1,5 +1,5 @@
 //Lezione 32
-"use strict";
+'use strict';
 
 //La strict mode è un costrutto ce influenza tutto il codice che la segue
 //Viene solitamente usata su specifici script, e fa si che Javascript segnali errori
@@ -345,24 +345,24 @@ for (let rep = 1; rep <= 10; rep++) {
 
 //Gli array sono costituiti da una serie di elementi numerati e ordinati, quindi è possibili scorrerli con un ciclo for che punta a una nuova "cella" dell'array per ogni giro
 const marcoArray = [
-    "Marco",
-    "Magnano",
-    2037 - 1998,
-    "programmatore",
-    ["Michael", "Andrea", "Alessio"]
+  'Marco',
+  'Magnano',
+  2037 - 1998,
+  'programmatore',
+  ['Michael', 'Andrea', 'Alessio'],
 ];
 
 for (let i = 0; i < marcoArray.length; i++) {
-    console.log(marcoArray[i], typeof marcoArray[i]);
+  console.log(marcoArray[i], typeof marcoArray[i]);
 }
 
 const typeArray = [];
 //Riempie l'array con i tipi di marcoArray, scorrendo e assegnando una posizione alla volta
 for (let i = 0; i < marcoArray.length; i++) {
-    //Assegnazione tramite indice
-    // typeArray[i] = typeof marcoArray[i];
-    //Assegnazione tramite metodo: più pulita
-    typeArray.push(typeof marcoArray[i]);
+  //Assegnazione tramite indice
+  // typeArray[i] = typeof marcoArray[i];
+  //Assegnazione tramite metodo: più pulita
+  typeArray.push(typeof marcoArray[i]);
 }
 
 console.log(typeArray);
@@ -371,7 +371,7 @@ const years = [1990, 1967, 2002, 2018];
 const ages = [];
 
 for (let i = 0; i < years.length; i++) {
-    ages.push(2037 - years[i]);
+  ages.push(2037 - years[i]);
 }
 console.log(ages);
 
@@ -379,34 +379,34 @@ console.log(ages);
 //Continue
 
 //Se il tipo di quell'elemento di marcoArray è diverso da "string" allora salta tutto il codice che segue "continue" e vai all'inizio del ciclo
-console.log("--- ONLY STRINGS ---");
+console.log('--- ONLY STRINGS ---');
 for (let i = 0; i < marcoArray.length; i++) {
-    if (typeof marcoArray[i] !== "string") continue;
-    console.log(marcoArray[i], typeof marcoArray[i]);
+  if (typeof marcoArray[i] !== 'string') continue;
+  console.log(marcoArray[i], typeof marcoArray[i]);
 }
 
 //Break
 //Se il tipo di quell'elemento di marcoArray è uguale a "number" allora interrompi totalmente il ciclo, non viene più eseguito nessun giro
-console.log("--- BREAK WITH NUMBER ---");
+console.log('--- BREAK WITH NUMBER ---');
 for (let i = 0; i < marcoArray.length; i++) {
-    if (typeof marcoArray[i] === "number") break;
-    console.log(marcoArray[i], typeof marcoArray[i]);
+  if (typeof marcoArray[i] === 'number') break;
+  console.log(marcoArray[i], typeof marcoArray[i]);
 }
 
 //Lezione 48: Cicli inversi e cicli annidati
 
 //Cicli al contrario. Parte dall'ultima posizione di un array e si sposta verso la prima
 for (let i = marcoArray.length - 1; i >= 0; i--) {
-    console.log(i, marcoArray[i]);
+  console.log(i, marcoArray[i]);
 }
 
 //Cicli annidati: a ogni ciclo può essre eseguita qualsiasi tipo di operazione per cui anche un altro ciclo
 //Un esrecizio in palestra è costituito da più serie di ripetizioni
 for (let serie = 1; serie <= 4; serie++) {
-    console.log(`--- Serie numero ${serie} 💪 ---`)
-    for (let ripetizione = 1; ripetizione <= 6; ripetizione++) {
-        console.log(`Ripetizione numero ${ripetizione} 🏋️‍♂️`);
-    }
+  console.log(`--- Serie numero ${serie} 💪 ---`);
+  for (let ripetizione = 1; ripetizione <= 6; ripetizione++) {
+    console.log(`Ripetizione numero ${ripetizione} 🏋️‍♂️`);
+  }
 }
 
 //Lezione 49: ciclo while
@@ -414,8 +414,8 @@ for (let serie = 1; serie <= 4; serie++) {
 
 let ripetizone = 1; //Nel caso in cui si volesse utilizzare un contatore la variabile va inizializzata fuori
 while (ripetizone <= 6) {
-    console.log(`WHILE: Ripetizione numero ${ripetizone}`);
-    ripetizone++; //Alla fine del ciclo si fa l'incremento. In realtà il while lascia la libertà di decidere in che punto del codice deve avvenire l'incremento e ciò può avere alcune applicazioni
+  console.log(`WHILE: Ripetizione numero ${ripetizone}`);
+  ripetizone++; //Alla fine del ciclo si fa l'incremento. In realtà il while lascia la libertà di decidere in che punto del codice deve avvenire l'incremento e ciò può avere alcune applicazioni
 }
 
 //Il while si usa principalmente quando la condizione di uscita dal ciclo non dipende dall'incremento di un contatore poichè non si sa quando si può presentare la stessa condizione. Ad esempio l'estrazione di un numero casuale
@@ -424,7 +424,7 @@ const lanciaDado = () => Math.trunc(Math.random() * 6) + 1; //Math.random estrae
 
 let dado = lanciaDado();
 while (dado !== 6) {
-    console.log(`è uscito ${dado}`);
-    dado = lanciaDado(); //Se non avvenisse il landio del dado (questa espressione) dentro al ciclo, la condizione non potrebbe mai essere soddisfatta e il ciclo sarebbe infinito poichè il dado avrebbe sempre e solo il valore del primo lancio avvenuto fuori dal ciclo
-    if (dado === 6) console.log("Il ciclo sta per terminare");
+  console.log(`è uscito ${dado}`);
+  dado = lanciaDado(); //Se non avvenisse il landio del dado (questa espressione) dentro al ciclo, la condizione non potrebbe mai essere soddisfatta e il ciclo sarebbe infinito poichè il dado avrebbe sempre e solo il valore del primo lancio avvenuto fuori dal ciclo
+  if (dado === 6) console.log('Il ciclo sta per terminare');
 }
