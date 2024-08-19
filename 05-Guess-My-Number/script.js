@@ -35,3 +35,21 @@ document.querySelector('.guess').value = 23;
 console.log(document.querySelector('.guess').value);
 
 //Lezione 73: catturare gli eventi(click)
+//Per far si che all'accadere di un evento (click, passaggio del mouse, pressione di un tasto sulla tastiera, caricamento della pagina)
+//accada qualcos'altro si deve associare l'evento su un determinato oggetto a una funzione
+document.querySelector('.guess').addEventListener('click', function () {
+  const guess = Number(document.querySelector('.guess').value); //Il tipo dei valori inseriti nei campi di testo è sempre stringa, è necessario convertirlo
+  console.log(guess, typeof guess);
+  console.log(Boolean(guess));
+
+  //Quando guess è vuoto è un valore falsy, quindi è falso. Se metti la negazione diventa vero, quindi entra nell'if: Entra nell'if quando è vuoto.
+  if (!guess) document.querySelector('.message').textContent = 'No number!🛑';
+});
+//addEventListener vuole in ingresso due parametri, il tipo di evento (ad esempio il click)
+//e la funzione da eseguire.
+//--- è IMPORTANTE notare che la funzione viene solamente dichiarata e non richiamata
+//ciò è necessario poichè una funzione richiamata viene immediatamente eseguita, mentre
+//ciò che noi vogliamo è che il metodo addEventListener sappia quale funzione eseguire, perciò la passiamo come un parametro
+
+//Per dirla in altre parole, la funzione addEventListener ha due parametri in ingresso, uno è l'evento che deve aspettare,
+//l'altro è la funzione da eseguire. A tempo debito sarà lo stesso eventListener a RICHIAMARE la funzione
