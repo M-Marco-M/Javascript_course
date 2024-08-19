@@ -16,3 +16,6 @@ console.log(document.querySelector('.message').textContent);
 
 //Il DOM è ciò che permette a JavaScript di entrare in relazione con il coumento HTML
 //Il DOM non è parte di JS, ma sono delle librerie scritte in JS messe a disposizione dai browser
+
+//Infatti in JS accediamo al DOM come se fosse un oggetto con delle proprietà -> guarda la notazione
+//document(oggetto).querySelector(metodo)('.message'(parametro));
