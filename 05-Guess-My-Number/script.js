@@ -2,7 +2,7 @@
 
 //Lezione 70: Inizio del progetto "Guess my number!"
 
-//Stampa in console l'elemento html identificato dall'id message
+//Stampa in console l'elemento html identificato dalla classe message
 console.log(document.querySelector('.message'));
 //Questo ne stampa il contenuto
 console.log(document.querySelector('.message').textContent);
@@ -19,3 +19,19 @@ console.log(document.querySelector('.message').textContent);
 
 //Infatti in JS accediamo al DOM come se fosse un oggetto con delle proprietà -> guarda la notazione
 //document(oggetto).querySelector(metodo)('.message'(parametro));
+
+//Lezione 72: manipolazione del DOM
+
+//Si può impostare il valore (in questo caso il "textContent") di un elemento HTML
+document.querySelector('.message').textContent = 'Correct number!🎉';
+
+document.querySelector('.number').textContent = 13;
+document.querySelector('.score').textContent = 10;
+
+//Nessun valore
+console.log(document.querySelector('.guess').value);
+document.querySelector('.guess').value = 23;
+//Ora stamperà 23
+console.log(document.querySelector('.guess').value);
+
+//Lezione 73: catturare gli eventi(click)
