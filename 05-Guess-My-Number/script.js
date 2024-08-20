@@ -131,7 +131,66 @@ console.log(document.querySelector('.message').textContent);
 // });
 
 //Lezione 76: challenge
+// let secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+// let score = 20;
+// document.querySelector('.score').textContent = score;
+
+// document.querySelector('.check').addEventListener('click', function () {
+//   const guess = Number(document.querySelector('.guess').value);
+//   console.log(guess, typeof guess);
+
+//   //---No number
+//   if (!guess) {
+//     document.querySelector('.message').textContent = 'No number!🛑';
+//     //---Right number
+//   } else if (guess === secretNumber) {
+//     document.querySelector('.message').textContent =
+//       'Congratulation, you won!🎉';
+//     document.querySelector('.number').textContent = secretNumber;
+//     //Il valore dato a prorpietà CSS deve essere sempre una stringa:
+//     //Alla vittoria imposta lo sfondo verde...
+//     document.querySelector('body').style.backgroundColor = 'green';
+//     //...e allarga la casella di number
+//     document.querySelector('.number').style.width = '30rem';
+//     //---Number is too low
+//   } else if (guess < secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too low, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//     //---Number is too high
+//   } else if (guess > secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too high, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//   }
+// });
+
+// //Far si che il pulsante again resetti la pagina
+// document.querySelector('.again').addEventListener('click', function () {
+//   //body
+//   document.querySelector('body').style.backgroundColor = '#222';
+//   //secretNumber
+//   secretNumber = Math.trunc(Math.random() * 20) + 1;
+//   document.querySelector('.number').style.width = '15rem';
+//   document.querySelector('.number').textContent = '?';
+//   //score
+//   score = 20;
+//   document.querySelector('.score').textContent = score;
+//   //message
+//   document.querySelector('.message').textContent = 'Starting guess...';
+//   //guess
+//   document.querySelector('.guess').value = '';
+// });
+
+//Lezione 77: funzione highscore
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+let highscore = 0;
 
 let score = 20;
 document.querySelector('.score').textContent = score;
@@ -153,6 +212,9 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('body').style.backgroundColor = 'green';
     //...e allarga la casella di number
     document.querySelector('.number').style.width = '30rem';
+    //Quando vince, se il punteggio è migliore dell'highscore, allora quel punteggio è il nuovo highscore
+    if (score > highscore) highscore = score;
+    document.querySelector('.highscore').textContent = highscore;
     //---Number is too low
   } else if (guess < secretNumber) {
     if (score > 1) {
