@@ -57,10 +57,43 @@ console.log(document.querySelector('.guess').value);
 //Lezione 74: la logica dietro al gioco
 
 //Definiamo una costante contenente un numero casuale
+// const secretNumber = Math.trunc(Math.random() * 20) + 1;
+// document.querySelector('.number').textContent = secretNumber;
+
+// //è sempre bene avere i valori su javascript quando si opera con essi, ed evitare di "conservarli" o manipolarli direttamente sul DOM
+// let score = 20;
+// document.querySelector('.score').textContent = score;
+
+// document.querySelector('.check').addEventListener('click', function () {
+//   const guess = Number(document.querySelector('.guess').value);
+//   console.log(guess, typeof guess);
+
+//   //Prendo il punteggio ogni volta che viene eseguita la funzione
+//   if (!guess) {
+//     document.querySelector('.message').textContent = 'No number!🛑';
+//   } else if (guess === secretNumber) {
+//     document.querySelector('.message').textContent =
+//       'Congratulation, you won!🎉';
+//   } else if (guess < secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too low, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//   } else if (guess > secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too low, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//   }
+// });
+
+//Lezione 75: manipolazione del CSS tramite il DOM
+
 const secretNumber = Math.trunc(Math.random() * 20) + 1;
 document.querySelector('.number').textContent = secretNumber;
 
-//è sempre bene avere i valori su javascript quando si opera con essi, ed evitare di "conservarli" o manipolarli direttamente sul DOM
 let score = 20;
 document.querySelector('.score').textContent = score;
 
@@ -68,18 +101,26 @@ document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log(guess, typeof guess);
 
-  //Prendo il punteggio ogni volta che viene eseguita la funzione
+  //---No number
   if (!guess) {
     document.querySelector('.message').textContent = 'No number!🛑';
+    //---Right number
   } else if (guess === secretNumber) {
     document.querySelector('.message').textContent =
       'Congratulation, you won!🎉';
+    //Il valore dato a prorpietà CSS deve essere sempre una stringa:
+    //Alla vittoria imposta lo sfondo verde...
+    document.querySelector('body').style.backgroundColor = 'green';
+    //...e allarga la casella di number
+    document.querySelector('.number').style.width = '30rem';
+    //---Number is too low
   } else if (guess < secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent = 'Too low, try again!';
       score--;
       document.querySelector('.score').textContent = score;
     } else document.querySelector('.message').textContent = 'You lost! 💥';
+    //---Number is too high
   } else if (guess > secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent = 'Too low, try again!';
