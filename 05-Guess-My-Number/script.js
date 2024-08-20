@@ -22,17 +22,17 @@ console.log(document.querySelector('.message').textContent);
 
 //Lezione 72: manipolazione del DOM
 
-//Si può impostare il valore (in questo caso il "textContent") di un elemento HTML
-document.querySelector('.message').textContent = 'Correct number!🎉';
+// //Si può impostare il valore (in questo caso il "textContent") di un elemento HTML
+// document.querySelector('.message').textContent = 'Correct number!🎉';
 
-document.querySelector('.number').textContent = 13;
-document.querySelector('.score').textContent = 10;
+// document.querySelector('.number').textContent = 13;
+// document.querySelector('.score').textContent = 10;
 
-//Nessun valore
-console.log(document.querySelector('.guess').value);
-document.querySelector('.guess').value = 23;
-//Ora stamperà 23
-console.log(document.querySelector('.guess').value);
+// //Nessun valore
+// console.log(document.querySelector('.guess').value);
+// document.querySelector('.guess').value = 23;
+// //Ora stamperà 23
+// console.log(document.querySelector('.guess').value);
 
 //Lezione 73: catturare gli eventi(click)
 //Per far si che all'accadere di un evento (click, passaggio del mouse, pressione di un tasto sulla tastiera, caricamento della pagina)
@@ -91,8 +91,47 @@ console.log(document.querySelector('.guess').value);
 
 //Lezione 75: manipolazione del CSS tramite il DOM
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
-document.querySelector('.number').textContent = secretNumber;
+// const secretNumber = Math.trunc(Math.random() * 20) + 1;
+// document.querySelector('.number').textContent = secretNumber;
+
+// let score = 20;
+// document.querySelector('.score').textContent = score;
+
+// document.querySelector('.check').addEventListener('click', function () {
+//   const guess = Number(document.querySelector('.guess').value);
+//   console.log(guess, typeof guess);
+
+//   //---No number
+//   if (!guess) {
+//     document.querySelector('.message').textContent = 'No number!🛑';
+//     //---Right number
+//   } else if (guess === secretNumber) {
+//     document.querySelector('.message').textContent =
+//       'Congratulation, you won!🎉';
+//     //Il valore dato a prorpietà CSS deve essere sempre una stringa:
+//     //Alla vittoria imposta lo sfondo verde...
+//     document.querySelector('body').style.backgroundColor = 'green';
+//     //...e allarga la casella di number
+//     document.querySelector('.number').style.width = '30rem';
+//     //---Number is too low
+//   } else if (guess < secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too low, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//     //---Number is too high
+//   } else if (guess > secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too low, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//   }
+// });
+
+//Lezione 76: challenge
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 let score = 20;
 document.querySelector('.score').textContent = score;
@@ -108,6 +147,7 @@ document.querySelector('.check').addEventListener('click', function () {
   } else if (guess === secretNumber) {
     document.querySelector('.message').textContent =
       'Congratulation, you won!🎉';
+    document.querySelector('.number').textContent = secretNumber;
     //Il valore dato a prorpietà CSS deve essere sempre una stringa:
     //Alla vittoria imposta lo sfondo verde...
     document.querySelector('body').style.backgroundColor = 'green';
@@ -123,9 +163,26 @@ document.querySelector('.check').addEventListener('click', function () {
     //---Number is too high
   } else if (guess > secretNumber) {
     if (score > 1) {
-      document.querySelector('.message').textContent = 'Too low, try again!';
+      document.querySelector('.message').textContent = 'Too high, try again!';
       score--;
       document.querySelector('.score').textContent = score;
     } else document.querySelector('.message').textContent = 'You lost! 💥';
   }
+});
+
+//Far si che il pulsante again resetti la pagina
+document.querySelector('.again').addEventListener('click', function () {
+  //body
+  document.querySelector('body').style.backgroundColor = '#222';
+  //secretNumber
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  document.querySelector('.number').style.width = '15rem';
+  document.querySelector('.number').textContent = '?';
+  //score
+  score = 20;
+  document.querySelector('.score').textContent = score;
+  //message
+  document.querySelector('.message').textContent = 'Starting guess...';
+  //guess
+  document.querySelector('.guess').value = '';
 });
