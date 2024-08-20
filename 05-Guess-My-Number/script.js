@@ -188,6 +188,79 @@ console.log(document.querySelector('.message').textContent);
 // });
 
 //Lezione 77: funzione highscore
+// let secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+// let highscore = 0;
+
+// let score = 20;
+// document.querySelector('.score').textContent = score;
+
+// document.querySelector('.check').addEventListener('click', function () {
+//   const guess = Number(document.querySelector('.guess').value);
+//   console.log(guess, typeof guess);
+
+//   //---No number
+//   if (!guess) {
+//     document.querySelector('.message').textContent = 'No number!🛑';
+//     //---Right number
+//   } else if (guess === secretNumber) {
+//     document.querySelector('.message').textContent =
+//       'Congratulation, you won!🎉';
+//     document.querySelector('.number').textContent = secretNumber;
+//     //Il valore dato a prorpietà CSS deve essere sempre una stringa:
+//     //Alla vittoria imposta lo sfondo verde...
+//     document.querySelector('body').style.backgroundColor = 'green';
+//     //...e allarga la casella di number
+//     document.querySelector('.number').style.width = '30rem';
+//     //Quando vince, se il punteggio è migliore dell'highscore, allora quel punteggio è il nuovo highscore
+//     if (score > highscore) highscore = score;
+//     document.querySelector('.highscore').textContent = highscore;
+//     //---Number is too low
+//   } else if (guess < secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too low, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//     //---Number is too high
+//   } else if (guess > secretNumber) {
+//     if (score > 1) {
+//       document.querySelector('.message').textContent = 'Too high, try again!';
+//       score--;
+//       document.querySelector('.score').textContent = score;
+//     } else document.querySelector('.message').textContent = 'You lost! 💥';
+//   }
+// });
+
+// //Far si che il pulsante again resetti la pagina
+// document.querySelector('.again').addEventListener('click', function () {
+//   //body
+//   document.querySelector('body').style.backgroundColor = '#222';
+//   //secretNumber
+//   secretNumber = Math.trunc(Math.random() * 20) + 1;
+//   document.querySelector('.number').style.width = '15rem';
+//   document.querySelector('.number').textContent = '?';
+//   //score
+//   score = 20;
+//   document.querySelector('.score').textContent = score;
+//   //message
+//   document.querySelector('.message').textContent = 'Starting guess...';
+//   //guess
+//   document.querySelector('.guess').value = '';
+// });
+
+//Lezione 78: DRY, ottimizzazione e refactoring del codice
+
+//Il caso too low e too high condividevano la maggior parte del codice:
+//è più efficiente inserire tutto in un unico blocco
+//(sono accomunati dal fatto di essere diversi dal numero da indovinare).
+//L'unica differenza può esere espressa con un operatore ternario
+
+//(Visual Studio Code, quando selezioni un testo, evidenzia nel resto della pagina
+//quel testo lì. Questa funzionalità può aiutare a trovare codice che si ripete)
+
+//Anche il messaggio viene stampato più volte utilizzando sempre lo stesso codice
+//e modificando solo la stringa. -> Si può creare una funzione che setti il testo di (.message)
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 let highscore = 0;
@@ -195,40 +268,39 @@ let highscore = 0;
 let score = 20;
 document.querySelector('.score').textContent = score;
 
+//Anche il messaggio viene stampato più volte utilizzando sempre lo stesso codice
+//e modificando solo la stringa. -> Si può creare una funzione che setti il testo di (.message)
+const displayMessage = function (message) {
+  document.querySelector('.message').textContent = message;
+};
+
 document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log(guess, typeof guess);
 
   //---No number
   if (!guess) {
-    document.querySelector('.message').textContent = 'No number!🛑';
+    displayMessage('No number!🛑');
+
     //---Right number
   } else if (guess === secretNumber) {
-    document.querySelector('.message').textContent =
-      'Congratulation, you won!🎉';
+    displayMessage('Congratulation, you won!🎉');
     document.querySelector('.number').textContent = secretNumber;
-    //Il valore dato a prorpietà CSS deve essere sempre una stringa:
-    //Alla vittoria imposta lo sfondo verde...
     document.querySelector('body').style.backgroundColor = 'green';
-    //...e allarga la casella di number
     document.querySelector('.number').style.width = '30rem';
-    //Quando vince, se il punteggio è migliore dell'highscore, allora quel punteggio è il nuovo highscore
+
     if (score > highscore) highscore = score;
     document.querySelector('.highscore').textContent = highscore;
-    //---Number is too low
-  } else if (guess < secretNumber) {
+
+    //Number is wrong
+  } else if (guess !== secretNumber) {
     if (score > 1) {
-      document.querySelector('.message').textContent = 'Too low, try again!';
+      displayMessage(
+        guess > secretNumber ? 'Too high, try again!' : 'Too low, try again!'
+      );
       score--;
       document.querySelector('.score').textContent = score;
-    } else document.querySelector('.message').textContent = 'You lost! 💥';
-    //---Number is too high
-  } else if (guess > secretNumber) {
-    if (score > 1) {
-      document.querySelector('.message').textContent = 'Too high, try again!';
-      score--;
-      document.querySelector('.score').textContent = score;
-    } else document.querySelector('.message').textContent = 'You lost! 💥';
+    } else displayMessage('You lost! 💥');
   }
 });
 
@@ -244,7 +316,7 @@ document.querySelector('.again').addEventListener('click', function () {
   score = 20;
   document.querySelector('.score').textContent = score;
   //message
-  document.querySelector('.message').textContent = 'Starting guess...';
+  displayMessage('Starting guess...');
   //guess
   document.querySelector('.guess').value = '';
 });
