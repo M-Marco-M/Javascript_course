@@ -60,8 +60,7 @@ overlay.addEventListener('click', closeModal);
 //Questa funzione prende in ingresso un parametro, javascript passa automaticamente
 //l'oggetto dell'evento, cioè il primo oggetto che trova all'accadere dell'evento
 document.addEventListener('keydown', function (e) {
+  //Ogni volta che un evento accade javascript crea un oggetto che conserva tutte le informazioni che lo riguardano
   // console.log(e); //dentro e c'è il parametro "key", cioè i tasto premuto
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
 });
-
-//Ogni volta che un evento accade javascript crea un oggetto che conserva tutte le informazioni che lo riguardano
