@@ -23,8 +23,7 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 
 //-Dichiarazione variabili globali
-let score0 = 0;
-let score1 = 0;
+let currentScore = 0;
 
 //-Funzioni
 //--Funzione lancio dado
@@ -37,11 +36,11 @@ const rollDice = function () {
   //3-Assegnazione punteggio
   if (dice !== 1) {
     //Somma al punteggio attuale
-    score0 += dice;
+    currentScore += dice;
     score0El.textContent = score0;
   } else {
     //Passa all'altro giocatore
-    score0 = 0;
+    currentScore = 0;
   }
 };
 
