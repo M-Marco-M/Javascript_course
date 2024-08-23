@@ -93,7 +93,7 @@ const holdScore = function () {
     //1- Aggiunge il currentScore al totalScore del player
     scores[activePlayer] += currentScore;
     //2- Contralla se il punteggio è maggiore di 100
-    if (scores[activePlayer] < 10) {
+    if (scores[activePlayer] < 65) {
       score0El.textContent = scores[0];
       score1El.textContent = scores[1];
       changePlayer();
