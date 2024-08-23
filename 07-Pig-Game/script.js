@@ -6,6 +6,7 @@
 //Lezione 83: sviluppo della logica - il tiro del dado
 //Lezione 84: il cambio del giocatore
 //Lezione 85: conservare i punteggi
+//Lezione 86: tasto "new game" --> ESERCITAZIONE
 
 //-Selezione elementi del DOM
 //Con El nel nome rendiamo più facile ricordarci che è un elemnto del DOM
@@ -19,20 +20,31 @@ const current0 = document.getElementById('current--0');
 const current1 = document.getElementById('current--1');
 const player0 = document.querySelector('.player--0');
 const player1 = document.querySelector('.player--1');
-//Aggiungo la classe "hidden" al file css
 
-//-Condizione di partenza
-diceEl.classList.add('hidden');
-score0El.textContent = 0;
-score1El.textContent = 0;
-
-//-Dichiarazione variabili globali
-let currentScore = 0;
-const scores = [0, 0];
-let activePlayer = 0;
-let playing = true;
+//Dichiarazione variabili globali
+let currentScore, scores, playing, activePlayer;
 
 //-Funzioni
+//Funzione di inizializzazione
+const initialize = function () {
+  //Reset variabili globali
+  currentScore = 0;
+  scores = [0, 0];
+  playing = true;
+  activePlayer = 0;
+  //Reset contenuti DOM
+  diceEl.classList.add('hidden');
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0.textContent = 0;
+  current1.textContent = 0;
+  player0.classList.add('player--active');
+  player1.classList.remove('player--active');
+  player0.classList.remove('player--winner');
+  player1.classList.remove('player--winner');
+};
+initialize();
+
 const changePlayer = function () {
   currentScore = 0;
   document.getElementById(`current--${activePlayer}`).textContent =
@@ -65,7 +77,6 @@ const rollDice = function () {
       currentScore += dice;
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
-      console.log(currentScore);
     } else {
       //Passa all'altro giocatore
       scores[activePlayer] = 0;
@@ -82,7 +93,7 @@ const holdScore = function () {
     //1- Aggiunge il currentScore al totalScore del player
     scores[activePlayer] += currentScore;
     //2- Contralla se il punteggio è maggiore di 100
-    if (scores[activePlayer] < 100) {
+    if (scores[activePlayer] < 65) {
       score0El.textContent = scores[0];
       score1El.textContent = scores[1];
       changePlayer();
@@ -90,12 +101,12 @@ const holdScore = function () {
       playing = false;
       document
         .querySelector(`.player--${activePlayer}`)
-        .classList.toggle('player--winner', 'player--active');
+        .classList.toggle('player--winner');
       diceEl.classList.add('hidden');
     }
   }
 };
-
 //-Assegnazione funzione ad eventListener
 btnRoll.addEventListener('click', rollDice);
 btnHold.addEventListener('click', holdScore);
+btnNew.addEventListener('click', initialize);
