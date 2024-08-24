@@ -74,3 +74,94 @@ Javascript è un linguaggio:
      --- quando viene terminata la funzione il suo EC viene rimosso dalla call stack
      --- la call stack va in esecuzione, in cima troverà la funzione che aveva richiamato quella appena eseguita
  */
+
+//Lezione 92: scope e scope chain
+/*
+- Scoping = come le variabili sono organizzate all'interno del codice e secondo
+  quali criteri JS accede alle variabili
+- Lexical scoping = in javascript lo scoping dipende dal posizionamento delle variabili nel codice, 
+  dove le variabili sono scritte (in quale funzione o blocco)
+- Scope = è lo spazio in cui una variabile o una funzione viene dichiarata.
+  ci sono tre tipi di scope: 
+  -- Scope globale = le variabili dichiarate in questo spazio sono accessibili da qualsiasi punto del codice
+  -- Scope di funzione = detto anche global scope, le variabili dichiarate in questo scope sono accessibili solo all'interno della funzione
+  -- Scope di blocco = le variabili dichiarate in questo scope sono accessibili solo dall'interno del blocco, a parte le variabili var
+  che appartengono allo scope del blocco o della funzione genitore. Lo scope di blocco è stato introdotto con ES6, per questo var non lo considera .
+  Le funzioni appartengono agli scope di blocco solo in strict mode
+
+  - Scope chain = la catena di scope che da accesso alle variabili degli ambienti superiori.
+  Lo scope di una funzione o di un blocco è composto dalle sue varibili e funzioni e dall'intero scope della funzione genitore.
+  Quindi la scope chain può essere risalita lungo un solo ramo partendo da un'estremità, fino ad arrivare al global scope.
+  Per questo motivo il global scope è accessibile ovunque.
+  La scope chain può essere percorsa solo salendo verso lo scope genitore, non il contrario, quind la funzione madre non ha accesso agli scope delle figlie
+  ma solo viceversa.
+  IMPORTANTE: La scope chain è determinata dal luogo del codice in cui la funzione è DICHIARATA, non richiamata.
+ */
+
+//Lezione 93: lo scoping in azione
+//Il motore di JS cerca sempre una variabile nello scope più vicino, se non la trova risale la scope chain
+//Se una variabile globale e una locale hanno lo stesso nome lui darà precedenza a quella locale, poichè più vicina nella scope chain
+/*
+function calcAge(birthYear) {
+  const age = 2037 - birthYear;
+
+  function printAge() {
+    let output = `${firstName}, you are ${age}, born in ${birthYear}`;
+    console.log(output);
+
+    if (birthYear >= 1981 && birthYear <= 1996) {
+      var millenial = true;
+      // Creating NEW variable with same name as outer scope's variable
+      const firstName = 'Steven';
+
+      // Reasssigning outer scope's variable
+      output = 'NEW OUTPUT!';
+
+      const str = `Oh, and you're a millenial, ${firstName}`;
+      console.log(str);
+
+      function add(a, b) {
+        return a + b;
+      }
+    }
+    // console.log(str);
+    console.log(millenial);
+    // console.log(add(2, 3));
+    console.log(output);
+  }
+  printAge();
+
+  return age;
+}
+
+const firstName = 'Jonas';
+calcAge(1991);
+// console.log(age);
+// printAge();
+*/
+
+//Lezione 94: Variable environment, hoisting, TDZ
+//- Quando il programma va in esecuzione le variabili di tutto il codice vengono lette e messe nel variable environment
+//- L'hoisting è la possibilità di accedere a delle variabili prima vengano dichiarate nel codice
+//- La gestione dell'hoisting varia a seconda del tipo della variabile o funzione
+//  -- Funzioni dichiarate: sono hoisted, quindi accessibili anche prima della loro dichiarazione
+//  -- Variabili var: sono hoisted, quindi accessibili anche prima della loro dichiarazione, MA restituiscono undefined
+//  -- Variabili let e const: non sono hoisted, quindi non sono accessibili prima della loro dichiarazione, restituiscono un errore
+//     il motore "sa" della loro esistenza, poichè vengono inserite nella Temporal Dead Zone, per questo viene restituito l'errore
+//  -- Espressioni funzionali: si comportano esattamente come le variabili del tipo di cui sono dichiarate:
+//     se dichiarate var o const non saranno accessibili prima della loro dichiarazione, se dichiarate var
+//     saranno undefined
+
+//TDZ: Temporal Dead Zone, è uno spazio a cui vengono assegnate le variabili non ancora dichiarate nel codice
+//N.B. Le variabili non ancora dichiarate e quelle inesistenti restituiscono errori diversi
+
+console.log(dichiarata);
+console.log(nonDichiarata);
+const dichiarata = 'si';
+
+//Perchè l'hoisting?
+//L'hoisting era stato implementato all'origine di JS per poter accedere alle funzioni prima della loro dichiarazione,
+//ciò avrebbe consentito l'uso di una tecnica di programmazione chiamta "mutual recursion".
+//Per fare ciò era però necessario che anche le variabili subissero la stessa procedura, ma anzichè far assegnare un errore
+//si scelse di assegnare undefined, che però si è poi notato essere problematico nell'individuazione degli errori.
+//Per questo vennero poi introdotti const e let, ma var è stato mantenuto poichè le release di JS non modificano mai le funzioni esistenti
