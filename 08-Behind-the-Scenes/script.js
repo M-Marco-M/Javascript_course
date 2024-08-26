@@ -168,6 +168,7 @@ calcAge(1991);
 
 //Lezione 95: Approfondimentto di hoisting e TDZ
 
+/*
 //- Variabili
 
 //Questo è undefined
@@ -254,3 +255,11 @@ console.log(y === window.y); //Non esiste un oggetto in window chiamato y, infat
 console.log(z === window.z); //Non esiste un oggetto in window chiamato y, infatti restituisce false
 
 //Questo può costituire un problema in alcuni casi, chissà se può essre anche usato in amniera vantagiosa
+*/
+//Lezione 96: this keyword
+//this si comporta in maniera diversa a seconda di come la funzione viene richiamata
+
+//- Se la funzione è un metodo this fa riferimento all'oggetto che richiama il metodo
+//- Se la funzione è dichiarata this ha come valore undefined (N.B. SOLO IN STRICT MODE)
+//- Se la funzione è una arrow function this fa riferimento all'oggetto che contiene l'oggetto in cui this è usato
+//- Se la funzione è dichiarata in un EventListener this fa riferimento all'oggetto del DOM su cui levent listener è attaccato
