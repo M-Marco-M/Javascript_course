@@ -254,7 +254,7 @@ console.log(x === window.x); //Esiste un oggetto in window chiamato x, infatti r
 console.log(y === window.y); //Non esiste un oggetto in window chiamato y, infatti restituisce false
 console.log(z === window.z); //Non esiste un oggetto in window chiamato y, infatti restituisce false
 
-//Questo può costituire un problema in alcuni casi, chissà se può essre anche usato in amniera vantagiosa
+//Questo può costituire un problema in alcuni casi, chissà se può essre anche usato in maniera vantagiosa
 */
 //Lezione 96: this keyword
 //this si comporta in maniera diversa a seconda di come la funzione viene richiamata
@@ -263,3 +263,70 @@ console.log(z === window.z); //Non esiste un oggetto in window chiamato y, infat
 //- Se la funzione è dichiarata this ha come valore undefined (N.B. SOLO IN STRICT MODE)
 //- Se la funzione è una arrow function this fa riferimento all'oggetto che contiene l'oggetto in cui this è usato
 //- Se la funzione è dichiarata in un EventListener this fa riferimento all'oggetto del DOM su cui levent listener è attaccato
+
+//Lezione 97: approfondimento della keyword this
+
+//Lezione 98: approfondimento arrow function
+
+var provaNome = 'Andrea';
+
+const marco = {
+  nome: 'marco',
+  anno: 1998,
+
+  calcAge: function () {
+    console.log(this); //Stampa l'oggetto
+    console.log(2037 - this.anno);
+
+    // const isMillenial = function () {
+    //   console.log(this);
+    //   console.log(this.anno >= 1981 && this.anno <= 1996);
+    // };
+    // isMillenial(); //Anno è undefined, poichè this è undefined. Il this delle funzioni dichiarate è sempre undefined
+    //Per ovviare a questo problema ci sono due metodi:
+
+    //Assegno a that il valore di this, che trovandosi dentro un metdo è l'oggetto stesso che lo contiene
+    // const isMillenial = function () {
+    // const that = this; //O self.
+    //   console.log(this);
+    //   console.log(this.anno >= 1981 && this.anno <= 1996);
+    // };
+    //isMillenial();
+
+    //Uso una arrow function, la cui keyword this ha lo stesso valore dell'oggetto che la contiene, in questo caso il metodo calcAge, il cui this fa riferimento all'oggetto
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.anno >= 1981 && this.anno <= 1996);
+    };
+    isMillenial();
+  },
+
+  greet: () => {
+    console.log(this);
+    console.log('My name is ' + this.nome);
+  },
+
+  provaThis: () => {
+    console.log(this);
+    console.log('My name is ' + this.provaNome);
+  },
+};
+marco.calcAge();
+// marco.greet(); //Stampa undefined, poichè this.nome è quello del global object, che non contiene nessuna variabile chiamata così
+// marco.provaThis(); //Stampa "Andrea", il valore della variabile var, poichè viene inserita nel global object, cosa che non accdrebbe con let
+
+//Per questo motivo è sempre sconsigliato usare le arrow function come metodi
+
+//Ma le arrow function sono utili da usare nelle funzioni contenuti nei metodi
+
+//arguments keyword
+//Arguments restituisce un array degli argomenti della funzione
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+
+addExpr(2, 5);
+addExpr(3, 7, 9, 11);
+
+//Le arrow function non hanno valori per arguments
