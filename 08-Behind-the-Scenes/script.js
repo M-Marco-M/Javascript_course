@@ -155,9 +155,9 @@ calcAge(1991);
 //TDZ: Temporal Dead Zone, è uno spazio a cui vengono assegnate le variabili non ancora dichiarate nel codice
 //N.B. Le variabili non ancora dichiarate e quelle inesistenti restituiscono errori diversi
 
-console.log(dichiarata);
-console.log(nonDichiarata);
-const dichiarata = 'si';
+// console.log(dichiarata);
+// console.log(nonDichiarata);
+// const dichiarata = 'si';
 
 //Perchè l'hoisting?
 //L'hoisting era stato implementato all'origine di JS per poter accedere alle funzioni prima della loro dichiarazione,
@@ -165,3 +165,92 @@ const dichiarata = 'si';
 //Per fare ciò era però necessario che anche le variabili subissero la stessa procedura, ma anzichè far assegnare un errore
 //si scelse di assegnare undefined, che però si è poi notato essere problematico nell'individuazione degli errori.
 //Per questo vennero poi introdotti const e let, ma var è stato mantenuto poichè le release di JS non modificano mai le funzioni esistenti
+
+//Lezione 95: Approfondimentto di hoisting e TDZ
+
+//- Variabili
+
+//Questo è undefined
+console.log(me);
+//Questi due daranno errore
+// console.log(job);
+// console.log(year);
+
+var me = 'Marco';
+let job = 'sviluppatore';
+const year = 1998;
+
+//- Funzioni
+
+//Dichiarazione di funzione
+
+console.log(addDecl(2, 3)); //Restituisce l'output della funzione
+// console.log(addExpr(2, 3)); //Restituisce un errore:
+//essendo ssegnata a una variabile var, al momento in cui viene richiamata addExpr vale undefined
+//(le variabilli var, se vengono richiamate prima della dichiarazione sono undefined)
+// console.log(addExpr);
+//quindi l'errore dirà che addExpr non è una funzione, poichè undefined non è una funzione
+// console.log(addArr(2, 3)); //Restituisce un errore, le variabili const e let
+//non possono essere richiamete prima della loro dichiarazione
+
+function addDecl(a, b) {
+  return a + b;
+}
+
+var addExpr = function (a, b) {
+  return a + b;
+};
+
+const addArr = (a, b) => a + b;
+
+//Possibili bug gravi dovuti all'uso di var e a cattive abitudini di scrittura del
+//codice, al posto dei più moderni let e const
+
+//Ammettendo di creare un blocco che elimina il carrello quando ci sono 0 elementi
+//0 è un falsy value, quindi diverso da 0 è uguale a true, se posto dentro il controllo di un if
+//quindi il clocco va in esecuzione quando numProducts è uguale a zero
+
+//Ricorda: il blocco if va in esecuzione quando il lvalore fra le tonde è true
+
+//Abbiamo dichiarato alla riga 222 che numProducts vale 10, ma richiamandolo alla riga 218
+//il suo valore è undefined, che è un falsy value, quindi il blocco if andrà in esecuzione cancellando il carrello
+console.log(numProducts);
+
+if (!numProducts) {
+  deleteShoppingCart();
+}
+
+var numProducts = 10;
+//Supponendo che questa funzione rimuova tutti gli articoli dal carrello
+function deleteShoppingCart() {
+  return 'All product DELETED FOREVER!';
+}
+
+//Per prevenire questa situazione si possono prndere vari accorgimenti:
+//-- Dichiare funzioni e variabili all'inizio del blocco, in questo caso dell'intero programma
+//-- Utilizzare espressioni funzionali al posto delle dichiarazioni di funzioni
+//-- Non utilizzare variabili var
+
+//Piccola nota personale: utilizzare una funzione che ritorna un valore permette di utilizzarla come una variabile
+//che può essere richiamata prima della sua dichiarazione
+let b = a() + 2;
+console.log(b);
+
+function a() {
+  return 3;
+}
+
+var x = 1;
+let y = 2;
+const z = 3;
+//Window è l'oggetto che rappresenta l'inter finsestra su cui è eseguito JS
+console.log(window);
+
+//Le variaabili di tipo var (come le funzioni), sono inserite all'interno dell'oggetto window,
+//a differenza delle variabili let e const
+
+console.log(x === window.x); //Esiste un oggetto in window chiamato x, infatti restituisce true
+console.log(y === window.y); //Non esiste un oggetto in window chiamato y, infatti restituisce false
+console.log(z === window.z); //Non esiste un oggetto in window chiamato y, infatti restituisce false
+
+//Questo può costituire un problema in alcuni casi, chissà se può essre anche usato in amniera vantagiosa
