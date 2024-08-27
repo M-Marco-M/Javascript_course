@@ -375,3 +375,36 @@ console.log(amico);
 //e non ne viene creato uno nuovo.
 //Venendo modificato l'oggetto sull'heap, e puntando entrambi le variabili a quello stesso oggetto, entrambe subiranno la modifica
 //DI FATTO LE VARIABILI CONTENGONO LO STESSO IDENTICO OGGETTO E SONO UNA COPIA PERMANENTE L'UNA DELL'ALTRA
+
+//N.B. Per questo motivo possono essere modificati i valori contenuti da array o oggetti
+//anche se dichiarati const. Perchè ciò che non può cambiare è il valore dentro la cella di memoria a cui la variabile punta
+//e quello è e rimane l'indirizzo dell'oggetto nell'heap.
+
+//Lezione 100: Object.assign()
+const jessica = {
+  nome: 'Jessica',
+  cognome: 'Williams',
+  eta: 28,
+  famiglia: ['Sara', 'Giulio'],
+};
+
+//Assegno a un oggetto vuoto l'oggetto jessica e conservo l'indirizzo dell'oggetto sull'heap
+//in una cella a cui punta la variabile jessicaMarried
+const jessicaMarried = Object.assign({}, jessica);
+jessicaMarried.cognome = 'Davis';
+
+//Adesso i due oggetti sembrano diversi, infatti il cognome è cambiato
+console.log('Nubile: ', jessica);
+console.log('Sposata: ', jessicaMarried);
+
+jessica.famiglia.push('Alice');
+jessica.famiglia.push('Alfio');
+
+//Gli array sono stati modificati in entrambi gli oggetti.
+console.log('Nubile: ', jessica);
+console.log('Sposata: ', jessicaMarried);
+
+//Questo succede perchè l'oggetto viene copiato così com'è in un nuovo indirizzo dell'heap
+//MA jessica, al parametro "famiglia" non contiene l'array, ma piuttosto l'indirizzo nell'heap di quell'array
+//che viene poi copiato nel nuovo oggetto così com'è. Quindi entrambi gli oggetti, che sono diversi, alla vice
+//"famiglia", punteranno allo stesso identico indirizzo dell'heap, e quindi allo steso oggetto
