@@ -256,7 +256,9 @@ console.log(z === window.z); //Non esiste un oggetto in window chiamato y, infat
 
 //Questo può costituire un problema in alcuni casi, chissà se può essre anche usato in maniera vantagiosa
 */
+
 //Lezione 96: this keyword
+/*
 //this si comporta in maniera diversa a seconda di come la funzione viene richiamata
 
 //- Se la funzione è un metodo this fa riferimento all'oggetto che richiama il metodo
@@ -330,3 +332,79 @@ addExpr(2, 5);
 addExpr(3, 7, 9, 11);
 
 //Le arrow function non hanno valori per arguments
+*/
+//Lezione 99: tipi primitivi e tipi refernce (oggetti)
+//I tipi primitivi sono conservati direttamente nel'execution contest, i tipi refernce sono
+//sono conservati nell'heap
+//L'EC è uno spazio limitato e ben organizzato che permette di eseguire il softare velocemente
+//l'heap è uno spazio potenzialmente illimitato (e meno organizzato?) che permette di conservare informazioni pesanti
+
+let age = 30;
+let oldAge = age;
+age = 31;
+
+console.log('Age ' + age);
+console.log('Old age ' + oldAge);
+
+//Il comportamento è quello che ci aspettiamo alle righe 346 e 347 age vale 31 e oldAge 30
+//Quello che succede dietro le quinte è che viene creata una variabile che punta a una cella di memoria,
+//punta, più precisamente all'indirizzo della cella. Nella cella viene inserito il valore 30
+//anche oldAge punterà alla stessa cella di age, cioè la cella che contiene il valore 30
+//Quando viene assegnato un nuovo valore alla variabile age, questa punterà a una nuova cella, che conterrà il valore 31,
+//mentre la variabile oldAge continuerà a puntare sempre alla stessa cella.
+
+const me = {
+  nome: 'Marco',
+  eta: 26,
+};
+
+const amico = me;
+amico.eta = 24;
+
+//Ci aspetteremmo che solo amico abbia la proprietà eta = a 24
+console.log(me);
+console.log(amico);
+//Invece entrambi gli oggetti hanno eta = 24
+
+//Questo succede perchè gli oggeti vengono conservati nell'heap, quindi le variabili
+//(conservate nell'EC), non puntano direttamente a un cella di memoria, ma puntano a una cella
+//di memoria che contiene l'indirizzo dell'heap in cui è conservato l'oggetto.
+
+//Le due variabili puntano alla stessa cella di memoria, che come valore ha l'indirizzo dell'heap
+//a cui è conservato il nostro oggetto. Quando viene modificato un oggetto, l'indirizzo dell'oggetto sull'heap rimane lo stesso
+//e non ne viene creato uno nuovo.
+//Venendo modificato l'oggetto sull'heap, e puntando entrambi le variabili a quello stesso oggetto, entrambe subiranno la modifica
+//DI FATTO LE VARIABILI CONTENGONO LO STESSO IDENTICO OGGETTO E SONO UNA COPIA PERMANENTE L'UNA DELL'ALTRA
+
+//N.B. Per questo motivo possono essere modificati i valori contenuti da array o oggetti
+//anche se dichiarati const. Perchè ciò che non può cambiare è il valore dentro la cella di memoria a cui la variabile punta
+//e quello è e rimane l'indirizzo dell'oggetto nell'heap.
+
+//Lezione 100: Object.assign()
+const jessica = {
+  nome: 'Jessica',
+  cognome: 'Williams',
+  eta: 28,
+  famiglia: ['Sara', 'Giulio'],
+};
+
+//Assegno a un oggetto vuoto l'oggetto jessica e conservo l'indirizzo dell'oggetto sull'heap
+//in una cella a cui punta la variabile jessicaMarried
+const jessicaMarried = Object.assign({}, jessica);
+jessicaMarried.cognome = 'Davis';
+
+//Adesso i due oggetti sembrano diversi, infatti il cognome è cambiato
+console.log('Nubile: ', jessica);
+console.log('Sposata: ', jessicaMarried);
+
+jessica.famiglia.push('Alice');
+jessica.famiglia.push('Alfio');
+
+//Gli array sono stati modificati in entrambi gli oggetti.
+console.log('Nubile: ', jessica);
+console.log('Sposata: ', jessicaMarried);
+
+//Questo succede perchè l'oggetto viene copiato così com'è in un nuovo indirizzo dell'heap
+//MA jessica, al parametro "famiglia" non contiene l'array, ma piuttosto l'indirizzo nell'heap di quell'array
+//che viene poi copiato nel nuovo oggetto così com'è. Quindi entrambi gli oggetti, che sono diversi, alla vice
+//"famiglia", punteranno allo stesso identico indirizzo dell'heap, e quindi allo steso oggetto
