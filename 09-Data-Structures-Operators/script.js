@@ -26,4 +26,62 @@ const restaurant = {
       close: 24,
     },
   },
+
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
 };
+
+//Lezione 101: destructuring arrays
+//destructiring spacchetta l'array in variabili
+
+//Assegnazione "a mano"
+const arr = [2, 3, 4];
+const a = arr[0];
+const b = arr[1];
+const c = arr[2];
+console.log(a, b, c);
+
+//Destructiring. In pratica dichiaro un array di variabili e per ognuna assegno un elemento dell'array
+const [x, y, z] = arr;
+console.log(x, y, z);
+
+//Un elemento in meno. Assegna gli elementi in ordine.
+const [p, q] = arr;
+console.log(p, q);
+
+//Salta un elemento. Inserendo degli spazi vuoti compresi tra le virgole, posso saltare
+//tanti elementi quanti sono gli spazi vuoti
+const [s, , t] = arr;
+console.log(s, t);
+
+//Ho più variabili che elementi nell'array.
+// const [i, j, k, l] = arr;
+// console.log(i, j, k, l); //Gli elementi che non trovano un corrispondente nell'array
+//assumono valore undefined. Dopotutto è il vaalore che si ottiene cercndo nell'array per un indice che non c'è
+console.log(arr[5]); //undefined
+//Per prevenire questa situazione si può assegnare un valore di default
+const [i = 0, j = 0, k = 0, l = 0] = arr;
+console.log(i, j, k, l);
+
+//Il destructiring può rendere più comodo lo switch di due variabili
+//Le categorie del ristorante
+let [main, , secondary] = restaurant.categories;
+console.log(main, secondary);
+
+//Metodo tradizionale
+// const temp = main;
+// main = secondary;
+// secondary = temp;
+// console.log(main, secondary);
+
+//Con destructuring: faccio il destructuring (a sinistra) di un array con le due stesse varibili in ordine inverso
+[main, secondary] = [secondary, main];
+console.log(main, secondary);
+
+//Il destructuring può anche esere usato per restituire valori multipli da una funzione
+//in forma di array, e poi inserirli subito in delle variabili
+console.log(restaurant.order(2, 2));
+
+const [starterCourse, mainCourse] = restaurant.order(2, 2);
+console.log(`${starterCourse}, ${mainCourse}`);
