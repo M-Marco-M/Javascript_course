@@ -342,3 +342,17 @@ restaurant2.proprietario &&= '<Dati riservati>';
 console.log(restaurant1.proprietario, restaurant2.proprietario);
 
 //In questo esempio, se da un API dovesse arrivare il nome del proprietario solo su alcuni oggetti, noi mostreremmo invece "<Dati riservati>"
+
+//Lezione 112: Ciclare gli array con for-of
+//for-of = per ogni elemento di?
+
+//per ogni elemento di menu crea una variabile item e la stampa, ripete il ciclo per la grandezza dell'array
+for (const item of globalMenu) console.log(item);
+
+//se volessi recuperare l'indice dell'elemento nell'array
+//produce un array composto a sua volta da array che contengono ciascun elemento con il suo indice
+console.log(...globalMenu.entries());
+
+for (const item of globalMenu.entries()) {
+  console.log(`${item[0] + 1}: ${item[1]}`);
+}
