@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
@@ -51,8 +52,11 @@ const restaurant = {
       indirizzo: ${indirizzo}
       `);
   },
+  orderPizza: function (mainIng, ...othersIng) {
+    console.log(`A pizza with ${mainIng}`, othersIng);
+  },
 };
-
+*/
 //Lezione 104: destructuring arrays
 //destructiring spacchetta l'array in variabili
 /*
@@ -125,6 +129,7 @@ console.log(`${starterCourse}, ${mainCourse}`);
 // const { name: restaurantName, categories, openingHours: hours } = restaurant;
 // console.log(restaurantName, categories, hours);
 
+/*
 //Cercando un parametro non presente avremmo undefined
 //Per questo possiamo assegnare valori di default
 const {
@@ -177,3 +182,284 @@ restaurant.orderDelivery({
   indirizzo: 'Via Nicola Tesla, 4',
   mainIndex: 2,
 });
+
+//Lezione 106: lo spread operator
+//Lo spread operator funziona in maniera simile al destructuring,
+//ma funziona indipendentemente dalla lunghezza dell'array e non crea nuove variabili
+//è particolarmente utile nelle funzioni
+const arr = [7, 8, 9];
+//Inserisce gli elementi uno a uno
+const newArr = [1, 2, ...arr];
+//Inserisce 1 e 2, il terzo elemento è l'intero array
+const arrProva = [1, 2, arr];
+console.log(newArr);
+console.log(arrProva);
+
+//Può essere usato per creare un nuovo array partire da un altro, che sia una copia esatta o apporti delle modifiche
+const newMenu = [...arr, 'Gnocchi'];
+console.log(newMenu);
+
+//Unire insieme i due menù degli starter e principale
+const globalMenu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(globalMenu);
+
+//Lo spread operator può essere usata sugli iterables: array, stringhe, mappe.
+//NON OGGETTI
+const stringaProva = 'Questa stringa è una prova';
+const arrayStringaProva = [...stringaProva];
+console.log(arrayStringaProva);
+
+//Non si può fare
+// console.log(...restaurant);
+
+//Questo si può fare
+const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Giuseppe' };
+console.log(newRestaurant);
+
+//Lo spread operator può essere usato dove ci si aspetterebbe degli elementi separati da virgole
+
+//Rende possibile creare una copia di un elemento in un'altra cella di memoria e modificarlo senza cambiare anche l'originale
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Ristorante Roma';
+
+console.log(restaurant, restaurantCopy);
+
+//Lezione 107: rest operator
+//Il rest operator ha la stessa sintassi dello spread operator, ma va usato
+//a sinistra delle operazioni di assegnazione
+//Serve a raggruppare gli elementi (il "resto degli elementi") sotto un'unica variabile.
+
+const [x, y, ...restArray] = newArr;
+console.log(x, y);
+console.log(arr);
+
+//il rest operator va usato sempre sull'ultimo elemento di un array
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays, sat);
+
+//il rest operator si usa dove ci si aspettano nomi di variabili separati dalla virgola
+//lo spread operator si usa dove ci sono valori separati dalla virgola
+
+//Utilizzado il rest operator posso passare un numero di parametri indefinito
+//se voglio passare un array basta utilizzare lo spread operator
+//Questo rende la funzione molto flessibile da usare
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+  return sum;
+};
+
+console.log(add(2, 3, 7));
+
+const numeri = [2, 10, 3];
+
+console.log(add(...numeri));
+
+//Posso passare a una funzione dei parametri principali e dei parametri secondari
+restaurant.orderPizza('funghi', 'prosciutto', 'salsiccia');
+restaurant.orderPizza('porcini');
+restaurant.orderPizza();
+
+//Lezione 108: short-circuiting con AND e OR
+
+//Gli operatori logici AND e OR possono valutare anche valori non booleani
+
+//L'operatore OR si ferma quando incontra il primo valore "Thruty", che sarà il risultato dell'espressione
+console.log('---OR---');
+console.log('Jonas' || 23);
+console.log(23 || 'Jonas');
+console.log(0 || 'Marco');
+
+//Stampa "stampa", il primo valore "Thruty"
+console.log(0 || null || false || undefined || '' || 'Stampa');
+//Se non ci sono valori thruty stampa l'ultimo valore
+console.log(0 || false);
+
+//L'operatore AND si ferma quando incontra il primo valore "Falsy", che sarà il risultato dell'espressione
+//Ciò dipende dal funzionamento logico dell'operatore AND, l'espressione è vera se tutti i valori sono veri, il primo valore falso è il risultato perchè è quello che falsifica la condizione
+console.log('---AND---');
+//Se non incontra valori falsy stampa l'ultimo valore
+console.log('Jonas' && 23);
+console.log(23 && 'Jonas');
+console.log(0 && 'Marco');
+console.log('Marco' && '');
+
+console.log('Pieno' && 2 && true);
+
+//Si può assegnare un valore di default tramite gli operatori booleani
+
+//Se restaurant.guests esiste allora il valore della variabile è uguale a restaurant.guest altrimenti a 10
+
+restaurant.numGuests = 0;
+//ma se restaurant.guests dovesse esistere ed essere uguale 0, che è un valore falsy il valore della variabile sarà sempre 10, ma ciò sarebbe scorretto
+const ospitiRistorante1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+restaurant.numGuests = 3;
+const ospitiRistorante2 = restaurant.numGuests || 10;
+
+console.log(ospitiRistorante1);
+console.log(ospitiRistorante2);
+
+//Esempio pratico: controllare se una funzione esiste prima di richiamarla
+if (restaurant.orderPizza) restaurant.orderPizza('Salsiccia', 'Friarielli');
+
+//La funzione esiste, quindi è un valore Thruty, quindi va avanti al valore successivo(che è il valore restituito dalla funzione)
+restaurant.orderPizza && restaurant.orderPizza('Salsiccia', 'Porcini');
+
+//Lezione 109: nullish coalescing operator
+restaurant.numGuests = 0;
+
+//Il nullish coalescing operator valuta se un valore è nullish e non falsy, quindi solo
+// NULL e UNDEFINED (NON include "", 0, false)
+const ospitiRistoranteCorretto = restaurant.numGuests ?? 10;
+console.log(ospitiRistoranteCorretto);
+
+//Lezione 110: logical assignment operator
+const restaurant1 = {
+  nome: 'Mammamia',
+  numOspiti: 20,
+};
+
+const restaurant2 = {
+  nome: 'Il gufo',
+  proprietario: 'Alfredo',
+};
+
+//Assegnazione valore di default
+// restaurant1.numOspiti = restaurant1.numOspiti ?? 10;
+// restaurant2.numOspiti = restaurant2.numOspiti ?? 10;
+
+//Assegnazione con nullish operator (si può fare anche con AND e OR)
+//Se il ristorante ha la variabile numOspiti mantiene il valore, altrimenti, se è un valore nullish o è assente assegna 10 di default
+restaurant1.numOspiti ??= 10;
+restaurant2.numOspiti ??= 10;
+
+console.log(restaurant1, restaurant2);
+
+//Ipotizzando di voler assegnare un valore di default a tutti gli oggetti che possiedono un parametri
+
+restaurant1.proprietario &&= '<Dati riservati>';
+restaurant2.proprietario &&= '<Dati riservati>';
+
+console.log(restaurant1.proprietario, restaurant2.proprietario);
+
+//In questo esempio, se da un API dovesse arrivare il nome del proprietario solo su alcuni oggetti, noi mostreremmo invece "<Dati riservati>"
+
+//Lezione 112: Ciclare gli array con for-of
+//for-of = per ogni elemento di?
+
+//per ogni elemento di menu crea una variabile item e la stampa, ripete il ciclo per la grandezza dell'array
+for (const item of globalMenu) console.log(item);
+
+//se volessi recuperare l'indice dell'elemento nell'array
+//produce un array composto a sua volta da array che contengono ciascun elemento con il suo indice
+console.log(...globalMenu.entries());
+
+for (const item of globalMenu.entries()) {
+  console.log(`${item[0] + 1}: ${item[1]}`);
+}
+*/
+
+//Lezione 113: Enhanced Object Literals
+
+//Da JS 6 è possibile calcolare anche i nomi delle variabili
+const weekdays = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
+
+const openingHours = {
+  [weekdays[1]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [`${weekdays[3 + 2]}`]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  //Da JavaScript 6 non c'è bisogno di fare un'assegnazione di questo tipo:
+  // openingHours: openingHours,
+  //Questa proprietà avrà per valore quello della variabile con lo stesso nome che si trova nella stessa scopechain
+  openingHours,
+
+  //Da JavaScript 6 esiste una sintassi semplificata per i metodi:
+  order(starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+  orderDelivery({ orario, indirizzo, starterIndex = 0, mainIndex }) {
+    console.log(`Ordine:
+      ${this.starterMenu[starterIndex]}, ${this.mainMenu[mainIndex]},
+      orario: ${orario},
+      indirizzo: ${indirizzo}
+      `);
+  },
+  orderPizza(mainIng, ...othersIng) {
+    console.log(`A pizza with ${mainIng}`, othersIng);
+  },
+};
+
+console.log(restaurant.openingHours);
+
+//Lezione 114: optional chaining (?)
+//L'optional chaining è uno strumento che permette di prevenire errori nel caso in cui
+//venissero richiamate proprietà o metodi non esistente degli oggetti
+
+console.log(restaurant.openingHours.ven.open);
+//Darebbe errore: Cannot read properties of undefined (reading 'open')
+//poichè non esiste una proprietà chiamata "mer"
+// console.log(restaurant.openingHours.mer.open);
+
+//Per prevenire l'errore si potrebbe usare un if
+if (restaurant.openingHours.dom) console.log(restaurant.openingHours.dom.open);
+//Ma supponendo di voler controllare se esistono anche le proprietà genitrici
+//bisognerebbe usare degli if annidati
+
+//Si può usare l'optional chaining
+console.log(restaurant.openingHours.dom?.open);
+//In questo caso viene restituito undefined
+//Il punto interrogativo, cioè l'operatore dell'optional chaining, andrebbe messo a seguito dell'elemento che si suppone possa mancare
+console.log(restaurant.openingHour?.dom?.opens);
+
+//Mostrare gli orari di apertura di tutti i giorni presenti nell'oggetto
+//(il nostro oggetto non ha tutti i giorni)
+//Infatti non tutti i giorni sono una proprità di openingHours:
+//questo da errore
+// for (const day of weekdays) {
+//   console.log(day);
+//   //Con le parentesi quadre si può chiamare un proprietà usando un'espressione
+//   console.log(restaurant.openingHours[day].open);
+// }
+//In questo modo non viene più restituito l'errore ma solo undefined, quindi
+
+// for (const day of weekdays) {
+//   console.log(
+//     `Il ${day} ${
+//       restaurant.openingHours[day]?.open === undefined
+//         ? 'è chiuso'
+//         : `apre alle ${restaurant.openingHours[day]?.open}`
+//     }`
+//   );
+// }
+
+//Con le parentesi quadre si può chiamare un proprietà usando un'espressione
+
+//Con metodi
+//L'optional chaining operator restituisce (eventualmente) undefined
+//Il nullish coalescing operator contralla i valori nullish (tra cui undefined)
+console.log(restaurant.order?.(0, 1) ?? 'Il metodo non esiste');
+//In questo caso, siccome il metodo non esiste viene restituito undefined, e quindi viene restituito il valore che segue l'operatore nullish
+console.log(restaurant.orderPasta?.(0, 1) ?? 'Il metodo non esiste');
+
+//Array
+const users = [1, 3, 6];
+
+console.log(users[5] ?? "Non c'è un elemento con questo indice");
