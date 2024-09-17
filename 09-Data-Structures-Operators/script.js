@@ -374,7 +374,7 @@ const openingHours = {
     open: 11,
     close: 23,
   },
-  [`day-${weekdays[3 + 2]}`]: {
+  [`${weekdays[3 + 2]}`]: {
     open: 0, // Open 24 hours
     close: 24,
   },
@@ -408,3 +408,58 @@ const restaurant = {
 };
 
 console.log(restaurant.openingHours);
+
+//Lezione 114: optional chaining (?)
+//L'optional chaining è uno strumento che permette di prevenire errori nel caso in cui
+//venissero richiamate proprietà o metodi non esistente degli oggetti
+
+console.log(restaurant.openingHours.ven.open);
+//Darebbe errore: Cannot read properties of undefined (reading 'open')
+//poichè non esiste una proprietà chiamata "mer"
+// console.log(restaurant.openingHours.mer.open);
+
+//Per prevenire l'errore si potrebbe usare un if
+if (restaurant.openingHours.dom) console.log(restaurant.openingHours.dom.open);
+//Ma supponendo di voler controllare se esistono anche le proprietà genitrici
+//bisognerebbe usare degli if annidati
+
+//Si può usare l'optional chaining
+console.log(restaurant.openingHours.dom?.open);
+//In questo caso viene restituito undefined
+//Il punto interrogativo, cioè l'operatore dell'optional chaining, andrebbe messo a seguito dell'elemento che si suppone possa mancare
+console.log(restaurant.openingHour?.dom?.opens);
+
+//Mostrare gli orari di apertura di tutti i giorni presenti nell'oggetto
+//(il nostro oggetto non ha tutti i giorni)
+//Infatti non tutti i giorni sono una proprità di openingHours:
+//questo da errore
+// for (const day of weekdays) {
+//   console.log(day);
+//   //Con le parentesi quadre si può chiamare un proprietà usando un'espressione
+//   console.log(restaurant.openingHours[day].open);
+// }
+//In questo modo non viene più restituito l'errore ma solo undefined, quindi
+
+// for (const day of weekdays) {
+//   console.log(
+//     `Il ${day} ${
+//       restaurant.openingHours[day]?.open === undefined
+//         ? 'è chiuso'
+//         : `apre alle ${restaurant.openingHours[day]?.open}`
+//     }`
+//   );
+// }
+
+//Con le parentesi quadre si può chiamare un proprietà usando un'espressione
+
+//Con metodi
+//L'optional chaining operator restituisce (eventualmente) undefined
+//Il nullish coalescing operator contralla i valori nullish (tra cui undefined)
+console.log(restaurant.order?.(0, 1) ?? 'Il metodo non esiste');
+//In questo caso, siccome il metodo non esiste viene restituito undefined, e quindi viene restituito il valore che segue l'operatore nullish
+console.log(restaurant.orderPasta?.(0, 1) ?? 'Il metodo non esiste');
+
+//Array
+const users = [1, 3, 6];
+
+console.log(users[5] ?? "Non c'è un elemento con questo indice");
