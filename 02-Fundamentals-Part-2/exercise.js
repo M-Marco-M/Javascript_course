@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /*
 const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) / 3;
 
@@ -20,7 +20,7 @@ console.log("Dolphins: " + scoreDolphins + " Koalas: " + scoreKoalas);
 checkWinner(scoreDolphins, scoreKoalas);
 */
 /*
-//Esercizio 2
+//Esercizio 7
 
 // const bill = 301;
 // const tip = bill < 50 || bill > 300 ? bill * 0.2 : bill * 0.15;
@@ -82,25 +82,22 @@ const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 const tips = [];
 const totals = [];
 
-const calcTip = bill => bill < 50 || bill > 300 ? bill * 0.2 : bill * 0.15;
+const calcTip = (bill) => (bill < 50 || bill > 300 ? bill * 0.2 : bill * 0.15);
 
 const calcAverage = function (arr) {
-    let total = 0;
-    for (let i = 0; i < arr.length; i++) {
-        total += arr[i];
-    }
-    return total / arr.length;
-}
+  let total = 0;
+  for (let i = 0; i < arr.length; i++) {
+    total += arr[i];
+  }
+  return total / arr.length;
+};
 
 for (let i = 0; i < bills.length; i++) {
-    tips.push(calcTip(bills[i]));
-    totals.push(bills[i] + tips[i]);
+  tips.push(calcTip(bills[i]));
+  totals.push(bills[i] + tips[i]);
 }
 console.log(bills, tips, totals);
 
-console.log("Scontrino medio = " + calcAverage(bills));
-console.log("Mancia media = " + calcAverage(tips));
-console.log("Totale medio = " + calcAverage(totals));
-
-
-
+console.log('Scontrino medio = ' + calcAverage(bills));
+console.log('Mancia media = ' + calcAverage(tips));
+console.log('Totale medio = ' + calcAverage(totals));

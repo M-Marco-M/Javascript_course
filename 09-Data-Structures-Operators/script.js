@@ -262,15 +262,15 @@ restaurant.orderPizza();
 
 //Gli operatori logici AND e OR possono valutare anche valori non booleani
 
-//L'operatore OR si ferma quando incontra il primo valore "Thruthy", che sarà il risultato dell'espressione
+//L'operatore OR si ferma quando incontra il primo valore "Thruty", che sarà il risultato dell'espressione
 console.log('---OR---');
 console.log('Jonas' || 23);
 console.log(23 || 'Jonas');
 console.log(0 || 'Marco');
 
-//Stampa "stampa", il primo valore "Thruthy"
+//Stampa "stampa", il primo valore "Thruty"
 console.log(0 || null || false || undefined || '' || 'Stampa');
-//Se non ci sono valori thruthy stampa l'ultimo valore
+//Se non ci sono valori thruty stampa l'ultimo valore
 console.log(0 || false);
 
 //L'operatore AND si ferma quando incontra il primo valore "Falsy", che sarà il risultato dell'espressione
@@ -301,7 +301,7 @@ console.log(ospitiRistorante2);
 //Esempio pratico: controllare se una funzione esiste prima di richiamarla
 if (restaurant.orderPizza) restaurant.orderPizza('Salsiccia', 'Friarielli');
 
-//La funzione esiste, quindi è un valore Thruthy, quindi va avanti al valore successivo(che è il valore restituito dalla funzione)
+//La funzione esiste, quindi è un valore Thruty, quindi va avanti al valore successivo(che è il valore restituito dalla funzione)
 restaurant.orderPizza && restaurant.orderPizza('Salsiccia', 'Porcini');
 
 //Lezione 109: nullish coalescing operator
