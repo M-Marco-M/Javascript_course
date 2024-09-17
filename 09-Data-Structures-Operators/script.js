@@ -177,3 +177,46 @@ restaurant.orderDelivery({
   indirizzo: 'Via Nicola Tesla, 4',
   mainIndex: 2,
 });
+
+//Lezione 106: lo spread operator
+//Lo spread operator funziona in maniera simile al destructuring,
+//ma funziona indipendentemente dalla lunghezza dell'array e non crea nuove variabili
+//è particolarmente utile nelle funzioni
+const arr = [7, 8, 9];
+//Inserisce gli elementi uno a uno
+const newBadArr = [1, 2, ...arr];
+//Inserisce 1 e 2, il terzo elemento è l'intero array
+const arrProva = [1, 2, arr];
+console.log(newBadArr);
+console.log(arrProva);
+
+//Può essere usato per creare un nuovo array partire da un altro, che sia una copia esatta o apporti delle modifiche
+const newMenu = [...arr, 'Gnocchi'];
+console.log(newMenu);
+
+//Unire insieme i due menù degli starter e principale
+const globalMenu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(globalMenu);
+
+//Lo spread operator può essere usata sugli iterables: array, stringhe, mappe.
+//NON OGGETTI
+const stringaProva = 'Questa stringa è una prova';
+const arrayStringaProva = [...stringaProva];
+console.log(arrayStringaProva);
+
+//Non si può fare
+// console.log(...restaurant);
+
+//Questo si può fare
+const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Giuseppe' };
+console.log(newRestaurant);
+
+//Lo spread operator può essere usato dove ci si aspetterebbe degli elementi separati da virgole
+
+//Rende possibile creare una copia di un elemento in un'altra cella di memoria e modificarlo senza cambiare anche l'originale
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Ristorante Roma';
+
+console.log(restaurant, restaurantCopy);
+
+//Lezione 107: rest operator
