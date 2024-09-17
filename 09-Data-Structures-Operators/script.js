@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
@@ -55,7 +56,7 @@ const restaurant = {
     console.log(`A pizza with ${mainIng}`, othersIng);
   },
 };
-
+*/
 //Lezione 104: destructuring arrays
 //destructiring spacchetta l'array in variabili
 /*
@@ -128,6 +129,7 @@ console.log(`${starterCourse}, ${mainCourse}`);
 // const { name: restaurantName, categories, openingHours: hours } = restaurant;
 // console.log(restaurantName, categories, hours);
 
+/*
 //Cercando un parametro non presente avremmo undefined
 //Per questo possiamo assegnare valori di default
 const {
@@ -356,3 +358,53 @@ console.log(...globalMenu.entries());
 for (const item of globalMenu.entries()) {
   console.log(`${item[0] + 1}: ${item[1]}`);
 }
+*/
+
+//Lezione 113: Enhanced Object Literals
+
+//Da JS 6 è possibile calcolare anche i nomi delle variabili
+const weekdays = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
+
+const openingHours = {
+  [weekdays[1]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [`day-${weekdays[3 + 2]}`]: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  //Da JavaScript 6 non c'è bisogno di fare un'assegnazione di questo tipo:
+  // openingHours: openingHours,
+  //Questa proprietà avrà per valore quello della variabile con lo stesso nome che si trova nella stessa scopechain
+  openingHours,
+
+  //Da JavaScript 6 esiste una sintassi semplificata per i metodi:
+  order(starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+  orderDelivery({ orario, indirizzo, starterIndex = 0, mainIndex }) {
+    console.log(`Ordine:
+      ${this.starterMenu[starterIndex]}, ${this.mainMenu[mainIndex]},
+      orario: ${orario},
+      indirizzo: ${indirizzo}
+      `);
+  },
+  orderPizza(mainIng, ...othersIng) {
+    console.log(`A pizza with ${mainIng}`, othersIng);
+  },
+};
+
+console.log(restaurant.openingHours);
