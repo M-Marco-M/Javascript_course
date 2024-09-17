@@ -257,3 +257,48 @@ console.log(add(...numeri));
 restaurant.orderPizza('funghi', 'prosciutto', 'salsiccia');
 restaurant.orderPizza('porcini');
 restaurant.orderPizza();
+
+//Lezione 108: short-circuiting con AND e OR
+
+//Gli operatori logici AND e OR possono valutare anche valori non booleani
+
+//L'operatore OR si ferma quando incontra il primo valore "Thruthy", che sarà il risultato dell'espressione
+console.log('---OR---');
+console.log('Jonas' || 23);
+console.log(23 || 'Jonas');
+console.log(0 || 'Marco');
+
+//Stampa "stampa", il primo valore "Thruthy"
+console.log(0 || null || false || undefined || '' || 'Stampa');
+//Se non ci sono valori thruthy stampa l'ultimo valore
+console.log(0 || false);
+
+//L'operatore AND si ferma quando incontra il primo valore "Falsy", che sarà il risultato dell'espressione
+//Ciò dipende dal funzionamento logico dell'operatore AND, l'espressione è vera se tutti i valori sono veri, il primo valore falso è il risultato perchè è quello che falsifica la condizione
+console.log('---AND---');
+//Se non incontra valori falsy stampa l'ultimo valore
+console.log('Jonas' && 23);
+console.log(23 && 'Jonas');
+console.log(0 && 'Marco');
+console.log('Marco' && '');
+
+console.log('Pieno' && 2 && true);
+
+//Si può assegnare un valore di default tramite gli operatori booleani
+
+//Se restaurant.guests esiste allora il valore della variabile è uguale a restaurant.guest altrimenti a 10
+
+restaurant.numGuests = 23;
+//ma se restaurant.guests dovesse esistere ed essere uguale 0, che è un valore falsy il valore della variabile sarà sempre 10, ma ciò sarebbe scorretto
+
+const ospitiRistorante1 = restaurant.numGuests ? restaurant.numGuests : 10;
+const ospitiRistorante2 = restaurant.numGuests || 10;
+
+console.log(ospitiRistorante1);
+console.log(ospitiRistorante2);
+
+//Esempio pratico: controllare se una funzione esiste prima di richiamarla
+if (restaurant.orderPizza) restaurant.orderPizza('Salsiccia', 'Friarielli');
+
+//La funzione esiste, quindi è un valore Thruthy, quindi va avanti al valore successivo(che è il valore restituito dalla funzione)
+restaurant.orderPizza && restaurant.orderPizza('Salsiccia', 'Porcini');
