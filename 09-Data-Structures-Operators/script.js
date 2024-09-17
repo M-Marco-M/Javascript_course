@@ -288,10 +288,11 @@ console.log('Pieno' && 2 && true);
 
 //Se restaurant.guests esiste allora il valore della variabile è uguale a restaurant.guest altrimenti a 10
 
-restaurant.numGuests = 23;
+restaurant.numGuests = 0;
 //ma se restaurant.guests dovesse esistere ed essere uguale 0, che è un valore falsy il valore della variabile sarà sempre 10, ma ciò sarebbe scorretto
-
 const ospitiRistorante1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+restaurant.numGuests = 3;
 const ospitiRistorante2 = restaurant.numGuests || 10;
 
 console.log(ospitiRistorante1);
@@ -302,3 +303,42 @@ if (restaurant.orderPizza) restaurant.orderPizza('Salsiccia', 'Friarielli');
 
 //La funzione esiste, quindi è un valore Thruthy, quindi va avanti al valore successivo(che è il valore restituito dalla funzione)
 restaurant.orderPizza && restaurant.orderPizza('Salsiccia', 'Porcini');
+
+//Lezione 109: nullish coalescing operator
+restaurant.numGuests = 0;
+
+//Il nullish coalescing operator valuta se un valore è nullish e non falsy, quindi solo
+// NULL e UNDEFINED (NON include "", 0, false)
+const ospitiRistoranteCorretto = restaurant.numGuests ?? 10;
+console.log(ospitiRistoranteCorretto);
+
+//Lezione 110: logical assignment operator
+const restaurant1 = {
+  nome: 'Mammamia',
+  numOspiti: 20,
+};
+
+const restaurant2 = {
+  nome: 'Il gufo',
+  proprietario: 'Alfredo',
+};
+
+//Assegnazione valore di default
+// restaurant1.numOspiti = restaurant1.numOspiti ?? 10;
+// restaurant2.numOspiti = restaurant2.numOspiti ?? 10;
+
+//Assegnazione con nullish operator (si può fare anche con AND e OR)
+//Se il ristorante ha la variabile numOspiti mantiene il valore, altrimenti, se è un valore nullish o è assente assegna 10 di default
+restaurant1.numOspiti ??= 10;
+restaurant2.numOspiti ??= 10;
+
+console.log(restaurant1, restaurant2);
+
+//Ipotizzando di voler assegnare un valore di default a tutti gli oggetti che possiedono un parametri
+
+restaurant1.proprietario &&= '<Dati riservati>';
+restaurant2.proprietario &&= '<Dati riservati>';
+
+console.log(restaurant1.proprietario, restaurant2.proprietario);
+
+//In questo esempio, se da un API dovesse arrivare il nome del proprietario solo su alcuni oggetti, noi mostreremmo invece "<Dati riservati>"
