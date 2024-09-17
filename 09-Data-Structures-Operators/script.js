@@ -51,6 +51,9 @@ const restaurant = {
       indirizzo: ${indirizzo}
       `);
   },
+  orderPizza: function (mainIng, ...othersIng) {
+    console.log(`A pizza with ${mainIng}`, othersIng);
+  },
 };
 
 //Lezione 104: destructuring arrays
@@ -184,10 +187,10 @@ restaurant.orderDelivery({
 //è particolarmente utile nelle funzioni
 const arr = [7, 8, 9];
 //Inserisce gli elementi uno a uno
-const newBadArr = [1, 2, ...arr];
+const newArr = [1, 2, ...arr];
 //Inserisce 1 e 2, il terzo elemento è l'intero array
 const arrProva = [1, 2, arr];
-console.log(newBadArr);
+console.log(newArr);
 console.log(arrProva);
 
 //Può essere usato per creare un nuovo array partire da un altro, che sia una copia esatta o apporti delle modifiche
@@ -220,3 +223,37 @@ restaurantCopy.name = 'Ristorante Roma';
 console.log(restaurant, restaurantCopy);
 
 //Lezione 107: rest operator
+//Il rest operator ha la stessa sintassi dello spread operator, ma va usato
+//a sinistra delle operazioni di assegnazione
+//Serve a raggruppare gli elementi (il "resto degli elementi") sotto un'unica variabile.
+
+const [x, y, ...restArray] = newArr;
+console.log(x, y);
+console.log(arr);
+
+//il rest operator va usato sempre sull'ultimo elemento di un array
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays, sat);
+
+//il rest operator si usa dove ci si aspettano nomi di variabili separati dalla virgola
+//lo spread operator si usa dove ci sono valori separati dalla virgola
+
+//Utilizzado il rest operator posso passare un numero di parametri indefinito
+//se voglio passare un array basta utilizzare lo spread operator
+//Questo rende la funzione molto flessibile da usare
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+  return sum;
+};
+
+console.log(add(2, 3, 7));
+
+const numeri = [2, 10, 3];
+
+console.log(add(...numeri));
+
+//Posso passare a una funzione dei parametri principali e dei parametri secondari
+restaurant.orderPizza('funghi', 'prosciutto', 'salsiccia');
+restaurant.orderPizza('porcini');
+restaurant.orderPizza();
