@@ -463,3 +463,47 @@ console.log(restaurant.orderPasta?.(0, 1) ?? 'Il metodo non esiste');
 const users = [1, 3, 6];
 
 console.log(users[5] ?? "Non c'è un elemento con questo indice");
+
+//Lezione 115: Ciclare su oggetti
+//è possibile utilizzare il costrutto for-of sugli oggetti, in particolare sull'intero oggetto
+//(con entries), sulle proprietà(con keys) e sui valori(con values)
+
+//Object.keys(oggetto) produce un array che contiene le proprietà dell'oggetto
+const proprieta = Object.keys(openingHours);
+// console.log(proprieta);
+
+console.log('Siamo aperti: ');
+for (const day of proprieta) console.log(`day}`);
+
+//Object.values(oggetto) produce un array che contiene tutti i valori dell'oggetto
+//In questo caso specifico l'oggetto è un array che contiene degli oggetti con la proprietà
+//open e la proprietà close
+const valori = Object.values(openingHours);
+// console.log(valori);
+for (const time of valori) {
+  console.log(
+    `Apertura: ${time.open}
+  Chiusura: ${time.close}`
+  );
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+//Descrizione ciclo: per ogni ogiorno di proprieta conserva l'indice di quel giorno
+//nella stringa cerca le proprietà open e close dentro gli oggetti nell'array valori
+//all'indice a cui si trova attualmente proprietà
+for (const day of proprieta) {
+  const index = proprieta.indexOf(day);
+  console.log(
+    `Giorno ${day} apertura: ${valori[index].open} - chiusura: ${valori[index].close}`
+  );
+}
+
+//Object.entries(oggetto) produce un array che contiene a sua volta degli array che contengo la coppia
+//chiave - valore per ciscun parametro
+const entries = Object.entries(openingHours);
+// console.log(entries);
+
+//Per ripetere il ciclo di sopra con entries:
+for (const day of entries) {
+  console.log(`${day[0]}: apertura ${day[1].open} - chiusura ${day[1].close}`);
+}
