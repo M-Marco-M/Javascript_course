@@ -507,3 +507,8 @@ const entries = Object.entries(openingHours);
 for (const day of entries) {
   console.log(`${day[0]}: apertura ${day[1].open} - chiusura ${day[1].close}`);
 }
+
+//è lo stesso ciclo ma usa il destructuring
+for (const [key, { open, close }] of entries) {
+  console.log(`${key}: apertura ${open} - chiusura ${close}`);
+}

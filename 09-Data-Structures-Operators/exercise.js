@@ -78,3 +78,41 @@ printGoals(...game.scored);
 //-se team1 < team2 fosse falso si fermerebbe a questo valore, quindi l'espressione tra parentesi sarebbe falsa
 //-a questo punto procede con l'OR che si ferma al primo valore thruty, quindi "team2"
 console.log((team1 < team2 && 'team1') || 'team2');
+
+//Esercizio 10
+//Ciclare game.scored e scrivere il goal (posizione) segnato da ogni giocatore
+for (let i = 0; i < game.scored.length; i++) {
+  console.log(`Goal ${i}) + 1}: ${game.scored}`);
+}
+
+//Calcolare la media di odds
+let oddsValues = Object.values(game.odds);
+let somma = 0;
+for (const value of oddsValues) {
+  somma += value;
+}
+let avgOdds = somma / oddsValues.length;
+console.log(avgOdds);
+
+//Scrivere le odds in maniera leggibile e ben formattata (discorsiva)
+const oddsEntries = Object.entries(game.odds);
+const gameEntries = Object.entries(game);
+const gameKeys = Object.keys(game);
+
+for (const teamOdd of oddsEntries) {
+  const team = game[oddsEntries[oddsEntries.indexOf(teamOdd)][0]];
+  console.log(`Quota ${team ?? 'pareggio'} ${team ?? ''} = ${teamOdd[1]}`);
+}
+
+//Crea un oggetto che riporti i giocatori con il numero di goal segnati
+//a partire dall'array game.scored
+
+const scores = {};
+
+for (const player of game.scored) {
+  if (Object.keys(scores).includes(player)) {
+    scores[player] += 1;
+  } else scores[player] = 1;
+}
+
+console.log(scores);
