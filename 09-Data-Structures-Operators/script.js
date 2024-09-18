@@ -628,3 +628,71 @@ const array = [1, 2, 3];
 rest.set(array, 'array come chiave funzionante');
 console.log(rest.get(array));
 console.log(rest);
+
+//Lezione 119: cicli su mappe
+//Si possono valorizzare le mappe anche utilizzando una sintassi basata sugli array
+
+const openingHours = {
+  lun: {
+    open: 12,
+    close: 22,
+  },
+  ven: {
+    open: 11,
+    close: 23,
+  },
+  sab: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+const question = new Map([
+  ['domanda', 'Qual è il miglior linguaggio di programmazione al mondo?'],
+  [1, 'C++'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['risposta', 3],
+  [true, 'risposta corretta'],
+  [false, 'risposta sbagliata'],
+]);
+
+console.log(question);
+//Da notare come le mappe abbiano una struttura del tutto simile a un oggetto passato al metodo entries
+console.log(Object.entries(openingHours));
+
+//Infatti la conversione da oggetto a mappa è molto semplice
+const openingHoursMap = new Map(Object.entries(openingHours));
+console.log(openingHoursMap);
+
+//è possibile ciclare una mappa con for-of
+//N.B. Ricorda che puoi destrutturare un array al volo, già alla dichiarazione
+//In questo caso destruttura l'array composto da chiave-valore della mappa
+
+//Stampo l'oggetto, elemento per elemento
+console.log(`Domanda: ${question.get('domanda')}`);
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+/*
+const answer = Number(prompt('La tua risposta:'));
+
+console.log(
+  question.get(
+    answer === question.keys('risposta') || answer === question.get('risposta')
+  )
+);
+*/
+
+//Stampa la mappa
+console.log(question);
+//Trasforma la mappa in array
+console.log([...question]);
+//Si può ottenere un array di tutte le chiavi
+console.log(question.keys());
+//Array:
+console.log([...question.keys()]);
+//O di tutti i valori
+console.log(question.values());
+//si può spacchettare
+console.log([...question.values()]);
