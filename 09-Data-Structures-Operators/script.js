@@ -512,3 +512,65 @@ for (const day of entries) {
 for (const [key, { open, close }] of entries) {
   console.log(`${key}: apertura ${open} - chiusura ${close}`);
 }
+
+//Lezione 117: Set
+//I set sono delle strutture di dati non ordinati e non ripetibili
+//Gli elementi di un set non hanno indice
+//Il set è un iterable
+
+const orderSet = new Set(['Pizza', 'Pasta', 'Piadina', 'Pizza']);
+
+//Size indica il numero di elementi nel set, in questo caso 3(pizza si ripete, viene inserito una sola volta)
+console.log(orderSet.size);
+
+orderSet.add('Bruschetta');
+orderSet.add('Pasta'); //Non viene aggiunto
+
+//Il set è adesso di 4 elementi
+console.log(orderSet.size);
+
+//Rimuove l'elemento indicato dal set
+orderSet.delete('Piadina');
+
+//Restituisce un booleano che indica la presenza di un determinato elemento nel set
+console.log('Piadina = ' + orderSet.has('Piadina'));
+console.log('Pizza= ' + orderSet.has('Pizza'));
+
+console.log(orderSet);
+//Esiste il metodo clear che rimuove tutti gli elementi da un set
+
+//Ciclare un set
+for (const order of orderSet) console.log(order);
+
+//I set sono utili nella manipolazione degli array, se si volesse sapere quanti sono gli elementi
+//unici o riottenere un array senza elementi ripetuti, o utilizzare il metodo has per sapere se un elemento è presente
+
+const staff = [
+  'Cameriere',
+  'Chef',
+  'Manager',
+  'Cameriere',
+  'Cameriere',
+  'Chef',
+];
+
+//Se volessimo sapere solo da quali figure è composto lo staff di un locale e non quante siano
+//possiamo inserire l'array in un set
+const staffUnique = new Set(staff);
+
+console.log(staff);
+console.log(staffUnique);
+
+//Per creare un array a partire da un set basta creare un nuovo array con dentro il set decostruito
+const staffUniqueArray = [...staffUnique];
+console.log(staffUniqueArray);
+console.log('Ruoli dello staff: ' + staffUniqueArray.length);
+
+//Per calcolare al volo quanti sono i ruoli presenti nell'array si può fare così
+console.log('Anche questo indica i ruoli dello staff: ' + new Set(staff).size);
+
+//Anche le stringhe possono essere trasformate in set
+const mioNomeCognome = new Set('MarcoMagnano');
+console.log(mioNomeCognome);
+//Indica al volo quante lettere dell'alfabeto sono presenti nel nome e cognome
+console.log(mioNomeCognome.size);
