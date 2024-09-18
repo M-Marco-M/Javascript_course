@@ -362,6 +362,8 @@ for (const item of globalMenu.entries()) {
 
 //Lezione 113: Enhanced Object Literals
 
+/*
+
 //Da JS 6 è possibile calcolare anche i nomi delle variabili
 const weekdays = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
 
@@ -574,3 +576,55 @@ const mioNomeCognome = new Set('MarcoMagnano');
 console.log(mioNomeCognome);
 //Indica al volo quante lettere dell'alfabeto sono presenti nel nome e cognome
 console.log(mioNomeCognome.size);
+
+*/
+
+//Lezione 118: Fondamentali sulle mappe
+//Le mappe sono strutture organizzate di dati, bsati sulla coppia chiave - valore
+//a differenza degli oggetti le mappe possono avere chiavi di qualsiasi tipo
+
+const rest = new Map();
+
+//Per aggiungere un elemento alla mappa si usa il metodo set, indicando la coppia chiave valore
+rest.set('nome', 'Da Totò');
+rest.set(1, 'Firenze');
+rest.set(2, 'Genova');
+
+rest
+  .set('categoie', ['italiana', 'vegetariana', 'mediterranea', 'pizzeria'])
+  .set('open', 11)
+  .set('close', 23)
+  //è possibile impostare anche un booleano come chiave
+  .set(true, 'Siamo aperti')
+  .set(false, 'Siamo chiusi');
+
+//Per recuperre un elemento della mappa si usa il metodo get, indicando la chiave
+
+console.log(rest.get('open'));
+console.log(rest.get('nome'));
+console.log(rest.get(2));
+console.log(rest.get(true));
+
+//Avere un booelan come chiave può avere dei risvolti interessanti
+
+const orario = 27;
+console.log(rest.get(orario > rest.get('open') && orario < rest.get('close')));
+
+//Has permette di verificare se la mappa ha tra le sue chiavi un determinato elemento
+console.log(rest.has('nome'));
+
+//Delete rimuove l'elemento su base chiave
+rest.delete(2);
+
+//Posso impostare un array come chiave
+rest.set([1, 2], 'array come chiave');
+
+//Ma a causa del fatto che ogni oggetto viene salvato nella memoria dell'heap in un indirizzo diverso
+//non posso cercare indicando l'array
+console.log(rest.get([1, 2]));
+
+//Ho bisogno di conservare l'array in una variabile
+const array = [1, 2, 3];
+rest.set(array, 'array come chiave funzionante');
+console.log(rest.get(array));
+console.log(rest);
