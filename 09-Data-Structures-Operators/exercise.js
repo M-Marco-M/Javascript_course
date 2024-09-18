@@ -82,8 +82,18 @@ console.log((team1 < team2 && 'team1') || 'team2');
 //Esercizio 10
 //Ciclare game.scored e scrivere il goal (posizione) segnato da ogni giocatore
 for (let i = 0; i < game.scored.length; i++) {
-  console.log(`Goal ${i}) + 1}: ${game.scored}`);
+  console.log(`Goal ${i}) + 1}: ${game.scored[i]}`);
 }
+
+//Soluzione
+console.log('Soluzione 1');
+for (const scored of game.scored.entries())
+  console.log(`Goal ${scored[0]}) + 1}: ${scored[1]}`);
+
+//Soluzione avanzata
+console.log('Soluzione 2');
+for (const [key, value] of game.scored.entries())
+  console.log(`Goal ${key}) + 1}: ${value}`);
 
 //Calcolare la media di odds
 let oddsValues = Object.values(game.odds);
@@ -104,15 +114,38 @@ for (const teamOdd of oddsEntries) {
   console.log(`Quota ${team ?? 'pareggio'} ${team ?? ''} = ${teamOdd[1]}`);
 }
 
+//Soluzione
+console.log('Soluzione esercizio 3');
+for (const [team, odd] of oddsEntries) {
+  const isTeam = gameKeys.includes(team);
+  console.log(
+    `Quota ${isTeam ? 'vittoria' : 'pareggio'} ${
+      isTeam ? game[team] : ''
+    } = ${odd}`
+  );
+}
+
 //Crea un oggetto che riporti i giocatori con il numero di goal segnati
 //a partire dall'array game.scored
 
-const scores = {};
+const scorers = {};
 
+// for (const player of game.scored) {
+//   if (Object.keys(scorers).includes(player)) {
+//     scorers[player] += 1;
+//   } else scorers[player] = 1;
+// }
+
+//Soluzione
+// for (const player of game.scored) {
+//   if (scorers[player]) {
+//     scorers[player]++;
+//   } else scorers[player] = 1;
+// }
+
+//Con operatore ternario
 for (const player of game.scored) {
-  if (Object.keys(scores).includes(player)) {
-    scores[player] += 1;
-  } else scores[player] = 1;
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
 }
 
-console.log(scores);
+console.log(scorers);
