@@ -362,6 +362,8 @@ for (const item of globalMenu.entries()) {
 
 //Lezione 113: Enhanced Object Literals
 
+/*
+
 //Da JS 6 è possibile calcolare anche i nomi delle variabili
 const weekdays = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
 
@@ -463,3 +465,234 @@ console.log(restaurant.orderPasta?.(0, 1) ?? 'Il metodo non esiste');
 const users = [1, 3, 6];
 
 console.log(users[5] ?? "Non c'è un elemento con questo indice");
+
+//Lezione 115: Ciclare su oggetti
+//è possibile utilizzare il costrutto for-of sugli oggetti, in particolare sull'intero oggetto
+//(con entries), sulle proprietà(con keys) e sui valori(con values)
+
+//Object.keys(oggetto) produce un array che contiene le proprietà dell'oggetto
+const proprieta = Object.keys(openingHours);
+// console.log(proprieta);
+
+console.log('Siamo aperti: ');
+for (const day of proprieta) console.log(`day}`);
+
+//Object.values(oggetto) produce un array che contiene tutti i valori dell'oggetto
+//In questo caso specifico l'oggetto è un array che contiene degli oggetti con la proprietà
+//open e la proprietà close
+const valori = Object.values(openingHours);
+// console.log(valori);
+for (const time of valori) {
+  console.log(
+    `Apertura: ${time.open}
+  Chiusura: ${time.close}`
+  );
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+//Descrizione ciclo: per ogni ogiorno di proprieta conserva l'indice di quel giorno
+//nella stringa cerca le proprietà open e close dentro gli oggetti nell'array valori
+//all'indice a cui si trova attualmente proprietà
+for (const day of proprieta) {
+  const index = proprieta.indexOf(day);
+  console.log(
+    `Giorno ${day} apertura: ${valori[index].open} - chiusura: ${valori[index].close}`
+  );
+}
+
+//Object.entries(oggetto) produce un array che contiene a sua volta degli array che contengo la coppia
+//chiave - valore per ciscun parametro
+const entries = Object.entries(openingHours);
+// console.log(entries);
+
+//Per ripetere il ciclo di sopra con entries:
+for (const day of entries) {
+  console.log(`${day[0]}: apertura ${day[1].open} - chiusura ${day[1].close}`);
+}
+
+//è lo stesso ciclo ma usa il destructuring
+for (const [key, { open, close }] of entries) {
+  console.log(`${key}: apertura ${open} - chiusura ${close}`);
+}
+
+//Lezione 117: Set
+//I set sono delle strutture di dati non ordinati e non ripetibili
+//Gli elementi di un set non hanno indice
+//Il set è un iterable
+
+const orderSet = new Set(['Pizza', 'Pasta', 'Piadina', 'Pizza']);
+
+//Size indica il numero di elementi nel set, in questo caso 3(pizza si ripete, viene inserito una sola volta)
+console.log(orderSet.size);
+
+orderSet.add('Bruschetta');
+orderSet.add('Pasta'); //Non viene aggiunto
+
+//Il set è adesso di 4 elementi
+console.log(orderSet.size);
+
+//Rimuove l'elemento indicato dal set
+orderSet.delete('Piadina');
+
+//Restituisce un booleano che indica la presenza di un determinato elemento nel set
+console.log('Piadina = ' + orderSet.has('Piadina'));
+console.log('Pizza= ' + orderSet.has('Pizza'));
+
+console.log(orderSet);
+//Esiste il metodo clear che rimuove tutti gli elementi da un set
+
+//Ciclare un set
+for (const order of orderSet) console.log(order);
+
+//I set sono utili nella manipolazione degli array, se si volesse sapere quanti sono gli elementi
+//unici o riottenere un array senza elementi ripetuti, o utilizzare il metodo has per sapere se un elemento è presente
+
+const staff = [
+  'Cameriere',
+  'Chef',
+  'Manager',
+  'Cameriere',
+  'Cameriere',
+  'Chef',
+];
+
+//Se volessimo sapere solo da quali figure è composto lo staff di un locale e non quante siano
+//possiamo inserire l'array in un set
+const staffUnique = new Set(staff);
+
+console.log(staff);
+console.log(staffUnique);
+
+//Per creare un array a partire da un set basta creare un nuovo array con dentro il set decostruito
+const staffUniqueArray = [...staffUnique];
+console.log(staffUniqueArray);
+console.log('Ruoli dello staff: ' + staffUniqueArray.length);
+
+//Per calcolare al volo quanti sono i ruoli presenti nell'array si può fare così
+console.log('Anche questo indica i ruoli dello staff: ' + new Set(staff).size);
+
+//Anche le stringhe possono essere trasformate in set
+const mioNomeCognome = new Set('MarcoMagnano');
+console.log(mioNomeCognome);
+//Indica al volo quante lettere dell'alfabeto sono presenti nel nome e cognome
+console.log(mioNomeCognome.size);
+
+*/
+
+//Lezione 118: Fondamentali sulle mappe
+//Le mappe sono strutture organizzate di dati, bsati sulla coppia chiave - valore
+//a differenza degli oggetti le mappe possono avere chiavi di qualsiasi tipo
+
+const rest = new Map();
+
+//Per aggiungere un elemento alla mappa si usa il metodo set, indicando la coppia chiave valore
+rest.set('nome', 'Da Totò');
+rest.set(1, 'Firenze');
+rest.set(2, 'Genova');
+
+rest
+  .set('categoie', ['italiana', 'vegetariana', 'mediterranea', 'pizzeria'])
+  .set('open', 11)
+  .set('close', 23)
+  //è possibile impostare anche un booleano come chiave
+  .set(true, 'Siamo aperti')
+  .set(false, 'Siamo chiusi');
+
+//Per recuperre un elemento della mappa si usa il metodo get, indicando la chiave
+
+console.log(rest.get('open'));
+console.log(rest.get('nome'));
+console.log(rest.get(2));
+console.log(rest.get(true));
+
+//Avere un booelan come chiave può avere dei risvolti interessanti
+
+const orario = 27;
+console.log(rest.get(orario > rest.get('open') && orario < rest.get('close')));
+
+//Has permette di verificare se la mappa ha tra le sue chiavi un determinato elemento
+console.log(rest.has('nome'));
+
+//Delete rimuove l'elemento su base chiave
+rest.delete(2);
+
+//Posso impostare un array come chiave
+rest.set([1, 2], 'array come chiave');
+
+//Ma a causa del fatto che ogni oggetto viene salvato nella memoria dell'heap in un indirizzo diverso
+//non posso cercare indicando l'array
+console.log(rest.get([1, 2]));
+
+//Ho bisogno di conservare l'array in una variabile
+const array = [1, 2, 3];
+rest.set(array, 'array come chiave funzionante');
+console.log(rest.get(array));
+console.log(rest);
+
+//Lezione 119: cicli su mappe
+//Si possono valorizzare le mappe anche utilizzando una sintassi basata sugli array
+
+const openingHours = {
+  lun: {
+    open: 12,
+    close: 22,
+  },
+  ven: {
+    open: 11,
+    close: 23,
+  },
+  sab: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+const question = new Map([
+  ['domanda', 'Qual è il miglior linguaggio di programmazione al mondo?'],
+  [1, 'C++'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['risposta', 3],
+  [true, 'risposta corretta'],
+  [false, 'risposta sbagliata'],
+]);
+
+console.log(question);
+//Da notare come le mappe abbiano una struttura del tutto simile a un oggetto passato al metodo entries
+console.log(Object.entries(openingHours));
+
+//Infatti la conversione da oggetto a mappa è molto semplice
+const openingHoursMap = new Map(Object.entries(openingHours));
+console.log(openingHoursMap);
+
+//è possibile ciclare una mappa con for-of
+//N.B. Ricorda che puoi destrutturare un array al volo, già alla dichiarazione
+//In questo caso destruttura l'array composto da chiave-valore della mappa
+
+//Stampo l'oggetto, elemento per elemento
+console.log(`Domanda: ${question.get('domanda')}`);
+for (const [key, value] of question) {
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+/*
+const answer = Number(prompt('La tua risposta:'));
+
+console.log(
+  question.get(
+    answer === question.keys('risposta') || answer === question.get('risposta')
+  )
+);
+*/
+
+//Stampa la mappa
+console.log(question);
+//Trasforma la mappa in array
+console.log([...question]);
+//Si può ottenere un array di tutte le chiavi
+console.log(question.keys());
+//Array:
+console.log([...question.keys()]);
+//O di tutti i valori
+console.log(question.values());
+//si può spacchettare
+console.log([...question.values()]);

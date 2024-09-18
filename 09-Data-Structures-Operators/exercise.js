@@ -78,3 +78,74 @@ printGoals(...game.scored);
 //-se team1 < team2 fosse falso si fermerebbe a questo valore, quindi l'espressione tra parentesi sarebbe falsa
 //-a questo punto procede con l'OR che si ferma al primo valore thruty, quindi "team2"
 console.log((team1 < team2 && 'team1') || 'team2');
+
+//Esercizio 10
+//Ciclare game.scored e scrivere il goal (posizione) segnato da ogni giocatore
+for (let i = 0; i < game.scored.length; i++) {
+  console.log(`Goal ${i}) + 1}: ${game.scored[i]}`);
+}
+
+//Soluzione
+console.log('Soluzione 1');
+for (const scored of game.scored.entries())
+  console.log(`Goal ${scored[0]}) + 1}: ${scored[1]}`);
+
+//Soluzione avanzata
+console.log('Soluzione 2');
+for (const [key, value] of game.scored.entries())
+  console.log(`Goal ${key}) + 1}: ${value}`);
+
+//Calcolare la media di odds
+let oddsValues = Object.values(game.odds);
+let somma = 0;
+for (const value of oddsValues) {
+  somma += value;
+}
+let avgOdds = somma / oddsValues.length;
+console.log(avgOdds);
+
+//Scrivere le odds in maniera leggibile e ben formattata (discorsiva)
+const oddsEntries = Object.entries(game.odds);
+const gameEntries = Object.entries(game);
+const gameKeys = Object.keys(game);
+
+for (const teamOdd of oddsEntries) {
+  const team = game[oddsEntries[oddsEntries.indexOf(teamOdd)][0]];
+  console.log(`Quota ${team ?? 'pareggio'} ${team ?? ''} = ${teamOdd[1]}`);
+}
+
+//Soluzione
+console.log('Soluzione esercizio 3');
+for (const [team, odd] of oddsEntries) {
+  const isTeam = gameKeys.includes(team);
+  console.log(
+    `Quota ${isTeam ? 'vittoria' : 'pareggio'} ${
+      isTeam ? game[team] : ''
+    } = ${odd}`
+  );
+}
+
+//Crea un oggetto che riporti i giocatori con il numero di goal segnati
+//a partire dall'array game.scored
+
+const scorers = {};
+
+// for (const player of game.scored) {
+//   if (Object.keys(scorers).includes(player)) {
+//     scorers[player] += 1;
+//   } else scorers[player] = 1;
+// }
+
+//Soluzione
+// for (const player of game.scored) {
+//   if (scorers[player]) {
+//     scorers[player]++;
+//   } else scorers[player] = 1;
+// }
+
+//Con operatore ternario
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+
+console.log(scorers);
