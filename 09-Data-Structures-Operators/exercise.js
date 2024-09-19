@@ -187,3 +187,41 @@ for (const [minute, event] of gameEvents) {
     `${minute <= 45 ? '[FIRST' : '[SECOND'} HALF] ${minute}: ${event}`
   );
 }
+
+//Esercizio 12
+//Prelevare dal DOM dei nomi di variabili scritti in underscore_case e convertirli in camelCase
+//poi stampareli uno a uno con accanto un numero di spunte pari alla posizione nell'array + 1
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+const testoEl = document.querySelector('textarea');
+const buttonEl = document.querySelector('button');
+
+//Funzione che converte una parola da underscore_case a camelCase
+const fromUnderscoreToCamel = function (underscoreString) {
+  const arrayLower = underscoreString.split('_');
+  const arrayUpper = [arrayLower[0].trim()];
+  for (let i = 0; i < arrayLower.length; i++) {
+    const word = arrayLower[i].toLowerCase();
+    if (i > 0) arrayUpper.push(word.replace(word[0], word[0].toUpperCase()));
+  }
+  return arrayUpper.join('');
+};
+
+// console.log(fromUnderscoreToCamel('underscore_string'));
+
+//Funzione che stampa tutte le variabili convertite con accato le spunte
+const printConverted = function (text) {
+  const array = text.split('\n');
+  let i = 0;
+  for (const variable of array) {
+    i++;
+    console.log(fromUnderscoreToCamel(variable + '☑'.repeat(i)));
+  }
+};
+
+const testo =
+  'underscore_case\nfirst_name\nSome_Variable\n calculate_AGE\ndelayed_departure';
+
+buttonEl.addEventListener('click', function () {
+  printConverted(testo);
+});
