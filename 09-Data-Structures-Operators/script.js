@@ -696,3 +696,15 @@ console.log([...question.keys()]);
 console.log(question.values());
 //si può spacchettare
 console.log([...question.values()]);
+
+//Lezione 120: ripasso delle strutture dati
+//- Array e Set si possono usare quando i dati che dobbiamo manipolare sono semplici e non
+//devono essere associati a una chiave.
+//- I casi d'uso di un set non sono frequenti, ma se non ci servono dati ripetuti è più
+//conveniente usarli al posto degli array, poichè le operazioni di ricerca, aggiunta e rimozione
+//sono molto pù veloci su un set che su un array. Possono essere utilizzati per ripulire un array da valori ripetuti
+//-Mappe e Oggetti si possono usare quando è utile avere la coppia [chiave - valore]
+//Le mappe sono più performanti e hanno il vantaggio di poter avere qualsiasi tipo di valore come chiave
+//e non solo stringhe.
+//Il contro è che sulle mappe non si possono usare metodi che abbiano l'accesso diretto al resto dei
+//dati contenuti nella mappa
