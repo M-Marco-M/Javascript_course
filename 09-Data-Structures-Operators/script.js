@@ -591,7 +591,7 @@ rest.set(1, 'Firenze');
 rest.set(2, 'Genova');
 
 rest
-  .set('categoie', ['italiana', 'vegetariana', 'mediterranea', 'pizzeria'])
+  .set('categorie', ['italiana', 'vegetariana', 'mediterranea', 'pizzeria'])
   .set('open', 11)
   .set('close', 23)
   //è possibile impostare anche un booleano come chiave

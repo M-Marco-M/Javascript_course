@@ -149,3 +149,42 @@ for (const player of game.scored) {
 }
 
 console.log(scorers);
+
+//Esercizio 11
+const gameEvents = new Map([
+  [17, '⚽ GOAL'],
+  [36, '� Substitution'],
+  [47, '⚽ GOAL'],
+  [61, '� Substitution'],
+  [64, '� Yellow card'],
+  [69, '� Red card'],
+  [70, '� Substitution'],
+  [72, '� Substitution'],
+  [76, '⚽ GOAL'],
+  [80, '⚽ GOAL'],
+  [92, '� Yellow card'],
+]);
+
+//Creare l'array "events" con tutti gli eventi della partita, di modo che non contenga duplicati
+
+const events = [...new Set([...gameEvents.values()])];
+
+console.log(events);
+
+//Rimuovere il cartellino giallo del minuto 64 dalla mappa
+gameEvents.delete(64);
+console.log(gameEvents);
+
+//Calcolare ogni quanti minuti, in media, avviene un evento durante una partita e stampare una stringa
+let totalEvents = 0;
+for (const event of gameEvents) {
+  totalEvents++;
+}
+console.log(`An event happened, on average, every ${90 / totalEvents} minutes`);
+
+//Stampare uno a uno gli eventi della partita specificando se sono avvenuti nella prima metà o nella seconda metà dell'incontro
+for (const [minute, event] of gameEvents) {
+  console.log(
+    `${minute < 45 ? '[FIRST HALF]' : '[SECOND HALF]'} ${minute}: ${event}`
+  );
+}
