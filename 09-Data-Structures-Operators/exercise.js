@@ -167,7 +167,7 @@ const gameEvents = new Map([
 
 //Creare l'array "events" con tutti gli eventi della partita, di modo che non contenga duplicati
 
-const events = [...new Set([...gameEvents.values()])];
+const events = [...new Set(gameEvents.values())];
 
 console.log(events);
 
@@ -176,15 +176,14 @@ gameEvents.delete(64);
 console.log(gameEvents);
 
 //Calcolare ogni quanti minuti, in media, avviene un evento durante una partita e stampare una stringa
-let totalEvents = 0;
-for (const event of gameEvents) {
-  totalEvents++;
-}
-console.log(`An event happened, on average, every ${90 / totalEvents} minutes`);
+
+console.log(
+  `An event happened, on average, every ${90 / gameEvents.size} minutes`
+);
 
 //Stampare uno a uno gli eventi della partita specificando se sono avvenuti nella prima metà o nella seconda metà dell'incontro
 for (const [minute, event] of gameEvents) {
   console.log(
-    `${minute < 45 ? '[FIRST HALF]' : '[SECOND HALF]'} ${minute}: ${event}`
+    `${minute <= 45 ? '[FIRST' : '[SECOND'} HALF] ${minute}: ${event}`
   );
 }
