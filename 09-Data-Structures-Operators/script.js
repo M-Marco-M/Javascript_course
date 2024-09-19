@@ -708,3 +708,67 @@ console.log([...question.values()]);
 //e non solo stringhe.
 //Il contro è che sulle mappe non si possono usare metodi che abbiano l'accesso diretto al resto dei
 //dati contenuti nella mappa
+
+//Lezione 121: Manipolazione avanzata delle stringhe
+
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+//Le stringhe possono essere trattate in maniera simile agli array
+//riferendosi a un carattere in una determinata possizione
+console.log(plane[0]);
+console.log(plane[2]);
+
+//Le stringhe possiedono la proprietà lenght (come gli array)
+console.log('Lunghezza airline: ' + airline.length);
+console.log('Lenghezza plane: ' + plane.length);
+
+//Anche sulle stringhe si può usare il metodo indexOf, che indica la posizione di un dato carattere(la prima volta che appare)
+console.log('Indice P in airline: ' + airline.indexOf('P')); //Stampa 2
+
+//Con lastIndexOf ci si riferisce all'indice dell'ultima posizione in cui appare il carattere dato
+console.log('Ultimo indice di P in airline: ' + airline.lastIndexOf('P')); //Non stampa 2
+
+console.log(airline.lastIndexOf('portugal')); //Se non trova il carattere o lastringa restituisce -1
+
+//Il metodo slice restituisce una nuova stringa, non modifica l'esistente.
+//Il primo parametro è la posizione da cui inizia la nuova stringa, il secondo, se c'è
+//quella in cui termina
+console.log(airline.slice(4)); //Stampa dalla "A" di "Air" in poi
+console.log(airline.slice(4, 7)); //Stampa solo Air
+
+console.log(airline.slice(0, airline.indexOf(' '))); //Stampa "Air": dal primo carattere al primo spazio vuoto
+
+//Passando valori negativi inizia a contare le posizioni dalla fine
+console.log(airline.slice(-8)); //Stampa Portugal
+
+console.log(airline.slice(-5, -1)); //Stampa tuga
+
+console.log(airline.slice(0, -3)); //Tronca gli ultimi tre caratteri
+
+//Scrivere una funzione che verifichi se è il posto in mezzo (B o E)
+
+//Esempio posto: 11B
+//Se il carattere in ultima posizione è uguale a B o E allora è un sedile di mezzo
+const checkMiddle = function (seat) {
+  if (seat.slice(-1) === 'B' || seat.slice(-1) === 'E') {
+    return 'Middle seat';
+  } else {
+    return 'NO middle seat';
+  }
+};
+
+console.log(checkMiddle('11B'));
+console.log(checkMiddle('32E'));
+console.log(checkMiddle('27A'));
+
+//JavaScript, quando operiamo dei metodi su una stringa converte al volo la variabile di tipo primitivo
+//in un oggetto wrapper
+
+const stringa = 'stringa di prova';
+const oggettoStringa = new String(stringa);
+
+console.log(stringa);
+console.log(typeof stringa);
+console.log(oggettoStringa);
+console.log(typeof oggettoStringa);
