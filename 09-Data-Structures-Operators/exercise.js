@@ -149,3 +149,79 @@ for (const player of game.scored) {
 }
 
 console.log(scorers);
+
+//Esercizio 11
+const gameEvents = new Map([
+  [17, '⚽ GOAL'],
+  [36, '� Substitution'],
+  [47, '⚽ GOAL'],
+  [61, '� Substitution'],
+  [64, '� Yellow card'],
+  [69, '� Red card'],
+  [70, '� Substitution'],
+  [72, '� Substitution'],
+  [76, '⚽ GOAL'],
+  [80, '⚽ GOAL'],
+  [92, '� Yellow card'],
+]);
+
+//Creare l'array "events" con tutti gli eventi della partita, di modo che non contenga duplicati
+
+const events = [...new Set(gameEvents.values())];
+
+console.log(events);
+
+//Rimuovere il cartellino giallo del minuto 64 dalla mappa
+gameEvents.delete(64);
+console.log(gameEvents);
+
+//Calcolare ogni quanti minuti, in media, avviene un evento durante una partita e stampare una stringa
+
+console.log(
+  `An event happened, on average, every ${90 / gameEvents.size} minutes`
+);
+
+//Stampare uno a uno gli eventi della partita specificando se sono avvenuti nella prima metà o nella seconda metà dell'incontro
+for (const [minute, event] of gameEvents) {
+  console.log(
+    `${minute <= 45 ? '[FIRST' : '[SECOND'} HALF] ${minute}: ${event}`
+  );
+}
+
+//Esercizio 12
+//Prelevare dal DOM dei nomi di variabili scritti in underscore_case e convertirli in camelCase
+//poi stampareli uno a uno con accanto un numero di spunte pari alla posizione nell'array + 1
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+const testoEl = document.querySelector('textarea');
+const buttonEl = document.querySelector('button');
+
+//Funzione che converte una parola da underscore_case a camelCase
+const fromUnderscoreToCamel = function (underscoreString) {
+  const arrayLower = underscoreString.toLowerCase().trim().split('_');
+  const arrayUpper = [arrayLower[0]];
+  for (let i = 0; i < arrayLower.length; i++) {
+    const word = arrayLower[i];
+    if (i > 0) arrayUpper.push(word.replace(word[0], word[0].toUpperCase()));
+  }
+  return arrayUpper.join('');
+};
+
+// console.log(fromUnderscoreToCamel('underscore_string'));
+
+//Funzione che stampa tutte le variabili convertite con accato le spunte
+const printConverted = function (text) {
+  const array = text.split('\n');
+  for (const [i, row] of array.entries()) {
+    console.log(
+      `${fromUnderscoreToCamel(row).padEnd(30, ' ')} ${'☑'.repeat(i + 1)}`
+    );
+  }
+};
+
+const testo =
+  'underscore_case\nfirst_name\nSome_Variable\n calculate_AGE\ndelayed_departure';
+
+buttonEl.addEventListener('click', function () {
+  printConverted(testo);
+});

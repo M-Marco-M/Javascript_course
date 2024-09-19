@@ -591,7 +591,7 @@ rest.set(1, 'Firenze');
 rest.set(2, 'Genova');
 
 rest
-  .set('categoie', ['italiana', 'vegetariana', 'mediterranea', 'pizzeria'])
+  .set('categorie', ['italiana', 'vegetariana', 'mediterranea', 'pizzeria'])
   .set('open', 11)
   .set('close', 23)
   //è possibile impostare anche un booleano come chiave
@@ -696,3 +696,222 @@ console.log([...question.keys()]);
 console.log(question.values());
 //si può spacchettare
 console.log([...question.values()]);
+
+//Lezione 120: ripasso delle strutture dati
+//- Array e Set si possono usare quando i dati che dobbiamo manipolare sono semplici e non
+//devono essere associati a una chiave.
+//- I casi d'uso di un set non sono frequenti, ma se non ci servono dati ripetuti è più
+//conveniente usarli al posto degli array, poichè le operazioni di ricerca, aggiunta e rimozione
+//sono molto pù veloci su un set che su un array. Possono essere utilizzati per ripulire un array da valori ripetuti
+//-Mappe e Oggetti si possono usare quando è utile avere la coppia [chiave - valore]
+//Le mappe sono più performanti e hanno il vantaggio di poter avere qualsiasi tipo di valore come chiave
+//e non solo stringhe.
+//Il contro è che sulle mappe non si possono usare metodi che abbiano l'accesso diretto al resto dei
+//dati contenuti nella mappa
+
+//Lezione 121: Manipolazione avanzata delle stringhe
+
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+//Le stringhe possono essere trattate in maniera simile agli array
+//riferendosi a un carattere in una determinata possizione
+console.log(plane[0]);
+console.log(plane[2]);
+
+//Le stringhe possiedono la proprietà lenght (come gli array)
+console.log('Lunghezza airline: ' + airline.length);
+console.log('Lenghezza plane: ' + plane.length);
+
+//Anche sulle stringhe si può usare il metodo indexOf, che indica la posizione di un dato carattere(la prima volta che appare)
+console.log('Indice P in airline: ' + airline.indexOf('P')); //Stampa 2
+
+//Con lastIndexOf ci si riferisce all'indice dell'ultima posizione in cui appare il carattere dato
+console.log('Ultimo indice di P in airline: ' + airline.lastIndexOf('P')); //Non stampa 2
+
+console.log(airline.lastIndexOf('portugal')); //Se non trova il carattere o lastringa restituisce -1
+
+//Il metodo slice restituisce una nuova stringa, non modifica l'esistente.
+//Il primo parametro è la posizione da cui inizia la nuova stringa, il secondo, se c'è
+//quella in cui termina
+console.log(airline.slice(4)); //Stampa dalla "A" di "Air" in poi
+console.log(airline.slice(4, 7)); //Stampa solo Air
+
+console.log(airline.slice(0, airline.indexOf(' '))); //Stampa "Air": dal primo carattere al primo spazio vuoto
+
+//Passando valori negativi inizia a contare le posizioni dalla fine
+console.log(airline.slice(-8)); //Stampa Portugal
+
+console.log(airline.slice(-5, -1)); //Stampa tuga
+
+console.log(airline.slice(0, -3)); //Tronca gli ultimi tre caratteri
+
+//Scrivere una funzione che verifichi se è il posto in mezzo (B o E)
+
+//Esempio posto: 11B
+//Se il carattere in ultima posizione è uguale a B o E allora è un sedile di mezzo
+const checkMiddle = function (seat) {
+  if (seat.slice(-1) === 'B' || seat.slice(-1) === 'E') {
+    return 'Middle seat';
+  } else {
+    return 'NO middle seat';
+  }
+};
+
+console.log(checkMiddle('11B'));
+console.log(checkMiddle('32E'));
+console.log(checkMiddle('27A'));
+
+//JavaScript, quando operiamo dei metodi su una stringa converte al volo la variabile di tipo primitivo
+//in un oggetto wrapper
+
+const stringa = 'stringa di prova';
+const oggettoStringa = new String(stringa);
+
+console.log(stringa);
+console.log(typeof stringa);
+console.log(oggettoStringa);
+console.log(typeof oggettoStringa);
+
+//Lezione 122: manipolazione avanzata stringhe parte 2
+//Modificare maisucole o minuscole
+console.log(airline.toLocaleLowerCase());
+console.log(airline.toLocaleUpperCase());
+
+//N.B. Si possono operare i metodi anche su stringhe nn conservate in variabili
+console.log('Prova'.toUpperCase());
+
+//Esempio, errore battitura in un nome
+const nome = 'jOnAs';
+//Portare tutto in minuscolo
+//Portare il primo carattere in maiuscolo
+const nomeLower = nome.toLowerCase();
+const nomeCorretto = nomeLower[0].toUpperCase() + nomeLower.slice(1);
+console.log(nomeCorretto);
+
+//Confrontare delle email
+//Trim rimuove gli spazi vuoti all'inizio e alla fine
+//Si possono concatenare le funzioni visto che restituiscono delle stringhe
+const compareEmail = function (correctEmail, promptEmail) {
+  return correctEmail === promptEmail.toLowerCase().trim();
+};
+
+const correctEmail = 'jonas.smith@gmail.com';
+const promptEmail = ' Jonas.smith@gmail.com  \n';
+
+console.log(compareEmail(correctEmail, promptEmail));
+
+//Convertire la scrittura di un prezzo da quella UE a quella USA
+//(euro - dollaro), (virgola - punto)
+
+const ueToUsaPrice = function (uePrice) {
+  return uePrice.replace('€', '$').replace(',', '.');
+};
+
+console.log(ueToUsaPrice('37,83€'));
+
+//Replace sostituisce solo il primo carattere che incontra
+//Sostituire door con gate
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23';
+console.log(announcement.replace('door', 'gate'));
+
+//Per sostituire tutte le occorrenze di uno o più caratteri si può usare
+//replaceAll
+console.log(announcement.replaceAll('door', 'gate'));
+
+//Prima dell'introduzione di replaceAll si poteva usare una regexp
+//In questa regexp gli slash indicano l'inizio e la fine della stringa da ricercare,
+//la g sta per "global", quindi in tutta la stringa
+console.log(announcement.replace(/door/g, 'gate'));
+
+//Metodi che restitiscono booleani: includes, startsWith, endsWith
+
+//Creare una funzione che controlli se un aereo appartiene alla nuova serie di Airbus
+//Se è un Airbus e dopo il codice viene apposta la parola "neo", appartiene alla nuova flotta Airbus
+const checkNewAirbus = function (airplane) {
+  return airplane.startsWith('Airbus') && airplane.endsWith('neo');
+};
+
+console.log(checkNewAirbus('Airbus A700neo'));
+console.log(checkNewAirbus('Airbus A700'));
+
+//Includes verifica che il carattere (o la stringa) sia presente, indipendentemente dalla posizione
+console.log('Airbus A700'.includes('bus'));
+
+//Esercizio: controllare i bagagli
+//I bagagli che contengono pistole o coltelli non possono pasare
+
+const luggageIsOk = function (luggage) {
+  const lowerLuggage = luggage.toLowerCase();
+  return !(lowerLuggage.includes('knife') || lowerLuggage.includes('gun'));
+};
+
+console.log(luggageIsOk('I carry water and a KniFe for emergencies'));
+console.log(luggageIsOk("I CaRRy a saNdwich and a 'GUn' to kill everyone"));
+
+//Lezione 123: manipolazione avanzata stringhe parte 2
+//Split restituisce un array, in cui ogni elemento è separato dagli altri dal carattere indicato
+console.log('a+very+beautiful+day'.split('+'));
+console.log('Marco Magnano'.split(' ')); //Crea un array con nome e cognome
+
+//Si può sfruttare lo split per conservare in due varibili separate nome e cognome
+//utilizzando lo spread operator
+const [mioNome, mioCognome] = 'Marco Magnano'.split(' ');
+console.log(mioNome, mioCognome);
+
+//Il metodo join fa l'opposto, a partire da un array crea una stringa in cui i caratteri sono concatenati da un carattere indicato
+const nomeEsteso = ['Signor', mioNome.toLowerCase(), mioCognome].join(' ');
+console.log(nomeEsteso);
+
+//Portare in maiuscolo nomi e cognomi
+const passenger = 'jessica ann smith davis';
+
+const capitalizePassenger = function (passenger) {
+  const passengerArray = passenger.split(' ');
+  const passengerArrayCapitalized = [];
+  for (const element of passengerArray) {
+    passengerArrayCapitalized.push(element[0].toUpperCase() + element.slice(1));
+  }
+  return passengerArrayCapitalized.join(' ');
+};
+
+console.log(capitalizePassenger(passenger));
+
+//Un'altra versione potrebbe essere:
+const capitalizePassengerNew = function (passenger) {
+  const passengerArray = passenger.split(' ');
+  const passengerArrayCapitalized = [];
+  for (const element of passengerArray) {
+    passengerArrayCapitalized.push(
+      element.replace(element[0], element[0].toUpperCase())
+    );
+  }
+  return passengerArrayCapitalized.join(' ');
+};
+
+console.log(capitalizePassengerNew(passenger));
+
+//Padding strings
+//padStart e padEnd aggiungono tanti caratteri (come quello indicato) alla stringa
+//quanti ne servono per arrivare al numero indicato, quindi i caratteri della stringa vengono già sottratti
+console.log(passenger.padStart(40, '*')); //Questa stringa è di 40 caratteri
+console.log(passenger.padStart(40, '*').padEnd(50, '+')); //Questa è di 50, aggiunge esattamente 10 "+"
+
+//Funzione che mascheri i numeri della carta di credito
+//Mostra solo le ultime 4 cifre
+const maskCreditCard = function (cardNumber) {
+  const stringCardNumber = String(cardNumber);
+  return stringCardNumber.slice(-4).padStart(stringCardNumber.length, '*');
+};
+
+console.log(maskCreditCard(43211234));
+
+//Repeat ripete una stringa per il numero di volte indicato
+console.log(passenger.repeat(3));
+
+const planesInLine = function (numPlanes) {
+  return `There are ${numPlanes} in line ${'✈'.repeat(numPlanes)}`;
+};
+
+console.log(planesInLine(5));
