@@ -849,3 +849,69 @@ const luggageIsOk = function (luggage) {
 
 console.log(luggageIsOk('I carry water and a KniFe for emergencies'));
 console.log(luggageIsOk("I CaRRy a saNdwich and a 'GUn' to kill everyone"));
+
+//Lezione 123: manipolazione avanzata stringhe parte 2
+//Split restituisce un array, in cui ogni elemento è separato dagli altri dal carattere indicato
+console.log('a+very+beautiful+day'.split('+'));
+console.log('Marco Magnano'.split(' ')); //Crea un array con nome e cognome
+
+//Si può sfruttare lo split per conservare in due varibili separate nome e cognome
+//utilizzando lo spread operator
+const [mioNome, mioCognome] = 'Marco Magnano'.split(' ');
+console.log(mioNome, mioCognome);
+
+//Il metodo join fa l'opposto, a partire da un array crea una stringa in cui i caratteri sono concatenati da un carattere indicato
+const nomeEsteso = ['Signor', mioNome.toLowerCase(), mioCognome].join(' ');
+console.log(nomeEsteso);
+
+//Portare in maiuscolo nomi e cognomi
+const passenger = 'jessica ann smith davis';
+
+const capitalizePassenger = function (passenger) {
+  const passengerArray = passenger.split(' ');
+  const passengerArrayCapitalized = [];
+  for (const element of passengerArray) {
+    passengerArrayCapitalized.push(element[0].toUpperCase() + element.slice(1));
+  }
+  return passengerArrayCapitalized.join(' ');
+};
+
+console.log(capitalizePassenger(passenger));
+
+//Un'altra versione potrebbe essere:
+const capitalizePassengerNew = function (passenger) {
+  const passengerArray = passenger.split(' ');
+  const passengerArrayCapitalized = [];
+  for (const element of passengerArray) {
+    passengerArrayCapitalized.push(
+      element.replace(element[0], element[0].toUpperCase())
+    );
+  }
+  return passengerArrayCapitalized.join(' ');
+};
+
+console.log(capitalizePassengerNew(passenger));
+
+//Padding strings
+//padStart e padEnd aggiungono tanti caratteri (come quello indicato) alla stringa
+//quanti ne servono per arrivare al numero indicato, quindi i caratteri della stringa vengono già sottratti
+console.log(passenger.padStart(40, '*')); //Questa stringa è di 40 caratteri
+console.log(passenger.padStart(40, '*').padEnd(50, '+')); //Questa è di 50, aggiunge esattamente 10 "+"
+
+//Funzione che mascheri i numeri della carta di credito
+//Mostra solo le ultime 4 cifre
+const maskCreditCard = function (cardNumber) {
+  const stringCardNumber = String(cardNumber);
+  return stringCardNumber.slice(-4).padStart(stringCardNumber.length, '*');
+};
+
+console.log(maskCreditCard(43211234));
+
+//Repeat ripete una stringa per il numero di volte indicato
+console.log(passenger.repeat(3));
+
+const planesInLine = function (numPlanes) {
+  return `There are ${numPlanes} in line ${'✈'.repeat(numPlanes)}`;
+};
+
+console.log(planesInLine(5));
