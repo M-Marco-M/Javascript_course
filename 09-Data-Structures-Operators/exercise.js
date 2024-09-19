@@ -198,10 +198,10 @@ const buttonEl = document.querySelector('button');
 
 //Funzione che converte una parola da underscore_case a camelCase
 const fromUnderscoreToCamel = function (underscoreString) {
-  const arrayLower = underscoreString.split('_');
-  const arrayUpper = [arrayLower[0].trim()];
+  const arrayLower = underscoreString.toLowerCase().trim().split('_');
+  const arrayUpper = [arrayLower[0]];
   for (let i = 0; i < arrayLower.length; i++) {
-    const word = arrayLower[i].toLowerCase();
+    const word = arrayLower[i];
     if (i > 0) arrayUpper.push(word.replace(word[0], word[0].toUpperCase()));
   }
   return arrayUpper.join('');
@@ -212,10 +212,10 @@ const fromUnderscoreToCamel = function (underscoreString) {
 //Funzione che stampa tutte le variabili convertite con accato le spunte
 const printConverted = function (text) {
   const array = text.split('\n');
-  let i = 0;
-  for (const variable of array) {
-    i++;
-    console.log(fromUnderscoreToCamel(variable + '☑'.repeat(i)));
+  for (const [i, row] of array.entries()) {
+    console.log(
+      `${fromUnderscoreToCamel(row).padEnd(30, ' ')} ${'☑'.repeat(i + 1)}`
+    );
   }
 };
 
