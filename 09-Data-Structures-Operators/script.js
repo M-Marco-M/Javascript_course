@@ -772,3 +772,80 @@ console.log(stringa);
 console.log(typeof stringa);
 console.log(oggettoStringa);
 console.log(typeof oggettoStringa);
+
+//Lezione 122: manipolazione avanzata stringhe parte 2
+//Modificare maisucole o minuscole
+console.log(airline.toLocaleLowerCase());
+console.log(airline.toLocaleUpperCase());
+
+//N.B. Si possono operare i metodi anche su stringhe nn conservate in variabili
+console.log('Prova'.toUpperCase());
+
+//Esempio, errore battitura in un nome
+const nome = 'jOnAs';
+//Portare tutto in minuscolo
+//Portare il primo carattere in maiuscolo
+const nomeLower = nome.toLowerCase();
+const nomeCorretto = nomeLower[0].toUpperCase() + nomeLower.slice(1);
+console.log(nomeCorretto);
+
+//Confrontare delle email
+//Trim rimuove gli spazi vuoti all'inizio e alla fine
+//Si possono concatenare le funzioni visto che restituiscono delle stringhe
+const compareEmail = function (correctEmail, promptEmail) {
+  return correctEmail === promptEmail.toLowerCase().trim();
+};
+
+const correctEmail = 'jonas.smith@gmail.com';
+const promptEmail = ' Jonas.smith@gmail.com  \n';
+
+console.log(compareEmail(correctEmail, promptEmail));
+
+//Convertire la scrittura di un prezzo da quella UE a quella USA
+//(euro - dollaro), (virgola - punto)
+
+const ueToUsaPrice = function (uePrice) {
+  return uePrice.replace('€', '$').replace(',', '.');
+};
+
+console.log(ueToUsaPrice('37,83€'));
+
+//Replace sostituisce solo il primo carattere che incontra
+//Sostituire door con gate
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23';
+console.log(announcement.replace('door', 'gate'));
+
+//Per sostituire tutte le occorrenze di uno o più caratteri si può usare
+//replaceAll
+console.log(announcement.replaceAll('door', 'gate'));
+
+//Prima dell'introduzione di replaceAll si poteva usare una regexp
+//In questa regexp gli slash indicano l'inizio e la fine della stringa da ricercare,
+//la g sta per "global", quindi in tutta la stringa
+console.log(announcement.replace(/door/g, 'gate'));
+
+//Metodi che restitiscono booleani: includes, startsWith, endsWith
+
+//Creare una funzione che controlli se un aereo appartiene alla nuova serie di Airbus
+//Se è un Airbus e dopo il codice viene apposta la parola "neo", appartiene alla nuova flotta Airbus
+const checkNewAirbus = function (airplane) {
+  return airplane.startsWith('Airbus') && airplane.endsWith('neo');
+};
+
+console.log(checkNewAirbus('Airbus A700neo'));
+console.log(checkNewAirbus('Airbus A700'));
+
+//Includes verifica che il carattere (o la stringa) sia presente, indipendentemente dalla posizione
+console.log('Airbus A700'.includes('bus'));
+
+//Esercizio: controllare i bagagli
+//I bagagli che contengono pistole o coltelli non possono pasare
+
+const luggageIsOk = function (luggage) {
+  const lowerLuggage = luggage.toLowerCase();
+  return !(lowerLuggage.includes('knife') || lowerLuggage.includes('gun'));
+};
+
+console.log(luggageIsOk('I carry water and a KniFe for emergencies'));
+console.log(luggageIsOk("I CaRRy a saNdwich and a 'GUn' to kill everyone"));
