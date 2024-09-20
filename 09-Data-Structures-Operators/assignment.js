@@ -378,3 +378,17 @@ for (const book of books) {
   book.onlineContent ??
     console.log(`${book.title} provides no data about its online content`);
 }
+
+//Logical Assignments Operators
+//-1) Aggiungi la proprietà edition dove mancante, assegnando 1 come valore di default
+
+for (const book of books) {
+  book.edition = book.edition || 1;
+}
+
+//-2) Impostare false la proprietà highlighted se rating è inferiore di 4.2
+
+for (const book of books) {
+  book.highlighted &&= !(book.thirdParty.goodreads.rating < 4.2);
+}
+console.log(books);

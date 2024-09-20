@@ -336,7 +336,7 @@ restaurant2.numOspiti ??= 10;
 
 console.log(restaurant1, restaurant2);
 
-//Ipotizzando di voler assegnare un valore di default a tutti gli oggetti che possiedono un parametri
+//Ipotizzando di voler assegnare un valore di default a tutti gli oggetti che possiedono un parametro
 
 restaurant1.proprietario &&= '<Dati riservati>';
 restaurant2.proprietario &&= '<Dati riservati>';
