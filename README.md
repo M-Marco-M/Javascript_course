@@ -1,1 +1,1 @@
-# Javascript_exercise
+# Javascript_course
