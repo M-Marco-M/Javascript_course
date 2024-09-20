@@ -254,3 +254,80 @@ const ratingStars = [63405, 1808];
 
 const [fiveStarRatings, oneStarRatings, threeStarRatings = 0] = ratingStars;
 console.log(fiveStarRatings, oneStarRatings, threeStarRatings);
+
+//Destructuring object
+
+//-1) Dividi il primo oggetto dell'array libri nelle variabili titolo, autore, ISBN
+
+const { author: autore, title: titolo, ISBN } = books[0];
+
+console.log(autore, titolo, ISBN);
+
+//-2) Dividi il primo oggetto dell'array books in una variabile chiamata tags, i valori di tags devono esser assegnati da keywords
+
+const tags1 = books[0].keywords;
+console.log(tags1);
+
+//Soluzione
+
+const { keywords: tags2 } = books[0];
+console.log(tags2);
+
+//-3) //Scomponi il settimo libro nelle variabili language e programmingLanguage.
+//Assegnare a programmingLanguage il valore di default "unknown"
+
+const { language, programmingLanguage = 'unknokwn' } = books[6];
+
+console.log(language, programmingLanguage);
+
+//-4) Riassegna alle variabili i valori di titolo e autore del primo libro
+let bookTitle = 'unknown';
+let bookAuthor = 'unknown';
+
+// {title: bookTitle, author: bookAuthor} = books[0];
+// console.log(bookAuthor, bookTitle);
+
+//Soluzione: quando si scompone un oggetto assegnando a delle variabili esistenti
+//bisogna mettere le tonde prima delle graffe poihè JS non consente di iniziare una riga con le graffe
+({ title: bookTitle, author: bookAuthor } = books[0]);
+
+//-5) Scomponi il primo libro in una variabile chiamata bookRating ch contenga book[0].thirdParty.goodreads.rating
+
+const {
+  thirdParty: {
+    goodreads: { rating: bookRating },
+  },
+} = books[0];
+
+console.log(bookRating);
+
+//-6) Scrivi una funzione printBookInfo con i parametri title, author e year.
+//Deve funzionare passando un singolo oggetto come argomento
+//Deve stampare "${title} by ${author}, ${year}"
+//Se anno è indefinito il valore di default deve essere "unknown"
+
+const printBookInfo = function ({ title, author, year = 'year unknown' }) {
+  console.log(`${title} by ${author}, ${year}`);
+};
+
+for (const book of books) {
+  printBookInfo(book);
+}
+
+//Spread operator
+//-1)Dichiara un array chiamato bookAuthors che contenga gli autori dei primi due libri
+//senza avere array all'interno
+
+const bookAuthors = [...books[0].author, ...books[1].author];
+console.log(bookAuthors);
+
+//-2) Scrivere una funzione chiamat spellWord che prenda una stringa come parametro e
+//che stampi i caratteri intervallati da spazi
+
+const spellWord = function (string) {
+  console.log(...string);
+};
+
+spellWord('prova');
+
+// Rest pattern
