@@ -331,3 +331,22 @@ const spellWord = function (string) {
 spellWord('prova');
 
 // Rest pattern
+//-1) Scomponi keywords di books nelle variabili mainKeyword e rest, assegna la prima keyword a mainKeyword, il resto a rest
+
+const [mainKeyword, ...rest] = books[0].keywords;
+console.log(mainKeyword, rest);
+
+//-2) Scomponi il secondo libro in una variabile chiamata bookPublisher, che conserverà il publisher
+// e in una chiamata restOfTheBook
+
+const { publisher: bookPublisher, ...restOfTheBook } = books[1];
+console.log(bookPublisher, restOfTheBook);
+
+//-3) Scrivi una funzione printBookAuthorsCount che abbia due parametri, titolo e autore, autore può accettare un numero illimitato di argomenti
+//La funzione deve stampare una stringa in questo formato "The book "${title}" has ${authors.length} authors"
+
+const printBookAuthorsCount = function (title, ...authors) {
+  console.log(`The book "${title}" has ${authors.length} authors`);
+};
+
+printBookAuthorsCount('Algorithms', 'Robert Sedgewick', 'Kevin Wayne');
