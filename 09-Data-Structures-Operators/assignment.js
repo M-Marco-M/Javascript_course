@@ -461,3 +461,13 @@ const newBook2 = {
   pages,
 };
 console.log(newBook2);
+
+//Optional Chaining (?.)
+//-1) Scrivi una funzione che indichi il primo elemento in keyword,
+//se keyword non è presente restituisce undefined, non errore
+const getFirstKeyword = function (book) {
+  return book.keywords?.[0];
+};
+
+console.log(getFirstKeyword(newBook2));
+console.log(getFirstKeyword(books[0]));
