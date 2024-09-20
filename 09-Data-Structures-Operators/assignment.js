@@ -392,3 +392,35 @@ for (const book of books) {
   book.highlighted &&= !(book.thirdParty.goodreads.rating < 4.2);
 }
 console.log(books);
+
+//The for-of loop
+//-1) Somma i valori della proprietà pages di ogni libro dell'array nella variabile pageSum
+
+let pageSum = 0;
+for (const book of books) {
+  pageSum += book.pages;
+}
+
+console.log(pageSum);
+
+//-2) Conserva tutti gli autori di ogni libro in books dentro l'array allAuthors
+//L'array deve avere solo stringhe tutte sullo stesso livello (non array di stringhe)
+
+const allAuthors = [];
+
+for (const { author } of books) {
+  if (typeof author === 'string') {
+    allAuthors.push(author);
+  } else {
+    allAuthors.push(...author);
+  }
+}
+
+console.log(allAuthors);
+
+//-3) Stampa ciascun autore di allAuthors con il suo indice, usa entries().
+//L'indice deve partire da 1
+
+for (const [index, author] of allAuthors.entries()) {
+  console.log(`${index}. ${author}`);
+}
