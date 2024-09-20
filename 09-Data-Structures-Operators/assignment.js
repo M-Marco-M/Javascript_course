@@ -369,3 +369,12 @@ console.log('--------------------------------------------------');
 for (const book of books) {
   book.onlineContent && console.log(`${book.title} provides online content`);
 }
+
+//Nullish operator
+//-1) Scrivi un for-of che stampi "${title}" provides no data about its online content
+//se l'oggetto non possiede la proprietà onlineContent
+
+for (const book of books) {
+  book.onlineContent ??
+    console.log(`${book.title} provides no data about its online content`);
+}
