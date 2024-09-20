@@ -350,3 +350,22 @@ const printBookAuthorsCount = function (title, ...authors) {
 };
 
 printBookAuthorsCount('Algorithms', 'Robert Sedgewick', 'Kevin Wayne');
+
+//Short circuiting
+
+//-1) Scrivi una funzione hasExamplesInJava che indichi se il libro passato come parametro
+// usa come linguaggio Java, restituendo true se vero o 'no data available' se falso o assente
+
+const hasExamplesInJava = function (book) {
+  return book.programmingLanguage === 'Java' || 'no data available';
+};
+
+console.log(hasExamplesInJava(books[0]));
+console.log(hasExamplesInJava(books[2]));
+
+console.log('--------------------------------------------------');
+//-2) Scrivi un for-of di books che verifichi se presente onlineContent, se si stampare "${title}" provides online content
+
+for (const book of books) {
+  book.onlineContent && console.log(`${book.title} provides online content`);
+}
