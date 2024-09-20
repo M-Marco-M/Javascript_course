@@ -424,3 +424,40 @@ console.log(allAuthors);
 for (const [index, author] of allAuthors.entries()) {
   console.log(`${index}. ${author}`);
 }
+
+//Enhanced Object Literals
+
+//-1) Riporta i valori di bookData nella coppia chiave-valore allinterno dell'oggetto newBook
+//tramite la notazione avanzata degli oggetti (notazione con [])
+const bookData = [
+  ['title', 'Computer Networking: A Top-Down Approach'],
+  ['author', ['James F. Kurose', 'Keith W. Ross']],
+  ['publisher', 'Addison Wesley'],
+];
+
+const newBook = {
+  [bookData[0][0]]: bookData[0][1],
+  [bookData[1][0]]: bookData[1][1],
+  [bookData[2][0]]: bookData[2][1],
+};
+console.log(newBook);
+
+//-2) Aggiungere la proprietà pages a newBook2 con il valore di pages
+const pages = 880;
+
+// const newBook2 = {
+//   title: 'The C Programming Language',
+//   author: ['Brian W. Kernighan', 'Dennis M. Ritchie'],
+//   pages: pages,
+// };
+
+// console.log(newBook2);
+
+//Soluzione
+
+const newBook2 = {
+  title: 'The C Programming Language',
+  author: ['Brian W. Kernighan', 'Dennis M. Ritchie'],
+  pages,
+};
+console.log(newBook2);
