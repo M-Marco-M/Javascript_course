@@ -529,3 +529,24 @@ console.log(allKeywordsUniqueArray);
 
 //-6) Cancella tutti gli elementi dal set
 allKeywordsUnique.clear();
+
+//Mappe: fondamentali
+//-1) Crea un nuovo libro in forma di mappa con questi dati [['title', 'Clean Code'], ['author', 'Robert C. Martin']]
+const newBook3 = new Map([
+  ['title', 'Clean Code'],
+  ['author', 'Robert C. Martin'],
+]);
+
+console.log(newBook3);
+
+//-2) In newBook 3 inserisci una nuova chiave pages col valore 464
+newBook3.set('pages', 464);
+
+//-3) Stampa questa stringa "${title} by ${author}".
+console.log(`${newBook3.get('title')} by ${newBook3.get('author')}`);
+
+//-4) Stampa la size di newBook3
+console.log(newBook3.size);
+
+//-5) Stampa "The author of the book is known" se newBook3 ha la chiave author
+newBook3.has('author') && console.log('The author of the book is known');
