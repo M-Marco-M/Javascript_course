@@ -471,3 +471,30 @@ const getFirstKeyword = function (book) {
 
 console.log(getFirstKeyword(newBook2));
 console.log(getFirstKeyword(books[0]));
+
+//Looping objects: keys, values, entries
+//-1) Ciclando l'array books[0].thirdParty.goodreads inserisci le key nell'array entries
+const entries = [];
+
+for (const key of Object.keys(books[0].thirdParty.goodreads)) {
+  entries.push([key]);
+}
+
+console.log(entries);
+
+//-2) Ciclando books[0].thirdparty.goodreads inserisci i valori al posto giusto dell'array entries
+
+for (const [index, value] of Object.values(
+  books[0].thirdParty.goodreads
+).entries()) {
+  entries[index].push(value);
+}
+
+//-3) Ciclando books[0].thirdparty.goodreads e applicando il metodo .entries(), inserisci i valori nell'array vuoto entries2
+const entries2 = [];
+
+for (const entry of Object.entries(books[0].thirdParty.goodreads)) {
+  entries2.push(entry);
+}
+
+console.log(entries2);
