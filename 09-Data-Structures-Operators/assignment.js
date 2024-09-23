@@ -585,3 +585,49 @@ const isContributor = function (author) {
 };
 
 isContributor(allAuthors[4]);
+isContributor(allAuthors[1]);
+
+//Stringhe parte 2
+//-1) Scrivi una funzione normalizeAuthorName che elimini "(Contributor)" e metta in maiuscolo le iniziali di nome e cognome
+const normalizeAuthorName = function (author) {
+  authorCleanedArray = author
+    .slice(0, author.indexOf('(Contributor)') - 1)
+    .toLowerCase()
+    .split(' ');
+  for (const [index, word] of authorCleanedArray.entries()) {
+    authorCleanedArray[index] = `${word[0].toUpperCase()}${word.slice(1)}`;
+  }
+  return authorCleanedArray.join(' ');
+};
+console.log(normalizeAuthorName(allAuthors[4]));
+
+//-2) Sostituisci "Software" a "Program" nel titolo di books[1], assegna il valore
+//alla variabile newBookTitle
+const newBookTitle = books[1].title.replace('Programs', 'Software');
+
+console.log(newBookTitle);
+
+//-3) Scrivi una funzione logBookTheme che stampi "This book is about computers"
+//se il titolo inizia per "computer"
+//"This book is about algorithms and data structures" se il titolo include "algorithms"
+//e "data structures"
+//"This book is about some systems, but definitely not about operating systems" se
+//ili titolo termina per "system" o "systems" ma non include "operating"
+
+const logBookTheme = function (title) {
+  const titolo = title.toLowerCase();
+  if (titolo.startsWith('computer')) {
+    console.log('This book is about computers');
+  } else if (titolo.includes('algorithms' && 'data structures')) {
+    console.log('This book is about algorithms and data structures');
+  } else if (
+    titolo.endsWith('system' || 'systems') &&
+    !titolo.includes('operating')
+  ) {
+    console.log(
+      'This book is about some systems, but definitely not about operating systems'
+    );
+  }
+};
+
+logBookTheme('Computer e algorithms and data structures');
