@@ -70,3 +70,14 @@ console.log(marco);
 //Adesso la funzione checkIn dirà che il passaporto è sbagliato
 checkIn(flight, marco);
 console.log(marco);
+
+//Lezione 131: First-class e funzioni di ordine superiore
+//Le funzioni in JS sono first-class function, sono cioè dei particolari oggetti
+//non dissimili da array, oggetti o mappe.
+//Questo consente di passare le funzioni come un valore anche all'interno di altre funzioni
+//Come avviene ad esempio nell'eventListener
+
+//Le funzioni che hanno funzioni come parametro o restituiscono funzioni
+//si chiamano funzioni di ordine superiore (higher-order function)
+
+//Le first-class function sono una caratteristica del linguaggio,come quella di essere a oggetti o tipizzato
