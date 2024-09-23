@@ -27,3 +27,46 @@ createBooking('A127');
 //Adesso per far si che un prametro assuma il valore di default, assegnando però il successivo,
 //bisognerebbe passare undefined
 createBooking('A228', undefined, 37);
+
+//Lezione 130: Passaggio argomenti per valore o per riferimento
+const flight = 'LH234';
+const marco = {
+  nome: 'marco',
+  passport: 238976,
+};
+
+const checkIn = function (flightNum, passenger) {
+  flightNum = 'LT734';
+  passenger.nome = 'Mr.' + passenger.nome;
+  if (passenger.passport === 238976) {
+    alert('Check-in avvenuto con successo');
+  } else {
+    alert('Passporto non corrispondente!');
+  }
+};
+checkIn(flight, marco);
+
+//La funzione modifica il nome nell'oggetto, poichè degli oggetti viene passato il
+//riferimento, mentre dei tipi primitivi il valore
+console.log(flight, marco);
+
+//Perchè è come fare
+//Assegno valore
+const flightNum = flight;
+//Assegno riferimento: passenger contiene solo il riferimento a marco,
+//in pratica punta allo stesso oggetto in memoria a cui punta marco
+const passeggero = marco;
+
+//è importante ricordare questa caratteristica nei codici molto estesi
+//per esempio:
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() * 10000000);
+};
+
+//Sto modificando l'oggetto marco
+newPassport(marco);
+
+console.log(marco);
+//Adesso la funzione checkIn dirà che il passaporto è sbagliato
+checkIn(flight, marco);
+console.log(marco);
