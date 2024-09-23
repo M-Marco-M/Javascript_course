@@ -1,3 +1,5 @@
+'use strict';
+
 const books = [
   {
     title: 'Algorithms',
@@ -590,7 +592,7 @@ isContributor(allAuthors[1]);
 //Stringhe parte 2
 //-1) Scrivi una funzione normalizeAuthorName che elimini "(Contributor)" e metta in maiuscolo le iniziali di nome e cognome
 const normalizeAuthorName = function (author) {
-  authorCleanedArray = author
+  const authorCleanedArray = author
     .slice(0, author.indexOf('(Contributor)') - 1)
     .toLowerCase()
     .split(' ');
@@ -631,3 +633,77 @@ const logBookTheme = function (title) {
 };
 
 logBookTheme('Computer e algorithms and data structures');
+
+//Stringhe parte 3
+//-1) Scrivi una funzione logBookCategories che stampi le categorie prendendo in ingresso una stringa separata da puto e virgola
+
+const bookCategories =
+  'science;computing;computer science;algorithms;business;operating systems;networking;electronics';
+
+const logBookCategories = function (categories) {
+  for (const category of categories.split(';')) {
+    console.log(category);
+  }
+};
+
+logBookCategories(bookCategories);
+
+//-2) Scrivi una funzione getKeywordAsString che prenda l'array books in ingresso
+// e restituisca una stringa con tutte le keywords senza duplicati
+
+const getKeywordAsString = function (books) {
+  const keywordsSet = new Set();
+  for (const { keywords } of books) {
+    for (const keyword of keywords) {
+      keywordsSet.add(keyword);
+    }
+  }
+  return [...keywordsSet].join(';');
+};
+console.log(getKeywordAsString(books));
+
+console.log('---------------------------');
+//Soluzione
+const getKeywordsAsString2 = function (books) {
+  const keywordsArray = [];
+
+  for (const { keywords } of books) {
+    keywordsArray.push(...keywords);
+  }
+
+  const uniqueKeywords = [...new Set(keywordsArray)];
+
+  return uniqueKeywords.join(';');
+};
+console.log(getKeywordsAsString2(books));
+
+//Altra soluzione
+console.log('-----------------------------');
+
+const getKeywordAsString3 = function (books) {
+  const keywordsArray = [];
+  for (const { keywords } of books) {
+    keywordsArray.push(...keywords);
+  }
+  return [...new Set(keywordsArray)].join(';');
+};
+console.log(getKeywordAsString3(books));
+
+//-3) Scrivi una funzione logBookChapters che stampi una stringa per ogni capitolo,
+//separando capitolo e numero di pagine con underscore variabili
+//in modo che il numero totale di caratteri per ogni riga sia lo stesso
+const bookChapters = [
+  ['The Basics', 14],
+  ['Sorting', 254],
+  ['Searching', 372],
+  ['Graphs', 526],
+  ['Strings', 706],
+];
+
+const logBookChapters = function (chapters) {
+  for (const [chapter, page] of chapters) {
+    console.log(`${chapter.padEnd(20, '_')} ${page}`);
+  }
+};
+
+logBookChapters(bookChapters);
