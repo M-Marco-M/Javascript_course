@@ -562,3 +562,26 @@ console.log(book0Map);
 for (const [key, value] of book0Map) {
   if (typeof value === 'number') console.log(key);
 }
+
+//Stringhe parte 1
+//-1)Stampa i caratteri 6, 4, 9 e 8 di books[0].ISBN con la bracket notation
+console.log(
+  `${books[0].ISBN[6]}, ${books[0].ISBN[4]}, ${books[0].ISBN[9]}, ${books[0].ISBN[8]}`
+);
+
+//-2)Stampa l'indice della parola "chess" in quote
+const quote =
+  'A computer once beat me at chess, but it was no match for me at kick boxing';
+
+console.log(quote.indexOf('chess'));
+
+//-3)Estrai la parola "boxing" da quote e stampala
+const indexOfBoxing = quote.indexOf('boxing');
+console.log(quote.slice(indexOfBoxing, indexOfBoxing + 6));
+
+//-4) Crea una funzione isContributor che dato un autore dall'array author indichi vero o falso a seconda se sia un contributor
+const isContributor = function (author) {
+  console.log(author.endsWith('(Contributor)'));
+};
+
+isContributor(allAuthors[4]);
