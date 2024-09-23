@@ -550,3 +550,15 @@ console.log(newBook3.size);
 
 //-5) Stampa "The author of the book is known" se newBook3 ha la chiave author
 newBook3.has('author') && console.log('The author of the book is known');
+
+//Mappe: cicli
+//-1) Converti il primo oggetto dell'array books in una mappa
+const book0Map = new Map(Object.entries(books[0]));
+
+console.log(book0Map);
+
+//Stampa le chiavi di book0Map che hanno numeri come valori
+
+for (const [key, value] of book0Map) {
+  if (typeof value === 'number') console.log(key);
+}
