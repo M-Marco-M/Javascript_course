@@ -498,3 +498,34 @@ for (const entry of Object.entries(books[0].thirdParty.goodreads)) {
 }
 
 console.log(entries2);
+
+//Sets
+//-1) Riempi allKeywords con tutte i valori di books[x].keywords. L'array non deve contenere array annidati
+const allKeywords = [];
+
+for (const book of books) {
+  allKeywords.push(...book.keywords);
+}
+
+console.log(allKeywords);
+
+//-2) Rimuovi i duplicati dall'array allKeywords inserendoli in un set
+const allKeywordsUnique = new Set(allKeywords);
+
+console.log(allKeywordsUnique);
+
+//-3) Aggiungi "code" e "science" al set
+
+allKeywordsUnique.add('code', 'science');
+
+console.log(allKeywordsUnique);
+
+//-4) Elimina business da allKeywordsUnique
+allKeywordsUnique.delete('business');
+
+//-5) Crea un array con gli elementi del set
+const allKeywordsUniqueArray = [...allKeywordsUnique];
+console.log(allKeywordsUniqueArray);
+
+//-6) Cancella tutti gli elementi dal set
+allKeywordsUnique.clear();
