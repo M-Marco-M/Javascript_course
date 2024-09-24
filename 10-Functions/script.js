@@ -120,5 +120,77 @@ document.body.addEventListener('click', high5);
 //Il metodo forEach reitera la funzione passata per ogni elemento di un array
 ['Marco', 'Sofiya', 'Andrea', 'Alessio'].forEach(high5);
 
-//Le funzioni di ordine superiore son ouna forma di astrazione
+//Le funzioni di ordine superiore son una forma di astrazione
 //Consentono di spacchettare la logica di alcuni funzioni e utilizzarle in maniera modulare
+
+//Lezione 133: Funzioni che restituiscono funzioni
+const greet = function (greeting) {
+  return function (nome) {
+    console.log(`${greeting} ${nome}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Jonas');
+greeterHey('Marco');
+
+greet('Hello')('Marco');
+
+//Trasformare le funzioni in arrowFunction
+const greetArrow = greeting => {
+  return nome => {
+    console.log(`${greeting} ${nome}`);
+  };
+};
+
+//Avendo un solo parametro si può scrivere così
+const greetArrowS = greeting => nome => console.log(`${greeting} ${nome}`);
+
+greetArrow('prova')('marco');
+
+//Lezione 134: metodi call e apply
+const lufthansa = {
+  airnline: 'lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, nome) {
+    console.log(
+      `${nome} booked a seat on flight ${this.iataCode}${flightNum} offered by ${this.airnline}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, nome });
+  },
+};
+
+lufthansa.book(337, 'Marco');
+
+console.log(lufthansa);
+
+const eurowings = {
+  airnline: 'eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+//Se provassi a assegnare il metodo book di lufthansa a una variabile per usarlo
+//come una funzione le keyword this del metodo punterebbero a undefined
+const book = lufthansa.book;
+
+// book(242, 'Luca');
+
+//Se vogliamo usare il metodo book fuori da lufthansa, magari su eurowings
+//dobbiamo usare il metodo delle funzioni "call"
+//Quest'operazione si chiama binding
+lufthansa.book.call(eurowings, 242, 'Luca');
+
+console.log(eurowings.bookings);
+
+//Il metodo call (che vuole come primo parametro l'oggetto su cui deve essere chiamata)
+//serve a specificare lo scope a cui la funzione deve fare riferimento
+
+//Il metodo apply permette di passare a una funzione un array
+
+const flightData = [571, 'Alfredo'];
+book.apply(eurowings, flightData);
+
+//Non è più molto in uso, si può usare lo spread operator
+book.call(eurowings, ...flightData);
