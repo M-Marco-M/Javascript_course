@@ -120,5 +120,173 @@ document.body.addEventListener('click', high5);
 //Il metodo forEach reitera la funzione passata per ogni elemento di un array
 ['Marco', 'Sofiya', 'Andrea', 'Alessio'].forEach(high5);
 
-//Le funzioni di ordine superiore son ouna forma di astrazione
+//Le funzioni di ordine superiore son una forma di astrazione
 //Consentono di spacchettare la logica di alcuni funzioni e utilizzarle in maniera modulare
+
+//Lezione 133: Funzioni che restituiscono funzioni
+const greet = function (greeting) {
+  return function (nome) {
+    console.log(`${greeting} ${nome}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Jonas');
+greeterHey('Marco');
+
+greet('Hello')('Marco');
+
+//Trasformare le funzioni in arrowFunction
+const greetArrow = greeting => {
+  return nome => {
+    console.log(`${greeting} ${nome}`);
+  };
+};
+
+//Avendo un solo parametro si può scrivere così
+const greetArrowS = greeting => nome => console.log(`${greeting} ${nome}`);
+
+greetArrow('prova')('marco');
+
+//Lezione 134: metodi call e apply
+const lufthansa = {
+  airnline: 'lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, nome) {
+    console.log(
+      `${nome} booked a seat on flight ${this.iataCode}${flightNum} offered by ${this.airnline}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, nome });
+  },
+};
+
+lufthansa.book(337, 'Marco');
+
+console.log(lufthansa);
+
+const eurowings = {
+  airnline: 'eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+//Se provassi a assegnare il metodo book di lufthansa a una variabile per usarlo
+//come una funzione le keyword this del metodo punterebbero a undefined
+const book = lufthansa.book;
+
+// book(242, 'Luca');
+
+//Se vogliamo usare il metodo book fuori da lufthansa, magari su eurowings
+//dobbiamo usare il metodo delle funzioni "call"
+//Quest'operazione si chiama binding
+lufthansa.book.call(eurowings, 242, 'Luca');
+
+console.log(eurowings.bookings);
+
+//Il metodo call (che vuole come primo parametro l'oggetto su cui deve essere chiamata)
+//serve a specificare lo scope a cui la funzione deve fare riferimento
+
+//Il metodo apply permette di passare a una funzione un array
+
+const flightData = [571, 'Alfredo'];
+book.apply(eurowings, flightData);
+
+//Non è più molto in uso, si può usare lo spread operator
+book.call(eurowings, ...flightData);
+
+//Lezione 135: metodo bind
+const bookEw = book.bind(eurowings);
+
+bookEw(672, 'Pietro');
+
+//Con bind posso assegnare dei parametri predefiniti a una funzione, il primo
+//è l'oggetto che deve richiamarla. Assegnando a una variabile conservo
+//una funzione che verrà richiamata sempre da eurowings
+
+//In questo caso il primo parametro sarà sempre 661
+const bookEw661 = book.bind(eurowings, 661);
+
+bookEw661('Andrea');
+bookEw661('Lucia');
+
+//Con eventListener
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+
+  this.planes++;
+  console.log(this.planes);
+};
+
+//Nell'eventListener il this fa sempre riferimento all'elemento del DOM che richiama la funzione
+
+// document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane);
+
+//In questo cas "this" è il button, che non ha una proprietà planes, quindi non può eseguire alcuna somma
+//Per far si che this punti all'oggetto lufthansa:
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+//---------N.B.Il binding è una forma di ereditarietà?-------------//
+//Creo una nuova funzione che eredità quasi tutto da quella vecchio,
+//ma ha specificati uno o più parametri
+
+//Applicazioni
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+//Ammettendo di voler calcolare una specifica tassa, con un valore di rate fisso
+const addIva = addTax.bind(null, 0.23); //Il primo parametro deve essere sempre l'oggetto su cui la funzione si deve applicare
+//Se vogliamo che la funzione sia globale possiamo inserire null
+console.log(addIva(200));
+
+//Riscrivere queste due funzioni ma utilizzando una funzione che restituisce una funzione
+const addTax2 = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addIva2 = addTax2(0.23);
+console.log(addIva2(100));
+
+//Lezione 137: Immediatly Invoked Function Expression (Funzioni anonime)(IIFE)
+//Le funzioni IIFE sono funzioni senza nome dichiarate tra parentesi tonde
+//in questo modo il blocco verrà immediatamente eseguito
+
+const runOnce = function () {
+  console.log('This function right one');
+};
+
+//Questa funzione può i realtà essere eseguita più volte
+runOnce();
+runOnce();
+
+//Per ottenere il risultato che vogliamo:
+(function () {
+  console.log('This function REALLY run once');
+  const privateConst = 23;
+});
+
+//Questa struttura è stata inizialmente utilizzata come forma di incapsulamento
+//poichè le funzioni creano un loro prorpio scope, a cui non si può accedere dall'esterno
+//quindi garantisce una forma di privacy e sicurezza
+
+// console.log(privateConst); //Non lo trova, is not defined
+
+//Con l'introduzione di const e let però non c'è più bisogno di questa struttura
+//perchè anche let e const creano il loro scope, non accessibile dall'esterno
+//a differenza di var che fa sempre riferimento allo scope globale
+
+{
+  const privateConstInObject = 72;
+  var nonPrivateVarInObject = 33;
+}
+
+// console.log(privateConstInObject); //is not defined
+console.log(nonPrivateVarInObject);
+
+//Le IIFE sono ancora utili nel caso in cui si volesse dichiarare una funzione
+//da usare al volo e non ripetibile
