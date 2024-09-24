@@ -194,3 +194,60 @@ book.apply(eurowings, flightData);
 
 //Non è più molto in uso, si può usare lo spread operator
 book.call(eurowings, ...flightData);
+
+//Lezione 135: metodo bind
+const bookEw = book.bind(eurowings);
+
+bookEw(672, 'Pietro');
+
+//Con bind posso assegnare dei parametri predefiniti a una funzione, il primo
+//è l'oggetto che deve richiamarla. Assegnando a una variabile conservo
+//una funzione che verrà richiamata sempre da eurowings
+
+//In questo caso il primo parametro sarà sempre 661
+const bookEw661 = book.bind(eurowings, 661);
+
+bookEw661('Andrea');
+bookEw661('Lucia');
+
+//Con eventListener
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+
+  this.planes++;
+  console.log(this.planes);
+};
+
+//Nell'eventListener il this fa sempre riferimento all'elemento del DOM che richiama la funzione
+
+// document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane);
+
+//In questo cas "this" è il button, che non ha una proprietà planes, quindi non può eseguire alcuna somma
+//Per far si che this punti all'oggetto lufthansa:
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+//---------N.B.Il binding è una forma di ereditarietà?-------------//
+//Creo una nuova funzione che eredità quasi tutto da quella vecchio,
+//ma ha specificati uno o più parametri
+
+//Applicazioni
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+//Ammettendo di voler calcolare una specifica tassa, con un valore di rate fisso
+const addIva = addTax.bind(null, 0.23); //Il primo parametro deve essere sempre l'oggetto su cui la funzione si deve applicare
+//Se vogliamo che la funzione sia globale possiamo inserire null
+console.log(addIva(200));
+
+//Riscrivere queste due funzioni ma utilizzando una funzione che restituisce una funzione
+const addTax2 = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addIva2 = addTax2(0.23);
+console.log(addIva2(100));
