@@ -251,3 +251,42 @@ const addTax2 = function (rate) {
 
 const addIva2 = addTax2(0.23);
 console.log(addIva2(100));
+
+//Lezione 137: Immediatly Invoked Function Expression (Funzioni anonime)(IIFE)
+//Le funzioni IIFE sono funzioni senza nome dichiarate tra parentesi tonde
+//in questo modo il blocco verrà immediatamente eseguito
+
+const runOnce = function () {
+  console.log('This function right one');
+};
+
+//Questa funzione può i realtà essere eseguita più volte
+runOnce();
+runOnce();
+
+//Per ottenere il risultato che vogliamo:
+(function () {
+  console.log('This function REALLY run once');
+  const privateConst = 23;
+});
+
+//Questa struttura è stata inizialmente utilizzata come forma di incapsulamento
+//poichè le funzioni creano un loro prorpio scope, a cui non si può accedere dall'esterno
+//quindi garantisce una forma di privacy e sicurezza
+
+// console.log(privateConst); //Non lo trova, is not defined
+
+//Con l'introduzione di const e let però non c'è più bisogno di questa struttura
+//perchè anche let e const creano il loro scope, non accessibile dall'esterno
+//a differenza di var che fa sempre riferimento allo scope globale
+
+{
+  const privateConstInObject = 72;
+  var nonPrivateVarInObject = 33;
+}
+
+// console.log(privateConstInObject); //is not defined
+console.log(nonPrivateVarInObject);
+
+//Le IIFE sono ancora utili nel caso in cui si volesse dichiarare una funzione
+//da usare al volo e non ripetibile
