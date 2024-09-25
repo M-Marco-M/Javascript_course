@@ -75,6 +75,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
+/*
 //Lezione 143: metodi degli array
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -124,3 +125,19 @@ console.log([...arr, ...vettore]);
 
 //Join
 console.log(vettore.join(' - '));
+
+//Lezione 144: Metodo "at"
+
+console.log(vettore[0]);
+console.log(vettore.at(0));
+
+//Restituire l'ultima cella
+console.log(vettore.splice(-1)[0]); //Bisogna prendere il primo valore perchè restituisce un array
+console.log(vettore[vettore.length - 1]);
+
+//Con il metodo at
+console.log(vettore.at(-1));
+
+//Si può usare anche sulle stringhe
+console.log('Albero'.at(-1));
+*/
