@@ -65,13 +65,30 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-//Lezione 145: ciclo forEach
+//Lezione 146: ciclo forEach per mappe e set
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
 
+//Funziona in maniera del tutto simile agli array. Il primo valore è il valore
+//il secondo è la chiave, il terzo la mappa
+currencies.forEach(function (value, key, map) {
+  console.log(`${value} at ${key}`);
+  console.log(map);
+});
+
+//Per i set è simile, ma il secondo parametro restituisce di nuovo il valore
+//questo perchè i set non hanno chiave o indice
+
+new Set(['USD', 'EUR', 'GBP', 'EUR', 'GBP']).forEach(function (value, _, set) {
+  console.log('value', value);
+  console.log(set);
+  console.log('_', _);
+});
+/*
+//Lezione 145: ciclo forEach
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //Con for-of
@@ -93,6 +110,8 @@ movements.forEach(function (movement, index, array) {
   }
 });
 //Continue e break NON FUNZIONANO nel forEach
+*/
+
 /////////////////////////////////////////////////
 
 /*
