@@ -62,3 +62,30 @@ const data2 = [1, 5, 3, 9, 6, 1];
 //Soluzione
 poll.displayResults.call({ answers: data1 });
 poll.displayResults.call({ answers: data2 }, 'stringa');
+
+//Esercizio 14
+
+const body = document.querySelector('body');
+
+//IIFE
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+  body.addEventListener('click', function () {
+    header.style.color = 'blue';
+  });
+})();
+
+//Aggiungi un eventListener che cambi il colore di h1 a blue
+//ogni volta che il body viene cliccato, alla fine della funzione
+//Fallo senza selezionare h1 un'altra volta
+
+//Spiega come fa a funzionare
+
+//-1) Quando la funzione viene lanciata assegna a header il query selector di h1
+//poi imposta il colore di header a rosso
+//-2) Viene richiamata la funzione addEventListener, che crea la funzione che cambia
+// il colore di header a blu
+//-3) Questa funzione può accedere al variable environment della IIFE per sempre
+//-4) Viene terminata la funzione IIFE
+//-5) Al click su body viene eseguita la funzione per impostare blu, che può accedere al VE della IIFE (che non èe più in esecuzione)

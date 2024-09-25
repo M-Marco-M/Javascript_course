@@ -85,6 +85,7 @@ console.log(marco);
 
 //Lezione 132: Funzioni che accettano funzioni di callback
 
+/*
 const oneWord = function (str) {
   return str.replace(/ /g, '').toLowerCase();
 };
@@ -257,7 +258,7 @@ console.log(addIva2(100));
 //in questo modo il blocco verrà immediatamente eseguito
 
 const runOnce = function () {
-  console.log('This function right one');
+  console.log('This function run once');
 };
 
 //Questa funzione può i realtà essere eseguita più volte
@@ -290,3 +291,109 @@ console.log(nonPrivateVarInObject);
 
 //Le IIFE sono ancora utili nel caso in cui si volesse dichiarare una funzione
 //da usare al volo e non ripetibile
+
+//Lezione 138: Closure
+//La closure è una caratteristica di JavaScript, una modalità di funzionamento
+//che può essere sfruttata.
+
+//Le funzioni hanno un accesso permanente al variable environment in cui vengono create
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(passengerCount);
+  };
+};
+
+//Non stampa niente perchè la funzione anonima non viene richiamata,
+//viene solamente restituita, infatti stampando l'output di secureBooking()
+//viene stampata la funzione anonima
+secureBooking();
+secureBooking();
+secureBooking();
+
+console.log(secureBooking()); // *1 Stesso risultato
+
+//Assegnando l'output di secureBooking() a booker gli sto in realtà assegnando
+//il valore di ritorno CHE è ESATTAMENTE LA FUNZIONE ANONIMA ALL'INTERNO
+const booker = secureBooking();
+booker();
+booker();
+console.log(booker); // *2 Stesso risultato
+//Assegnare booker comporta l'esecuzione della funzione anonima in quest'ordine
+//-1) Viene eseguita la funzione secureBooking
+//-2) Viene creato il suo variable environment
+//-3) Viene creata la funzione anonima, che ha accesso al variable environment
+//-4) Viene restiuita la funzione anonima e la funzione secureBooking non è più in esecuzione
+
+//Al momento dell'esecuzione di booker la funzione continu ad accedere al variable environment
+//esistente al momento della sua creazione (e assegnazione a booker)
+
+//Quindi alla fine sarà eseguita la funzione anonima, senza mai più passare dalla funzione
+//secure booking
+
+//A closure is created when a function retains access to its outer function's variables, even after that outer function has finished executing.
+//This allows the inner function to remember the state of those variables.
+
+//La funzione è in grado di tenere il conto perchè farà riferimento a un altro
+//variable environment, creato alla prima esecuzione di secureBooking, in passengerCount non viene più inizializzata
+
+//console.dir() stampa l'oggetto funzione
+console.dir(booker);
+
+//N.B. La closure ha priorità sullo scope
+*/
+//Lezione 139: approfondimento sulle closure
+
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+console.log(f);
+g(); //g crea la funzione e la assegna a f
+console.log(f); //Adesso f contiene la funzione
+
+f(); //Il variable environment di f contiene a = 23, come al momento della sua creazione
+
+console.dir(f);
+const h = function () {
+  const b = 50;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+////Assegna ad f una nuova funzione
+h();
+f();
+console.dir(f);
+
+//Altro esempio
+const boardPassenger = function (n, wait) {
+  const perGroup = n / 3;
+
+  //Set time out esegue la funzione passata come primo parametro
+  //dopo un ritardo passato in millisecondi nel secondo parametro
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+
+    console.log(`There are three groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`We start boarding in ${wait} seconds`);
+};
+
+//Pur dichiarando la variabile globale perGroup
+//e pur essendo boardPassenger eseguita nel blocco principale
+//la funzione in setTimeout farà sempre riferimento a perGroup presente
+//nel suo variable environment quando è stata creata
+const perGroup = 900;
+boardPassenger(180, 5);
+//La closure ha la precedenza sullo scope
