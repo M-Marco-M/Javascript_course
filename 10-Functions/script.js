@@ -85,6 +85,7 @@ console.log(marco);
 
 //Lezione 132: Funzioni che accettano funzioni di callback
 
+/*
 const oneWord = function (str) {
   return str.replace(/ /g, '').toLowerCase();
 };
@@ -339,4 +340,60 @@ console.log(booker); // *2 Stesso risultato
 //La funzione è in grado di tenere il conto perchè farà riferimento a un altro
 //variable environment, creato alla prima esecuzione di secureBooking, in passengerCount non viene più inizializzata
 
+//console.dir() stampa l'oggetto funzione
 console.dir(booker);
+
+//N.B. La closure ha priorità sullo scope
+*/
+//Lezione 139: approfondimento sulle closure
+
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+console.log(f);
+g(); //g crea la funzione e la assegna a f
+console.log(f); //Adesso f contiene la funzione
+
+f(); //Il variable environment di f contiene a = 23, come al momento della sua creazione
+
+console.dir(f);
+const h = function () {
+  const b = 50;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+////Assegna ad f una nuova funzione
+h();
+f();
+console.dir(f);
+
+//Altro esempio
+const boardPassenger = function (n, wait) {
+  const perGroup = n / 3;
+
+  //Set time out esegue la funzione passata come primo parametro
+  //dopo un ritardo passato in millisecondi nel secondo parametro
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+
+    console.log(`There are three groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`We start boarding in ${wait} seconds`);
+};
+
+//Pur dichiarando la variabile globale perGroup
+//e pur essendo boardPassenger eseguita nel blocco principale
+//la funzione in setTimeout farà sempre riferimento a perGroup presente
+//nel suo variable environment quando è stata creata
+const perGroup = 900;
+boardPassenger(180, 5);
+//La closure ha la precedenza sullo scope
