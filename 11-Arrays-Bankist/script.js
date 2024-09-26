@@ -61,10 +61,38 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//Lezione 147: crezione elementi del DOM
+//Creazione di una funzione che manipoli il DOM facendo apparire nuoci elementi
+
+const displayMovements = function (movements) {
+  //Assegno al codice HTM di containerMovements (il div movements) il valore
+  //di stringa vuota, in pratica non più in testo HTML, è vuoto
+  containerMovements.innerHTML = '';
+
+  movements.forEach((index, mov) => {
+    //Se maggiore di 0 è un deposito, minore prelievo
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    //insertAdjacentHTML aggiunge del testo HTML nella posizione indicata
+    //prima dell'elemento, all'inizio dll'elemento, alla fine dell'elemento
+    //dopo l'elemento.
+    //Aggiungo un testo HTML che rappresenta una riga del nostro div movements
+    //in questo modo si crea una pila in cui l'ultimo movimento apparirà più in alto
+    const html = `<div class="movements__row">
+    <div class="movements__type movements__type--${type}">${index} ${type}</div>
+    <div class="movements__value">${mov}€</div>
+    </div>`;
+
+    //Il testo html in questo caso viene passato come variabile stringa
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+//Richiamo la funzione displayMovements passando l'array account1.movements
+displayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
-
+/*
 //Lezione 146: ciclo forEach per mappe e set
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -87,7 +115,7 @@ new Set(['USD', 'EUR', 'GBP', 'EUR', 'GBP']).forEach(function (value, _, set) {
   console.log(set);
   console.log('_', _);
 });
-/*
+
 //Lezione 145: ciclo forEach
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -110,11 +138,11 @@ movements.forEach(function (movement, index, array) {
   }
 });
 //Continue e break NON FUNZIONANO nel forEach
-*/
+
 
 /////////////////////////////////////////////////
 
-/*
+
 //Lezione 143: metodi degli array
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -179,4 +207,5 @@ console.log(vettore.at(-1));
 
 //Si può usare anche sulle stringhe
 console.log('Albero'.at(-1));
+
 */
