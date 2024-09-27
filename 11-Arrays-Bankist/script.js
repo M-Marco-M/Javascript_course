@@ -122,8 +122,36 @@ console.log(accounts);
 //=> produce un "side effect", può operare su variabili globali, ad esempio
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//Lezione 153 part1: metodo reduce
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//Può essere usato per calcolare il bilancio, cioè la somma di tutti i movimenti
+//Il primo parametro della funzione in reduce è l'accumulatore
+//poi seguono gli altri come per gli altri metodi
+//Oltre alla funzione stessa, però, c'è un secondo parametro, che è il valore
+//iniziale dell'accumulatore
+
+//Va restituita l'operazione che vogliamo venga ripetuta e accumulata nella variabile
+
+const balance = movements.reduce(function (acc, mov, i, movs) {
+  console.log(`Giro ${i}: ${acc}`);
+  return acc + mov;
+}, 0);
+console.log(balance);
+
+//Con ciclo for-of
+let balanceForOf = 0;
+for (const mov of movements) {
+  balanceForOf += mov;
+}
+console.log(balanceForOf);
+
+//Reduce con arrow function
+const balanceArrow = movements.reduce((acc, mov) => acc + mov);
+console.log(balanceArrow);
 
 //Lezione 152: metodo filter
+/*
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const deposits = movements.filter(mov => mov > 0);
@@ -153,9 +181,9 @@ console.log(movements.filter(mov => 10 > 0));
 //In pratica sostituendo la condizione con dei semplici true o false
 //otterremo una copia esatta dell'array o un array vuoto
 //Nel caso di true pusherà per ogni elemento, nel caso di false non pusherà mai
-
-//Lezione 151: metodo map
+*/
 /*
+//Lezione 151: metodo map
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.1;
 
