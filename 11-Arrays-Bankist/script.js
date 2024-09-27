@@ -92,6 +92,16 @@ displayMovements(account1.movements);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//Lezione 150: metodi map, filter e reduce
+//Map: simile a forEach, ma dopo aver eseguito la funzione su un elemento
+//lo conserva in un array che viene alla fine restituito
+
+//Filter: restituisce un array in cui vengono conservati solo gli elementi che rispettano
+//determinati criteri (es: arr[i] > 0)
+
+//Reduce: restituisce un solo valore dall'array, che può essere dato dalla somma dei suoi valori o dalla loro differenza
+//o moltiplicazione, ad esempio
+
 // LECTURES
 /*
 //Lezione 146: ciclo forEach per mappe e set
