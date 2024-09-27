@@ -130,6 +130,33 @@ const calcDisplayBalance = function (mov) {
 };
 calcDisplayBalance(account1.movements);
 
+//Lezione 154 part2: applicazione pipeline
+//Utilizzare una pipeline per realizzare una funzione che dato un array in ingresso
+//mostri sul DOM le spese totali, i guadagni totali e gli interessi
+//Per pura pratica gli interessi vengono calcolati come 1,2% per ogni somma depositata
+//purchè l'interesse sul deposito > 1€
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter(interest => interest > 1)
+    .reduce((acc, interest) => acc + interest);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
+
+// N.B.
+//In JavaScript è una cattiva abitudine concatenare metodi che modificano l'array originale
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
