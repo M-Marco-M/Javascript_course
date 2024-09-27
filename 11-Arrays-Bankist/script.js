@@ -120,8 +120,20 @@ console.log(accounts);
 //----------------IMPORTANTE-----------------------
 //N.B. Il metodo forEach non restituisce nulla di per se, esegue delle operazione
 //=> produce un "side effect", può operare su variabili globali, ad esempio
+
+//Lezione 153 part2: applicazione metodo reduce
+//Scrivere una funzione che dato l'array di movements calcoli e stampi il bilancio
+
+const calcDisplayBalance = function (mov) {
+  const balance = mov.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcDisplayBalance(account1.movements);
+
+//---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+
 //Lezione 153 part1: metodo reduce
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -149,6 +161,13 @@ console.log(balanceForOf);
 //Reduce con arrow function
 const balanceArrow = movements.reduce((acc, mov) => acc + mov);
 console.log(balanceArrow);
+
+//Usare reduce per calcolare il valore massimo
+const maxValue = movements.reduce(
+  (acc, mov) => (mov > acc ? (acc = mov) : (acc = acc)),
+  mov[0]
+);
+console.log(maxValue);
 
 //Lezione 152: metodo filter
 /*
