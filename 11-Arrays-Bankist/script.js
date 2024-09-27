@@ -92,6 +92,37 @@ displayMovements(account1.movements);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//Lezione 151: metodo map
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+const usdMovements = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+//L'array originale non viene modificato
+console.log(usdMovements);
+console.log(movements);
+
+//Lo stesso risultato si può ottenere anche con altri cicli
+const usdMovementsForEach = [];
+movements.forEach(function (mov) {
+  usdMovementsForEach.push(mov * eurToUsd);
+});
+
+//Stesso risultato
+console.log(usdMovementsForEach);
+
+//Challenge: sostituisci la funzione del metodo map con un'arrow function
+const usdMovementsArrow = movements.map(mov => mov * eurToUsd);
+console.log(usdMovementsArrow);
+
+//Creazione di un array con una stringa di descrizione per ogni elemento dell'originale
+const movementsDesc = movements.map(
+  (mov, i) =>
+    `${i + 1}: ${mov > 0 ? 'You deposited' : 'You withdrew'} ${Math.abs(mov)}`
+);
+console.log(movementsDesc);
 //Lezione 150: metodi map, filter e reduce
 //Map: simile a forEach, ma dopo aver eseguito la funzione su un elemento
 //lo conserva in un array che viene alla fine restituito
