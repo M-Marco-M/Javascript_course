@@ -89,6 +89,7 @@ const displayMovements = function (movements) {
 };
 //Richiamo la funzione displayMovements passando l'array account1.movements
 displayMovements(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
