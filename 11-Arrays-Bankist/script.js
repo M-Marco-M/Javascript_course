@@ -133,7 +133,33 @@ calcDisplayBalance(account1.movements);
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+/*
+//Lezione 154 part1: concatenazione dei metodi e debug nella pipeline
+//Fin quando dei metodi dell'array restituiscono un array possono essere concatenati
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
 
+//PIPELINE (Sequenza di istruzioni al termine del quale viene prodotto un risultato semplice e univoco)
+//Debug nella pipeline
+
+// const totalDepositUsd = movements
+//   .filter(mov => mov > 0)
+//   .map(mov => mov * eurToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+
+//Per controllare i risultati all'interno di una pipeline si può stampare l'array
+//passato come parametro a una funzione nella funzione successiva a quella di cui vogliamo controllare l'output
+const totalDepositUsd = movements
+  .filter(mov => mov > 0)
+  .map((mov, i, arr) => {
+    mov * eurToUsd;
+    console.log(arr);
+  })
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositUsd);
+*/
+
+/*
 //Lezione 153 part1: metodo reduce
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -168,6 +194,7 @@ const maxValue = movements.reduce(
   mov[0]
 );
 console.log(maxValue);
+*/
 
 //Lezione 152: metodo filter
 /*
