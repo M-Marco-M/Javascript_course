@@ -90,9 +90,40 @@ const displayMovements = function (movements) {
 //Richiamo la funzione displayMovements passando l'array account1.movements
 displayMovements(account1.movements);
 
+//Lezione 152: uso di map e differenza con forEach
+//Costruire l'username con le iniziali del nome applicando il metodo map
+//e conservarlo come stringa
+
+//Giunti a split avrò un array, quindi potrò applicarne i metodi
+//Scriverlo come funzione
+//Il valore è RESTITUITO dalle arrow function
+
+//Far si che la funzione funzioni per un array di account
+const createUsernames = accs =>
+  accs.forEach(
+    acc =>
+      (acc.username = acc.owner
+        .toLowerCase()
+        .split(' ')
+        .map(word => word[0])
+        .join(''))
+  );
+createUsernames(accounts);
+console.log(accounts);
+
+//Descrizione della funzione: La funzione createUsername
+//-1) Prende in ingresso una lista di account
+//-2) La cicla con un forEach
+//-3) Per ogni account imposta account.username come l'elaborazione che segue
+//a partire da account.owner
+
+//----------------IMPORTANTE-----------------------
+//N.B. Il metodo forEach non restituisce nulla di per se, esegue delle operazione
+//=> produce un "side effect", può operare su variabili globali, ad esempio
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 //Lezione 151: metodo map
+/*
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.1;
 
@@ -123,6 +154,7 @@ const movementsDesc = movements.map(
     `${i + 1}: ${mov > 0 ? 'You deposited' : 'You withdrew'} ${Math.abs(mov)}`
 );
 console.log(movementsDesc);
+
 //Lezione 150: metodi map, filter e reduce
 //Map: simile a forEach, ma dopo aver eseguito la funzione su un elemento
 //lo conserva in un array che viene alla fine restituito
@@ -132,6 +164,7 @@ console.log(movementsDesc);
 
 //Reduce: restituisce un solo valore dall'array, che può essere dato dalla somma dei suoi valori o dalla loro differenza
 //o moltiplicazione, ad esempio
+*/
 
 // LECTURES
 /*
