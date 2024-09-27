@@ -122,6 +122,38 @@ console.log(accounts);
 //=> produce un "side effect", può operare su variabili globali, ad esempio
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+
+//Lezione 152: metodo filter
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const deposits = movements.filter(mov => mov > 0);
+console.log(movements);
+console.log(deposits);
+
+//Il vantaggio di usare i metodi rispetto ai cicli for è quello di poterli concatenare
+//uno con l'altro per ottenere un solo risultato finale che può essere direttamente
+//stampato o conservato, senza conservare passaggi intermedi in delle variabili
+
+const depositsForOf = [];
+for (const mov of movements) {
+  if (mov > 0) depositsForOf.push(mov);
+}
+console.log(depositsForOf);
+
+//Challenge: realizzare un filtro per i prelievi
+//Restituisce solo i mov per cui la condizione mov < 0 è valida
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+//Questo chiarisce meglio il meccanismo di filter
+console.log(movements.filter(mov => 10 > 0));
+
+//N.B. Filter fa un push all'array che poi viene restituito ogni volta che la condizione che noi restituiamo è vero
+//(Ricorda che nelle arrow function c'è un return implicito)
+//In pratica sostituendo la condizione con dei semplici true o false
+//otterremo una copia esatta dell'array o un array vuoto
+//Nel caso di true pusherà per ogni elemento, nel caso di false non pusherà mai
+
 //Lezione 151: metodo map
 /*
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
