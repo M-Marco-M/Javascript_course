@@ -61,10 +61,266 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
+//Lezione 147: crezione elementi del DOM
+//Creazione di una funzione che manipoli il DOM facendo apparire nuoci elementi
 
+const displayMovements = function (movements) {
+  //Assegno al codice HTM di containerMovements (il div movements) il valore
+  //di stringa vuota, in pratica non più in testo HTML, è vuoto
+  containerMovements.innerHTML = '';
+
+  movements.forEach((index, mov) => {
+    //Se maggiore di 0 è un deposito, minore prelievo
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    //insertAdjacentHTML aggiunge del testo HTML nella posizione indicata
+    //prima dell'elemento, all'inizio dll'elemento, alla fine dell'elemento
+    //dopo l'elemento.
+    //Aggiungo un testo HTML che rappresenta una riga del nostro div movements
+    //in questo modo si crea una pila in cui l'ultimo movimento apparirà più in alto
+    const html = `<div class="movements__row">
+    <div class="movements__type movements__type--${type}">${index} ${type}</div>
+    <div class="movements__value">${mov}€</div>
+    </div>`;
+
+    //Il testo html in questo caso viene passato come variabile stringa
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+//Richiamo la funzione displayMovements passando l'array account1.movements
+displayMovements(account1.movements);
+
+//Lezione 152: uso di map e differenza con forEach
+//Costruire l'username con le iniziali del nome applicando il metodo map
+//e conservarlo come stringa
+
+//Giunti a split avrò un array, quindi potrò applicarne i metodi
+//Scriverlo come funzione
+//Il valore è RESTITUITO dalle arrow function
+
+//Far si che la funzione funzioni per un array di account
+const createUsernames = accs =>
+  accs.forEach(
+    acc =>
+      (acc.username = acc.owner
+        .toLowerCase()
+        .split(' ')
+        .map(word => word[0])
+        .join(''))
+  );
+createUsernames(accounts);
+console.log(accounts);
+
+//Descrizione della funzione: La funzione createUsername
+//-1) Prende in ingresso una lista di account
+//-2) La cicla con un forEach
+//-3) Per ogni account imposta account.username come l'elaborazione che segue
+//a partire da account.owner
+
+//----------------IMPORTANTE-----------------------
+//N.B. Il metodo forEach non restituisce nulla di per se, esegue delle operazione
+//=> produce un "side effect", può operare su variabili globali, ad esempio
+
+//Lezione 153 part2: applicazione metodo reduce
+//Scrivere una funzione che dato l'array di movements calcoli e stampi il bilancio
+
+const calcDisplayBalance = function (mov) {
+  const balance = mov.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcDisplayBalance(account1.movements);
+
+//Lezione 154 part2: applicazione pipeline
+//Utilizzare una pipeline per realizzare una funzione che dato un array in ingresso
+//mostri sul DOM le spese totali, i guadagni totali e gli interessi
+//Per pura pratica gli interessi vengono calcolati come 1,2% per ogni somma depositata
+//purchè l'interesse sul deposito > 1€
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov);
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter(interest => interest > 1)
+    .reduce((acc, interest) => acc + interest);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
+
+// N.B.
+//In JavaScript è una cattiva abitudine concatenare metodi che modificano l'array originale
+//---------------------------------------------------------------//
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
+//Lezione 155: metodo find
+//Il metodo find restituisce un singolo valore:
+//il primo valore che rispetta la condizione data
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//Per cercare il primo prelievo:
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal);
+
+//Stampare l'oggetto in cui proprietario è uguale a Jessica Davis
+const jessicDavisAcc = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(jessicDavisAcc);
+
+//Fare la stessa operazione con un for-of
+let jessicaDavisForof = {};
+for (const acc of accounts) {
+  if (acc.owner === 'Jessica Davis') jessicaDavisForof = acc;
+}
+console.log(jessicaDavisForof);
+/*
+//Lezione 154 part1: concatenazione dei metodi e debug nella pipeline
+//Fin quando dei metodi dell'array restituiscono un array possono essere concatenati
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+//PIPELINE (Sequenza di istruzioni al termine del quale viene prodotto un risultato semplice e univoco)
+//Debug nella pipeline
+
+// const totalDepositUsd = movements
+//   .filter(mov => mov > 0)
+//   .map(mov => mov * eurToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+
+//Per controllare i risultati all'interno di una pipeline si può stampare l'array
+//passato come parametro a una funzione nella funzione successiva a quella di cui vogliamo controllare l'output
+const totalDepositUsd = movements
+  .filter(mov => mov > 0)
+  .map((mov, i, arr) => {
+    mov * eurToUsd;
+    console.log(arr);
+  })
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositUsd);
+*/
+
+/*
+//Lezione 153 part1: metodo reduce
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//Può essere usato per calcolare il bilancio, cioè la somma di tutti i movimenti
+//Il primo parametro della funzione in reduce è l'accumulatore
+//poi seguono gli altri come per gli altri metodi
+//Oltre alla funzione stessa, però, c'è un secondo parametro, che è il valore
+//iniziale dell'accumulatore
+
+//Va restituita l'operazione che vogliamo venga ripetuta e accumulata nella variabile
+
+const balance = movements.reduce(function (acc, mov, i, movs) {
+  console.log(`Giro ${i}: ${acc}`);
+  return acc + mov;
+}, 0);
+console.log(balance);
+
+//Con ciclo for-of
+let balanceForOf = 0;
+for (const mov of movements) {
+  balanceForOf += mov;
+}
+console.log(balanceForOf);
+
+//Reduce con arrow function
+const balanceArrow = movements.reduce((acc, mov) => acc + mov);
+console.log(balanceArrow);
+
+//Usare reduce per calcolare il valore massimo
+const maxValue = movements.reduce(
+  (acc, mov) => (mov > acc ? (acc = mov) : (acc = acc)),
+  mov[0]
+);
+console.log(maxValue);
+*/
+
+//Lezione 152: metodo filter
+/*
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const deposits = movements.filter(mov => mov > 0);
+console.log(movements);
+console.log(deposits);
+
+//Il vantaggio di usare i metodi rispetto ai cicli for è quello di poterli concatenare
+//uno con l'altro per ottenere un solo risultato finale che può essere direttamente
+//stampato o conservato, senza conservare passaggi intermedi in delle variabili
+
+const depositsForOf = [];
+for (const mov of movements) {
+  if (mov > 0) depositsForOf.push(mov);
+}
+console.log(depositsForOf);
+
+//Challenge: realizzare un filtro per i prelievi
+//Restituisce solo i mov per cui la condizione mov < 0 è valida
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+//Questo chiarisce meglio il meccanismo di filter
+console.log(movements.filter(mov => 10 > 0));
+
+//N.B. Filter fa un push all'array che poi viene restituito ogni volta che la condizione che noi restituiamo è vero
+//(Ricorda che nelle arrow function c'è un return implicito)
+//In pratica sostituendo la condizione con dei semplici true o false
+//otterremo una copia esatta dell'array o un array vuoto
+//Nel caso di true pusherà per ogni elemento, nel caso di false non pusherà mai
+*/
+/*
+//Lezione 151: metodo map
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+const usdMovements = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+
+//L'array originale non viene modificato
+console.log(usdMovements);
+console.log(movements);
+
+//Lo stesso risultato si può ottenere anche con altri cicli
+const usdMovementsForEach = [];
+movements.forEach(function (mov) {
+  usdMovementsForEach.push(mov * eurToUsd);
+});
+
+//Stesso risultato
+console.log(usdMovementsForEach);
+
+//Challenge: sostituisci la funzione del metodo map con un'arrow function
+const usdMovementsArrow = movements.map(mov => mov * eurToUsd);
+console.log(usdMovementsArrow);
+
+//Creazione di un array con una stringa di descrizione per ogni elemento dell'originale
+const movementsDesc = movements.map(
+  (mov, i) =>
+    `${i + 1}: ${mov > 0 ? 'You deposited' : 'You withdrew'} ${Math.abs(mov)}`
+);
+console.log(movementsDesc);
+
+//Lezione 150: metodi map, filter e reduce
+//Map: simile a forEach, ma dopo aver eseguito la funzione su un elemento
+//lo conserva in un array che viene alla fine restituito
+
+//Filter: restituisce un array in cui vengono conservati solo gli elementi che rispettano
+//determinati criteri (es: arr[i] > 0)
+
+//Reduce: restituisce un solo valore dall'array, che può essere dato dalla somma dei suoi valori o dalla loro differenza
+//o moltiplicazione, ad esempio
+*/
+
+// LECTURES
+/*
 //Lezione 146: ciclo forEach per mappe e set
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -87,7 +343,7 @@ new Set(['USD', 'EUR', 'GBP', 'EUR', 'GBP']).forEach(function (value, _, set) {
   console.log(set);
   console.log('_', _);
 });
-/*
+
 //Lezione 145: ciclo forEach
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -110,11 +366,11 @@ movements.forEach(function (movement, index, array) {
   }
 });
 //Continue e break NON FUNZIONANO nel forEach
-*/
+
 
 /////////////////////////////////////////////////
 
-/*
+
 //Lezione 143: metodi degli array
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -179,4 +435,5 @@ console.log(vettore.at(-1));
 
 //Si può usare anche sulle stringhe
 console.log('Albero'.at(-1));
+
 */
