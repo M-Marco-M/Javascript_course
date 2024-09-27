@@ -160,6 +160,26 @@ calcDisplaySummary(account1.movements);
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+
+//Lezione 155: metodo find
+//Il metodo find restituisce un singolo valore:
+//il primo valore che rispetta la condizione data
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//Per cercare il primo prelievo:
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal);
+
+//Stampare l'oggetto in cui proprietario è uguale a Jessica Davis
+const jessicDavisAcc = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(jessicDavisAcc);
+
+//Fare la stessa operazione con un for-of
+let jessicaDavisForof = {};
+for (const acc of accounts) {
+  if (acc.owner === 'Jessica Davis') jessicaDavisForof = acc;
+}
+console.log(jessicaDavisForof);
 /*
 //Lezione 154 part1: concatenazione dei metodi e debug nella pipeline
 //Fin quando dei metodi dell'array restituiscono un array possono essere concatenati
