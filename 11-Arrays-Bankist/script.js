@@ -69,7 +69,7 @@ const displayMovements = function (movements) {
   //di stringa vuota, in pratica non più in testo HTML, è vuoto
   containerMovements.innerHTML = '';
 
-  movements.forEach((index, mov) => {
+  movements.forEach((mov, index) => {
     //Se maggiore di 0 è un deposito, minore prelievo
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -122,9 +122,9 @@ console.log(accounts);
 //Lezione 153 part2: applicazione metodo reduce
 //Scrivere una funzione che dato l'array di movements calcoli e stampi il bilancio
 
-const calcDisplayBalance = function (mov) {
-  const balance = mov.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance}€`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 //Lezione 154 part2: applicazione pipeline
@@ -149,6 +149,16 @@ const calcDisplaySummary = function (acc) {
     .filter(interest => interest > 1)
     .reduce((acc, interest) => acc + interest);
   labelSumInterest.textContent = `${interest}€`;
+};
+
+//Funzione che richiama le funzioni che vengono usate più volte (a ogni login e a ogni trasferimento)
+const refreshAccountInfo = function (acc) {
+  //Display movements
+  displayMovements(acc.movements);
+  //Display balance
+  calcDisplayBalance(acc);
+  //Display summary
+  calcDisplaySummary(acc);
 };
 
 // N.B.
@@ -190,19 +200,38 @@ btnLogin.addEventListener('click', function (e) {
     //Rimuove il focus da quell'elemento(il cursore non sarà più posizionato li)
     inputLoginPin.blur();
 
-    //Richiamo le funzioni che calcolano e mostrano le informazioni sulle transazioni
-    //sulle info generali e sul bilancio passando currentAccount a display summary *Modifiche alla funzioni, che adesso prende l'intero account
-    //e l'array movements di current account alle altre due
-
-    //Display movements
-    displayMovements(currentAccount.movements);
-    //Display balance
-    calcDisplayBalance(currentAccount.movements);
-    //Display summary
-    calcDisplaySummary(currentAccount);
+    //Refresh info account
+    refreshAccountInfo(currentAccount);
   }
 });
 
+//Lezione 160: trasferimento dei soldi
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value); //Sempre convertire in number, poichè arriva una stringa
+  const receiverAccount = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+
+  if (
+    //Optional chaining -> Se receiverAccount non esiste restituisce undefined, che è diverso da current account, quindi da false e non entra nell'if
+    receiverAccount &&
+    receiverAccount?.username !== currentAccount.username
+  ) {
+    if (amount > 0 && amount < currentAccount.balance) {
+      currentAccount.movements.push(-amount);
+      receiverAccount.movements.push(amount);
+    } else console.error('ERRORE, INSERIRE UN IMPORTO VALIDO');
+  } else console.error('ERRORE, INSERIRE UN UTENTE VALIDO');
+
+  console.log('Trasferimento avvenuto con successo');
+
+  //Refresh info account
+  refreshAccountInfo(currentAccount);
+
+  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.blur();
+});
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
