@@ -280,7 +280,7 @@ btnLoan.addEventListener('click', function (e) {
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-//Lezione 163 part 1: flat e flatMap
+//Lezione 163 part 1: flat
 //Il metodo flat "apre" gli array annidati, restituendo un nuovo array "piatto"
 const arr = [1, 2, [3, 4], 5, [6, 7]];
 console.log(arr);
@@ -292,6 +292,22 @@ console.log(deepNestedArr.flat());
 
 //Il parametro indicato indica il numero di livelli da aprire
 console.log(deepNestedArr.flat(2));
+
+//Lezione 163 part 2: flatMap
+//Calcolo del bilancio dtotale della banca
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov);
+console.log(overalBalance);
+
+//In questo caso si può usare il meto flatMap, che prima mappa e poi applica il metodo flat
+//Il limite di flatMap è che lavoro su un solo livello
+
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov);
+console.log(overalBalance2);
 
 //Lezione 162 - b: every metod
 //Funziona in modo simili a some, ma restituisce true solo se tutti gli elementi rispettano la condizione
