@@ -234,7 +234,7 @@ btnTransfer.addEventListener('click', function (e) {
 });
 
 //Lezione 161: funzione di chiusura dell'account, metodo findIndex
-
+//findIndex restituisce l'indice del primo elemento che rispetta una determinata condizione
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
@@ -257,9 +257,41 @@ btnClose.addEventListener('click', function (e) {
     inputCloseUsername = inputClosePin = '';
   }
 });
+
+//Lezione 162: some and every
+//Some risponde true se c'è almeno un elemento dell'array che rispetta una determinata condizione
+
+//Si può richiedere un prestito se è presente almeno un deposito che sia almeno il 10% del valore del prestito
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const loanRequest = Number(inputLoanAmount.value);
+  if (
+    currentAccount.movements.some(mov => mov >= loanRequest && loanRequest > 0)
+  ) {
+    currentAccount.movements.push(loanRequest);
+    refreshAccountInfo(currentAccount);
+
+    inputTransferAmount.value = inputTransferTo.value = '';
+    inputTransferAmount.blur();
+
+    console.log('Prestito consentito');
+  } else console.log('Prestito rifiutato');
+});
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+
+//Lezione 162 - b: every metod
+//Funziona in modo simili a some, ma restituisce true solo se tutti gli elementi rispettano la condizione
+
+//Passare una funzione per nome come callback function
+const deposit = mov => mov > 0;
+
+console.log(
+  'Every:',
+  [200, 450, -400, 3000, -650, -130, 70, 1300].every(deposit)
+);
+//Restituisce false poichè alcuni numeri nell'array sono negativi
 
 //Lezione 158: metodo find
 //Il metodo find restituisce un singolo valore:
