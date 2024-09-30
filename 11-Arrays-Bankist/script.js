@@ -87,8 +87,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-//Richiamo la funzione displayMovements passando l'array account1.movements
-displayMovements(account1.movements);
 
 //Lezione 152: uso di map e differenza con forEach
 //Costruire l'username con le iniziali del nome applicando il metodo map
@@ -128,40 +126,88 @@ const calcDisplayBalance = function (mov) {
   const balance = mov.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalance(account1.movements);
 
 //Lezione 154 part2: applicazione pipeline
 //Utilizzare una pipeline per realizzare una funzione che dato un array in ingresso
 //mostri sul DOM le spese totali, i guadagni totali e gli interessi
 //Per pura pratica gli interessi vengono calcolati come 1,2% per ogni somma depositata
 //purchè l'interesse sul deposito > 1€
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outcomes = movements
+  const outcomes = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov);
   labelSumOut.textContent = `${Math.abs(outcomes)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter(interest => interest > 1)
     .reduce((acc, interest) => acc + interest);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcDisplaySummary(account1.movements);
 
 // N.B.
 //In JavaScript è una cattiva abitudine concatenare metodi che modificano l'array originale
+
+//Lezione 159: aggiungere la funzione di login
+let currentAccount;
+
+//Bisogna aggiungere una riga con il metodo preventDefault richiamato sull'evento
+//Che  fa in modo che il comportamento di default del form non venga messo in atto
+//il comportamento di default, in questo caso, è il ricaricamento della pagina
+//all'invio del form, cosa che comporta la perdita del dato che volevamo conservare
+
+//Il parametro passato alla funzione è l'evento stesso
+
+//Aggiungere l'event handler al form
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e);
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  //L'optional chaining operatore previene l'errore nel caso in cui non esistesse
+  //l'account col nome indicato
+  if (Number(inputLoginPin.value) === currentAccount?.pin) {
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split()[0]
+    }`;
+    //Imposta l'opacità dell0'intero container dell'app a 100, quindi lo rende visibile
+    containerApp.style.opacity = 100;
+
+    //Imposto il testo delle caselle di input di pin e username a stringa vuota
+    //L'assegnazione funziona da destra verso sinistra, quindi prima imposta il pin = ""
+    //e poi l'username = a pin (che vale "")
+    inputLoginUsername.value = inputLoginPin.value = '';
+    //Rimuove il focus da quell'elemento(il cursore non sarà più posizionato li)
+    inputLoginPin.blur();
+
+    //Richiamo le funzioni che calcolano e mostrano le informazioni sulle transazioni
+    //sulle info generali e sul bilancio passando currentAccount a display summary *Modifiche alla funzioni, che adesso prende l'intero account
+    //e l'array movements di current account alle altre due
+
+    //Display movements
+    displayMovements(currentAccount.movements);
+    //Display balance
+    calcDisplayBalance(currentAccount.movements);
+    //Display summary
+    calcDisplaySummary(currentAccount);
+  }
+});
+
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
-//Lezione 155: metodo find
+//Lezione 158: metodo find
 //Il metodo find restituisce un singolo valore:
 //il primo valore che rispetta la condizione data
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
