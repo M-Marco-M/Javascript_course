@@ -280,6 +280,18 @@ btnLoan.addEventListener('click', function (e) {
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//Lezione 163 part 1: flat e flatMap
+//Il metodo flat "apre" gli array annidati, restituendo un nuovo array "piatto"
+const arr = [1, 2, [3, 4], 5, [6, 7]];
+console.log(arr);
+console.log(arr.flat());
+
+//Di default flat "scardina" un solo livello: quest'array ha ancora degli array al suo interno
+const deepNestedArr = [1, [2, [3, 4]], 5, [6, 7]];
+console.log(deepNestedArr.flat());
+
+//Il parametro indicato indica il numero di livelli da aprire
+console.log(deepNestedArr.flat(2));
 
 //Lezione 162 - b: every metod
 //Funziona in modo simili a some, ma restituisce true solo se tutti gli elementi rispettano la condizione
