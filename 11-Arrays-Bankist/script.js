@@ -69,7 +69,7 @@ const displayMovements = function (movements) {
   //di stringa vuota, in pratica non più in testo HTML, è vuoto
   containerMovements.innerHTML = '';
 
-  movements.forEach((index, mov) => {
+  movements.forEach((mov, index) => {
     //Se maggiore di 0 è un deposito, minore prelievo
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -87,8 +87,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-//Richiamo la funzione displayMovements passando l'array account1.movements
-displayMovements(account1.movements);
 
 //Lezione 152: uso di map e differenza con forEach
 //Costruire l'username con le iniziali del nome applicando il metodo map
@@ -124,44 +122,206 @@ console.log(accounts);
 //Lezione 153 part2: applicazione metodo reduce
 //Scrivere una funzione che dato l'array di movements calcoli e stampi il bilancio
 
-const calcDisplayBalance = function (mov) {
-  const balance = mov.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance}€`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
-calcDisplayBalance(account1.movements);
 
 //Lezione 154 part2: applicazione pipeline
 //Utilizzare una pipeline per realizzare una funzione che dato un array in ingresso
 //mostri sul DOM le spese totali, i guadagni totali e gli interessi
 //Per pura pratica gli interessi vengono calcolati come 1,2% per ogni somma depositata
 //purchè l'interesse sul deposito > 1€
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outcomes = movements
+  const outcomes = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov);
   labelSumOut.textContent = `${Math.abs(outcomes)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter(interest => interest > 1)
     .reduce((acc, interest) => acc + interest);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcDisplaySummary(account1.movements);
+
+//Funzione che richiama le funzioni che vengono usate più volte (a ogni login e a ogni trasferimento)
+const refreshAccountInfo = function (acc) {
+  //Display movements
+  displayMovements(acc.movements);
+  //Display balance
+  calcDisplayBalance(acc);
+  //Display summary
+  calcDisplaySummary(acc);
+};
 
 // N.B.
 //In JavaScript è una cattiva abitudine concatenare metodi che modificano l'array originale
+
+//Lezione 159: aggiungere la funzione di login
+let currentAccount;
+
+//Bisogna aggiungere una riga con il metodo preventDefault richiamato sull'evento
+//Che  fa in modo che il comportamento di default del form non venga messo in atto
+//il comportamento di default, in questo caso, è il ricaricamento della pagina
+//all'invio del form, cosa che comporta la perdita del dato che volevamo conservare
+
+//Il parametro passato alla funzione è l'evento stesso
+
+//Aggiungere l'event handler al form
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e);
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  //L'optional chaining operatore previene l'errore nel caso in cui non esistesse
+  //l'account col nome indicato
+  if (Number(inputLoginPin.value) === currentAccount?.pin) {
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split()[0]
+    }`;
+    //Imposta l'opacità dell0'intero container dell'app a 100, quindi lo rende visibile
+    containerApp.style.opacity = 100;
+
+    //Imposto il testo delle caselle di input di pin e username a stringa vuota
+    //L'assegnazione funziona da destra verso sinistra, quindi prima imposta il pin = ""
+    //e poi l'username = a pin (che vale "")
+    inputLoginUsername.value = inputLoginPin.value = '';
+    //Rimuove il focus da quell'elemento(il cursore non sarà più posizionato li)
+    inputLoginPin.blur();
+
+    //Refresh info account
+    refreshAccountInfo(currentAccount);
+  }
+});
+
+//Lezione 160: trasferimento dei soldi
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value); //Sempre convertire in number, poichè arriva una stringa
+  const receiverAccount = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+
+  if (
+    //Optional chaining -> Se receiverAccount non esiste restituisce undefined, che è diverso da current account, quindi da false e non entra nell'if
+    receiverAccount &&
+    receiverAccount?.username !== currentAccount.username
+  ) {
+    if (amount > 0 && amount < currentAccount.balance) {
+      currentAccount.movements.push(-amount);
+      receiverAccount.movements.push(amount);
+    } else console.error('ERRORE, INSERIRE UN IMPORTO VALIDO');
+  } else console.error('ERRORE, INSERIRE UN UTENTE VALIDO');
+
+  console.log('Trasferimento avvenuto con successo');
+
+  //Refresh info account
+  refreshAccountInfo(currentAccount);
+
+  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.blur();
+});
+
+//Lezione 161: funzione di chiusura dell'account, metodo findIndex
+//findIndex restituisce l'indice del primo elemento che rispetta una determinata condizione
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const accIndex = accounts.findIndex(
+      acc => acc.username === inputCloseUsername.value
+    );
+    // if (
+    //   prompt(
+    //     "Sicuro di voler eliminare l'account? (Scrivi YES per confermare)"
+    //   ) === 'YES'
+    // )
+    //Eliminazione account
+    accounts.splice(accIndex, 1);
+    //Sparizione UI
+    containerApp.style.opacity = 0;
+    //Reset campi
+    inputCloseUsername = inputClosePin = '';
+  }
+});
+
+//Lezione 162: some and every
+//Some risponde true se c'è almeno un elemento dell'array che rispetta una determinata condizione
+
+//Si può richiedere un prestito se è presente almeno un deposito che sia almeno il 10% del valore del prestito
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const loanRequest = Number(inputLoanAmount.value);
+  if (
+    currentAccount.movements.some(mov => mov >= loanRequest && loanRequest > 0)
+  ) {
+    currentAccount.movements.push(loanRequest);
+    refreshAccountInfo(currentAccount);
+
+    inputTransferAmount.value = inputTransferTo.value = '';
+    inputTransferAmount.blur();
+
+    console.log('Prestito consentito');
+  } else console.log('Prestito rifiutato');
+});
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//Lezione 163 part 1: flat
+//Il metodo flat "apre" gli array annidati, restituendo un nuovo array "piatto"
+const arr = [1, 2, [3, 4], 5, [6, 7]];
+console.log(arr);
+console.log(arr.flat());
 
-//Lezione 155: metodo find
+//Di default flat "scardina" un solo livello: quest'array ha ancora degli array al suo interno
+const deepNestedArr = [1, [2, [3, 4]], 5, [6, 7]];
+console.log(deepNestedArr.flat());
+
+//Il parametro indicato indica il numero di livelli da aprire
+console.log(deepNestedArr.flat(2));
+
+//Lezione 163 part 2: flatMap
+//Calcolo del bilancio dtotale della banca
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov);
+console.log(overalBalance);
+
+//In questo caso si può usare il meto flatMap, che prima mappa e poi applica il metodo flat
+//Il limite di flatMap è che lavoro su un solo livello
+
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov);
+console.log(overalBalance2);
+
+//Lezione 162 - b: every metod
+//Funziona in modo simili a some, ma restituisce true solo se tutti gli elementi rispettano la condizione
+
+//Passare una funzione per nome come callback function
+const deposit = mov => mov > 0;
+
+console.log(
+  'Every:',
+  [200, 450, -400, 3000, -650, -130, 70, 1300].every(deposit)
+);
+//Restituisce false poichè alcuni numeri nell'array sono negativi
+
+//Lezione 158: metodo find
 //Il metodo find restituisce un singolo valore:
 //il primo valore che rispetta la condizione data
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
