@@ -232,6 +232,31 @@ btnTransfer.addEventListener('click', function (e) {
   inputTransferAmount.value = inputTransferTo.value = '';
   inputTransferAmount.blur();
 });
+
+//Lezione 161: funzione di chiusura dell'account, metodo findIndex
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const accIndex = accounts.findIndex(
+      acc => acc.username === inputCloseUsername.value
+    );
+    // if (
+    //   prompt(
+    //     "Sicuro di voler eliminare l'account? (Scrivi YES per confermare)"
+    //   ) === 'YES'
+    // )
+    //Eliminazione account
+    accounts.splice(accIndex, 1);
+    //Sparizione UI
+    containerApp.style.opacity = 0;
+    //Reset campi
+    inputCloseUsername = inputClosePin = '';
+  }
+});
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
