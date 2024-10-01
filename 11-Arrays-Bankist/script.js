@@ -63,13 +63,23 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 //Lezione 147: crezione elementi del DOM
 //Creazione di una funzione che manipoli il DOM facendo apparire nuoci elementi
+//Lezione 164 part 2: applicazione metodo sort
+let sorting = true;
 
-const displayMovements = function (movements) {
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, sorting);
+  sorting = !sorting;
+});
+const displayMovements = function (movements, sort = false) {
+  const currentArray = sort
+    ? [...movements].sort((a, b) => a - b)
+    : [...movements];
   //Assegno al codice HTM di containerMovements (il div movements) il valore
   //di stringa vuota, in pratica non più in testo HTML, è vuoto
   containerMovements.innerHTML = '';
 
-  movements.forEach((mov, index) => {
+  currentArray.forEach((mov, index) => {
     //Se maggiore di 0 è un deposito, minore prelievo
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -87,7 +97,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-
 //Lezione 152: uso di map e differenza con forEach
 //Costruire l'username con le iniziali del nome applicando il metodo map
 //e conservarlo come stringa
