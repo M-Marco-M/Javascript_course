@@ -290,6 +290,48 @@ btnLoan.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 //
+//Lezione 167: esercizi con gli array
+
+//-1) Calcolare a somma totale dei depositi in banca di tutti gli account
+const totalDeposit = accounts
+  .flatMap(account => account.movements)
+  .filter(mov => mov > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDeposit);
+
+//-2) Calcolare il numero di depositi superiori a 1000
+const above1000deposit = accounts
+  .flatMap(account => account.movements)
+  .filter(mov => mov >= 1000).length;
+
+//Con reduce
+const above1000deposit2 = accounts
+  .flatMap(account => account.movements)
+  .reduce((count, mov) => (mov >= 1000 ? ++count : count), 0);
+
+// L'operatore ++post qui non funziona perchè incrementa effettivamente il valore nella variabile
+// ma restituisce il valore originale
+// Si può usare l'operatore pre++
+console.log(above1000deposit);
+console.log(above1000deposit2);
+
+//-3) Creare un nuovo oggetto che contenga sia la somma dei depositi che la somma dei prelievi
+const allDepositiPrelievi = accounts
+  .flatMap(account => account.movements)
+  .reduce(
+    (acc, mov) => {
+      mov < 0 ? (acc.prelievi += mov) : (acc.depositi += mov);
+      return acc;
+    },
+    {
+      prelievi: 0,
+      depositi: 0,
+    }
+  );
+console.log(allDepositiPrelievi);
+//Lezione 166: riepilogo dei metodi degli array
+
+//Lezione 165: altri modi per creare e riempire array
 const array = [1, 2, 3, 4, 5, 6, 7];
 console.log(array);
 
@@ -358,8 +400,6 @@ labelBalance.addEventListener('click', function () {
 
   console.log(...document.querySelectorAll('.movements__value'));
 });
-
-//Lezione 166: riepilogo dei metodi degli array
 
 //Lezione 164 part 1: il metodo sort
 const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
