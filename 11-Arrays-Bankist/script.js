@@ -280,6 +280,44 @@ btnLoan.addEventListener('click', function (e) {
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//Lezione 164 part 1: il metodo sort
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); //Metodo degli array
+
+const arrProva = [8, 7, 64, 67, 32, -1, -51, 10];
+console.log(arrProva.sort()); //Li ordina come se fossero stringhe, quindi mette prima i negativi e poi in ordine numerico secondo la prima cifra
+
+//Per farlo funzionare con i numeri serve indicare una callback function
+//che prenda in ingresso due elementi e specifichi il criterio
+//Se la funzione restituisce
+//-un numero negativo tiene l'ordine esistente
+//-un numero positivo cambia l'ordine
+
+//Ordinamento in ordine crescente
+console.log(
+  arrProva.sort((a, b) => {
+    if (a < b) return -1; //Se a è minore di b mantiene l'ordine
+    if (a > b) return 1; //Se a è maggiore di b li inverte
+  })
+);
+//Ordinamento in ordine decrescente
+console.log(
+  arrProva.sort((a, b) => {
+    if (a > b) return -1; //Se a è minore di b mantiene l'ordine
+    if (a < b) return 1; //Se a è maggiore di b li inverte
+  })
+);
+
+//Siccome la funzione valuta solamente se il numero restituito è negativo o positivo
+//si può restituire direttamente la differenza tra a e b:
+//- se a - b è negativo a < b
+//- se a - b è positivo a > b
+
+//Ordine crescente
+console.log(arrProva.sort((a, b) => a - b));
+//Ordine decrescente
+console.log(arrProva.sort((a, b) => b - a));
+
 //Lezione 163 part 1: flat
 //Il metodo flat "apre" gli array annidati, restituendo un nuovo array "piatto"
 const arr = [1, 2, [3, 4], 5, [6, 7]];
