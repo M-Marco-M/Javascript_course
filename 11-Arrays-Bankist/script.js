@@ -63,13 +63,23 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 //Lezione 147: crezione elementi del DOM
 //Creazione di una funzione che manipoli il DOM facendo apparire nuoci elementi
+//Lezione 164 part 2: applicazione metodo sort
+let sorting = true;
 
-const displayMovements = function (movements) {
-  //Assegno al codice HTM di containerMovements (il div movements) il valore
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, sorting);
+  sorting = !sorting;
+});
+const displayMovements = function (movements, sort = false) {
+  const currentArray = sort
+    ? [...movements].sort((a, b) => a - b)
+    : [...movements];
+  //Assegno al codice HTML di containerMovements (il div movements) il valore
   //di stringa vuota, in pratica non più in testo HTML, è vuoto
   containerMovements.innerHTML = '';
 
-  movements.forEach((mov, index) => {
+  currentArray.forEach((mov, index) => {
     //Se maggiore di 0 è un deposito, minore prelievo
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -87,7 +97,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-
 //Lezione 152: uso di map e differenza con forEach
 //Costruire l'username con le iniziali del nome applicando il metodo map
 //e conservarlo come stringa
@@ -280,6 +289,156 @@ btnLoan.addEventListener('click', function (e) {
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//
+//Lezione 167: esercizi con gli array
+
+//-1) Calcolare a somma totale dei depositi in banca di tutti gli account
+const totalDeposit = accounts
+  .flatMap(account => account.movements)
+  .filter(mov => mov > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDeposit);
+
+//-2) Calcolare il numero di depositi superiori a 1000
+const above1000deposit = accounts
+  .flatMap(account => account.movements)
+  .filter(mov => mov >= 1000).length;
+
+//Con reduce
+const above1000deposit2 = accounts
+  .flatMap(account => account.movements)
+  .reduce((count, mov) => (mov >= 1000 ? ++count : count), 0);
+
+// L'operatore ++post qui non funziona perchè incrementa effettivamente il valore nella variabile
+// ma restituisce il valore originale
+// Si può usare l'operatore pre++
+console.log(above1000deposit);
+console.log(above1000deposit2);
+
+//-3) Creare un nuovo oggetto che contenga sia la somma dei depositi che la somma dei prelievi
+const allDepositiPrelievi = accounts
+  .flatMap(account => account.movements)
+  .reduce(
+    (acc, mov) => {
+      mov < 0 ? (acc.prelievi += mov) : (acc.depositi += mov);
+      return acc;
+    },
+    {
+      prelievi: 0,
+      depositi: 0,
+    }
+  );
+console.log(allDepositiPrelievi);
+//Lezione 166: riepilogo dei metodi degli array
+
+//Lezione 165: altri modi per creare e riempire array
+const array = [1, 2, 3, 4, 5, 6, 7];
+console.log(array);
+
+//Questa assegnazione crea un array di lunghezza 7 ma le cui caselle sono vuote
+const newArray = new Array(7);
+console.log(newArray);
+
+//Per riempirlo si può usare il metodo fill() (il metodo map(), come altri, non funzionano su array vuoti)
+//L'array viene riempito di 1
+// newArray.fill(1);
+// console.log(newArray);
+
+//L'array viene riempito di uno dalla posizione numero 3 alla posizione numero 5
+newArray.fill(1, 3, 7);
+console.log(newArray);
+
+//Metodo della classe Array .from():
+//Genera un array a partire da un iterable (di cui prende la proprietà length) e lo riempie con il return della callback function
+//La callback function accetta gli stessi parametri del metodo map()
+//In questo caso lo riempie di uno
+const arrayFrom = Array.from({ length: 7 }, () => 1);
+console.log(arrayFrom);
+
+//Questo metodo può essere usato per riempire un array di una sequenza di numeri
+//Crea un array di lunghezza 10 riempito in cui ogni casella ha valore
+//del suo indice [i] + 1
+const seqArrFrom = Array.from({ length: 10 }, (_, i) => i + 1);
+console.log(seqArrFrom);
+
+//Challenge: riempire un array di lunghezza 100 con numeri proveniente da un lancio di dadi (1 - 6)
+const oneundredCasualNumber = Array.from({ length: 100 }, () =>
+  Math.trunc(Math.random() * 6 + 1)
+);
+console.log(oneundredCasualNumber);
+
+//Challenge personale, creare una nuova variabile che contenga tutti i valori di un oggetto
+const myTestObject = {
+  stringa: 'stringa',
+  numero: 3,
+  boolean: true,
+  stringa2: 'stringa2',
+};
+console.log(myTestObject);
+
+const myTestObjectArr = Array.from(Object.values(myTestObject), value => value);
+console.log(myTestObjectArr);
+
+//Questo è comunque più diretto
+const myTestObjectArrByValue = Object.values(myTestObject);
+console.log(myTestObjectArrByValue);
+
+//Usarlo su una nodeList
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+
+  console.log(movementsUI);
+
+  //Usando il destructuring
+  const movementUI2 = [...document.querySelectorAll('.movements__value')].map(
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementUI2);
+
+  console.log(...document.querySelectorAll('.movements__value'));
+});
+
+//Lezione 164 part 1: il metodo sort
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); //Metodo degli array
+
+const arrProva = [8, 7, 64, 67, 32, -1, -51, 10];
+console.log(arrProva.sort()); //Li ordina come se fossero stringhe, quindi mette prima i negativi e poi in ordine numerico secondo la prima cifra
+
+//Per farlo funzionare con i numeri serve indicare una callback function
+//che prenda in ingresso due elementi e specifichi il criterio
+//Se la funzione restituisce
+//-un numero negativo tiene l'ordine esistente
+//-un numero positivo cambia l'ordine
+
+//Ordinamento in ordine crescente
+console.log(
+  arrProva.sort((a, b) => {
+    if (a < b) return -1; //Se a è minore di b mantiene l'ordine
+    if (a > b) return 1; //Se a è maggiore di b li inverte
+  })
+);
+//Ordinamento in ordine decrescente
+console.log(
+  arrProva.sort((a, b) => {
+    if (a > b) return -1; //Se a è minore di b mantiene l'ordine
+    if (a < b) return 1; //Se a è maggiore di b li inverte
+  })
+);
+
+//Siccome la funzione valuta solamente se il numero restituito è negativo o positivo
+//si può restituire direttamente la differenza tra a e b:
+//- se a - b è negativo a < b
+//- se a - b è positivo a > b
+
+//Ordine crescente
+console.log(arrProva.sort((a, b) => a - b));
+//Ordine decrescente
+console.log(arrProva.sort((a, b) => b - a));
+
 //Lezione 163 part 1: flat
 //Il metodo flat "apre" gli array annidati, restituendo un nuovo array "piatto"
 const arr = [1, 2, [3, 4], 5, [6, 7]];
