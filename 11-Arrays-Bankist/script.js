@@ -75,7 +75,7 @@ const displayMovements = function (movements, sort = false) {
   const currentArray = sort
     ? [...movements].sort((a, b) => a - b)
     : [...movements];
-  //Assegno al codice HTM di containerMovements (il div movements) il valore
+  //Assegno al codice HTML di containerMovements (il div movements) il valore
   //di stringa vuota, in pratica non più in testo HTML, è vuoto
   containerMovements.innerHTML = '';
 
@@ -289,6 +289,76 @@ btnLoan.addEventListener('click', function (e) {
 //---------------------------------------------------------------//
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+//
+const array = [1, 2, 3, 4, 5, 6, 7];
+console.log(array);
+
+//Questa assegnazione crea un array di lunghezza 7 ma le cui caselle sono vuote
+const newArray = new Array(7);
+console.log(newArray);
+
+//Per riempirlo si può usare il metodo fill() (il metodo map(), come altri, non funzionano su array vuoti)
+//L'array viene riempito di 1
+// newArray.fill(1);
+// console.log(newArray);
+
+//L'array viene riempito di uno dalla posizione numero 3 alla posizione numero 5
+newArray.fill(1, 3, 7);
+console.log(newArray);
+
+//Metodo della classe Array .from():
+//Genera un array a partire da un iterable (di cui prende la proprietà length) e lo riempie con il return della callback function
+//La callback function accetta gli stessi parametri del metodo map()
+//In questo caso lo riempie di uno
+const arrayFrom = Array.from({ length: 7 }, () => 1);
+console.log(arrayFrom);
+
+//Questo metodo può essere usato per riempire un array di una sequenza di numeri
+//Crea un array di lunghezza 10 riempito in cui ogni casella ha valore
+//del suo indice [i] + 1
+const seqArrFrom = Array.from({ length: 10 }, (_, i) => i + 1);
+console.log(seqArrFrom);
+
+//Challenge: riempire un array di lunghezza 100 con numeri proveniente da un lancio di dadi (1 - 6)
+const oneundredCasualNumber = Array.from({ length: 100 }, () =>
+  Math.trunc(Math.random() * 6 + 1)
+);
+console.log(oneundredCasualNumber);
+
+//Challenge personale, creare una nuova variabile che contenga tutti i valori di un oggetto
+const myTestObject = {
+  stringa: 'stringa',
+  numero: 3,
+  boolean: true,
+  stringa2: 'stringa2',
+};
+console.log(myTestObject);
+
+const myTestObjectArr = Array.from(Object.values(myTestObject), value => value);
+console.log(myTestObjectArr);
+
+//Questo è comunque più diretto
+const myTestObjectArrByValue = Object.values(myTestObject);
+console.log(myTestObjectArrByValue);
+
+//Usarlo su una nodeList
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+
+  console.log(movementsUI);
+
+  //Usando il destructuring
+  const movementUI2 = [...document.querySelectorAll('.movements__value')].map(
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementUI2);
+
+  console.log(...document.querySelectorAll('.movements__value'));
+});
+
 //Lezione 164 part 1: il metodo sort
 const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
 console.log(owners.sort()); //Metodo degli array
