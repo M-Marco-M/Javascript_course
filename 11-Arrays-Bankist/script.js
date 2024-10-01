@@ -359,6 +359,8 @@ labelBalance.addEventListener('click', function () {
   console.log(...document.querySelectorAll('.movements__value'));
 });
 
+//Lezione 166: riepilogo dei metodi degli array
+
 //Lezione 164 part 1: il metodo sort
 const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
 console.log(owners.sort()); //Metodo degli array
