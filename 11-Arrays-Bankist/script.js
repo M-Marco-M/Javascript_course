@@ -68,9 +68,27 @@ let sorting = true;
 
 btnSort.addEventListener('click', e => {
   e.preventDefault();
-  displayMovements(currentAccount.movements, sorting);
+  displayMovementsReduce(currentAccount.movements, sorting);
   sorting = !sorting;
 });
+
+const displayMovementsReduce = function (movements, sort = false) {
+  const currentArray = sort
+    ? [...movements].sort((a, b) => a - b)
+    : [...movements];
+
+  containerMovements.innerHTML = currentArray.reduce((allHtml, mov, index) => {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    return allHtml.concat(
+      `<div class="movements__row">
+      <div class="movements__type movements__type--${type}">${index} ${type}</div>
+      <div class="movements__value">${mov}€</div>
+      </div>`
+    );
+  }, '');
+};
+
 const displayMovements = function (movements, sort = false) {
   const currentArray = sort
     ? [...movements].sort((a, b) => a - b)
@@ -115,7 +133,19 @@ const createUsernames = accs =>
         .map(word => word[0])
         .join(''))
   );
-createUsernames(accounts);
+// createUsernames(accounts);
+// console.log(accounts);
+
+const createUsernamesReduce = accs =>
+  accs.forEach(
+    acc =>
+      (acc.username = acc.owner
+        .toLowerCase()
+        .split(' ')
+        .reduce((username, word) => username.concat(word[0]), ''))
+  );
+
+createUsernamesReduce(accounts);
 console.log(accounts);
 
 //Descrizione della funzione: La funzione createUsername
@@ -163,7 +193,7 @@ const calcDisplaySummary = function (acc) {
 //Funzione che richiama le funzioni che vengono usate più volte (a ogni login e a ogni trasferimento)
 const refreshAccountInfo = function (acc) {
   //Display movements
-  displayMovements(acc.movements);
+  displayMovementsReduce(acc.movements);
   //Display balance
   calcDisplayBalance(acc);
   //Display summary
@@ -320,7 +350,8 @@ const allDepositiPrelievi = accounts
   .flatMap(account => account.movements)
   .reduce(
     (acc, mov) => {
-      mov < 0 ? (acc.prelievi += mov) : (acc.depositi += mov);
+      // mov < 0 ? (acc.prelievi += mov) : (acc.depositi += mov);
+      acc[mov < 0 ? 'prelievi' : 'depositi'] += mov;
       return acc;
     },
     {
@@ -329,6 +360,34 @@ const allDepositiPrelievi = accounts
     }
   );
 console.log(allDepositiPrelievi);
+
+//-4) Convertire "this is a nice title" a "This Is a Nice Title"
+const title = 'this is a nice title';
+const exeptionWord = ['a', 'but', 'an', 'the', 'on', 'or', 'in', 'with'];
+// const stringToTitle = string =>
+//   string
+//     .split(' ')
+//     .map(word =>
+//       word.length > 1 ? word[0].toUpperCase().concat(word.slice(1)) : word
+//     )
+//     .join(' ');
+
+// console.log(stringToTitle(title));
+
+const stringToTitle = stringa =>
+  stringa
+    .toLowerCase()
+    .split(' ')
+    .map(word =>
+      exeptionWord.includes(word)
+        ? word
+        : word[0].toUpperCase().concat(word.slice(1))
+    )
+    .join(' ');
+console.log(stringToTitle(title));
+
+//Challenge, ricreare tutte le funzioni dell'app con il metodo reduce
+
 //Lezione 166: riepilogo dei metodi degli array
 
 //Lezione 165: altri modi per creare e riempire array
